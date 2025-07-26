@@ -549,3 +549,19 @@ nav {
         height: 40px;
     }
 }
+
+/* تأثير hover لصناديق الخدمات */
+.features-grid > div {
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+.features-grid > div:hover {
+    transform: translateY(-8px) scale(1.03);
+    box-shadow: 0 12px 40px #0005;
+}
+.features-grid > div:hover i {
+    transform: scale(1.15) rotate(-6deg);
+    transition: transform 0.2s;
+}
+.features-grid i {
+    transition: transform 0.2s;
+}

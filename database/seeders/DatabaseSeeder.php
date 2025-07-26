@@ -16,12 +16,28 @@ class DatabaseSeeder extends Seeder
         // User::factory(10)->create();
 
         $this->call([
-            ClassSeeder::class,
+            ClassesSeeder::class,
+            PhotoGallerySeeder::class,
+            GalleryPhotoSeeder::class,
         ]);
 
         User::factory()->create([
-            'full_name' => 'Test User',
-            'email' => 'test@example.com',
+            'full_name' => 'بيتر حشمت',
+            'username' => 'peter.hashmat',
+            'email' => 'peter.hashmat@example.com',
+            'password' => bcrypt('12345678'),
+            'role' => 'خادم',
+            'my_class_id' => 1, // فصل الشهيد ونس
+            'is_admin' => false,
+            'phone' => '01000000000',
+            'whatsapp' => '01000000001',
+            'relative_phone' => '01000000002',
+            'address' => 'مصر',
+            'confession_father' => 'أبونا',
+            'dob' => '1990-01-01',
+            'gender' => 'ذكر',
+            'is_deacon' => false,
+            'code' => '9999',
         ]);
     }
 }

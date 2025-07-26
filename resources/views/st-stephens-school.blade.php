@@ -36,7 +36,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: url('{{ asset('images/coptic-pattern.png') }}') repeat;
+    background: url('{{ asset('images/download.png') }}') repeat;
     opacity: 0.05;
     z-index: 0;
 }
@@ -127,6 +127,8 @@
     height: 100%;
     object-fit: cover;
     border-radius: 50%;
+    margin-top: 0;
+    object-position: center 30%;
 }
 
 .saint-text {
@@ -446,6 +448,18 @@
     transform: translateY(-2px);
     box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
 }
+.header-image img {
+            width: 600px;
+            max-width: 100%;
+            display: block;
+            position: relative;
+            z-index: 1;
+            margin-bottom: 0;
+            margin-top: 40px;
+            pointer-events: none;
+            -webkit-user-drag: none;
+            box-shadow: none;
+        }
 
 /* التصميم المتجاوب */
 @media (max-width: 1200px) {
@@ -568,13 +582,95 @@
 .system-actions button i {
     font-size: 1.4em;
 }
+
+/* ====== نسخ تنسيقات بطاقات الخدمات من الرئيسية ====== */
+.features-title {
+    font-family: 'Cairo', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 50px;
+    color: #ffd700;
+    text-shadow: 0 2px 10px rgba(255, 215, 0, 0.3);
+    position: relative;
+}
+.features-title::after {
+    content: '';
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #ffd700, transparent);
+}
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.features-grid > div {
+    box-shadow: 0 4px 24px #0a234f22;
+    border-radius: 22px;
+    border: 1.5px solid #ffd70055;
+    transition: transform 0.25s, box-shadow 0.25s, background 0.25s;
+    padding: 32px 18px 24px 18px;
+    text-align: center;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+    background: rgba(10, 35, 79, 0.4);
+}
+.features-grid > div:hover {
+    transform: translateY(-8px) scale(1.04);
+    box-shadow: 0 12px 40px #ffd70044, 0 2px 18px #0a234f22;
+    background: linear-gradient(135deg, #ffd700 0%, #fffbe6 100%);
+}
+.features-grid .feature-title {
+    color: #ffd700;
+    font-family: 'Cairo', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 800;
+    margin-bottom: 12px;
+    transition: color 0.2s;
+}
+.features-grid > div:hover .feature-title {
+    color: #0a234f;
+}
+.features-grid .feature-desc {
+    color: #fff;
+    font-size: 1.08rem;
+    margin-bottom: 0;
+    transition: color 0.2s;
+}
+.features-grid > div:hover .feature-desc {
+    color: #0a234f;
+}
+.feature-icon {
+    font-size: 3rem;
+    color: #ffd700;
+    margin-bottom: 20px;
+    transition: transform 0.3s, color 0.2s;
+}
+.features-grid > div:hover .feature-icon {
+    transform: scale(1.18) rotate(-6deg);
+    color: #0a234f;
+}
 </style>
 
 <div class="school-page">
     <!-- هيدر الصفحة -->
     <header class="school-header">
-        <h1 class="school-title">مدرسة الشهيد استفانوس للشمامسة</h1>
-        <p class="school-subtitle">نور وهداية للأجيال القادمة</p>
+        <h1 class="school-title">مدرسة الشهيد إسطفانوس للشمامسة</h1>
+        <p class="school-subtitle">"لأَنَّ الَّذِينَ تَشَمَّسُوا حَسَنًا، يَقْتَنُونَ لأَنْفُسِهِمْ دَرَجَةً حَسَنَةً وَثِقَةً كَثِيرَةً فِي الإِيمَانِ الَّذِي بِالْمَسِيحِ يَسُوعَ." (1 تي 3: 13).
+        </p>
+        <p class="school-subtitle">
+            ".Ⲛⲏ ⲅⲁⲣ ⲉⲧⲁⲩϣⲉⲙϣⲓ ⲛ̀ⲕⲁⲗⲱⲥ ⲟⲩⲧⲱⲧⲉⲣ ⲉ̀ⲛⲁⲛⲉϥ: ⲡⲉⲧⲟⲩⲑⲁⲙⲓⲟ̀ ⲙ̀ⲙⲟϥ ⲛⲱⲟⲩ ⲛⲉⲙ ⲟⲩⲛⲓϣϯ ⲙ̀ⲡⲁⲣⲣⲏⲥⲓⲁ̀ ϧⲉⲛ ⲡⲓⲛⲁϩϯ ⲫⲏⲉⲧϧⲉⲛ Ⲡⲭ̅ⲥ̅ Ⲓⲏ̅ⲥ̅"
+           
+            <br>
+            Ⲡⲣⲟⲥ Ⲧⲓⲙⲟⲑⲉⲟⲥ ⲁ̅  ⲅ̅ :ⲓ̅ⲅ̅</p>
     </header>
 
     <!-- قسم الإحصائيات -->
@@ -644,30 +740,28 @@
 
     <!-- قسم أهداف المدرسة -->
     <section class="school-goals">
-        <h2 class="goals-title">أهداف المدرسة</h2>
-        <div class="goals-grid">
-            <div class="goal-card">
-                <div class="goal-icon">
+        <h2 class="features-title">أهداف المدرسة</h2>
+        <div class="features-grid">
+            <div>
+                <div class="feature-icon">
                     <i class="fas fa-book-bible"></i>
                 </div>
-                <h3 class="goal-title">التعليم الروحي</h3>
-                <p class="goal-text">تعليم الشمامسة مبادئ الإيمان المسيحي والكتاب المقدس بشكل عميق ومفصل.</p>
+                <div class="feature-title">التعليم الروحي</div>
+                <div class="feature-desc">تعليم الشمامسة مبادئ الإيمان المسيحي والكتاب المقدس بشكل عميق ومفصل.</div>
             </div>
-            
-            <div class="goal-card">
-                <div class="goal-icon">
+            <div>
+                <div class="feature-icon">
                     <i class="fas fa-hands-helping"></i>
                 </div>
-                <h3 class="goal-title">الخدمة الكنسية</h3>
-                <p class="goal-text">إعداد الشمامسة للخدمة في الكنيسة وتنمية مهاراتهم في الترتيل والخدمة.</p>
+                <div class="feature-title">الخدمة الكنسية</div>
+                <div class="feature-desc">بناء شخصية مسيحية لتورجية مرتبطة  بالكنيسة القبطية الأرثوذوكسية .</div>
             </div>
-            
-            <div class="goal-card">
-                <div class="goal-icon">
+            <div>
+                <div class="feature-icon">
                     <i class="fas fa-users"></i>
                 </div>
-                <h3 class="goal-title">التنمية الشخصية</h3>
-                <p class="goal-text">تنمية شخصية الشمامسة وبناء قادة مسيحيين للمستقبل.</p>
+                <div class="feature-title">التنمية الشخصية</div>
+                <div class="feature-desc">تنمية شخصية الشمامسة وبناء قادة مسيحيين للمستقبل.</div>
             </div>
         </div>
     </section>
@@ -834,5 +928,12 @@ window.onclick = function(event) {
 document.addEventListener('DOMContentLoaded', function() {
     window.updateSystemList();
 });
+
+fetch('/api/study-classes')
+  .then(res => res.json())
+  .then(data => {
+    // هنا اعرض الفصول في الصفحة
+    console.log(data);
+  });
 </script>
 @endsection 

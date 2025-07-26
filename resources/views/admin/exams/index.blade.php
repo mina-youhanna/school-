@@ -1,0 +1,162 @@
+@extends('layouts.app')
+
+@push('styles')
+<style>
+/* exams-custom.css */
+body {
+    background: #0A2A4F; /* كحلي غامق */
+}
+
+.container {
+    background: rgba(255,255,255,0.97) !important;
+    border-radius: 16px;
+    box-shadow: 0 4px 32px rgba(10,42,79,0.18);
+    border: 2px solid #FFD700;
+    color: #0A2A4F !important;
+}
+
+.table {
+    background: rgba(255,255,255,0.98) !important;
+    border-radius: 8px;
+    border: 2px solid #FFD700;
+    box-shadow: 0 2px 12px rgba(10,42,79,0.10);
+}
+
+.table th {
+    background: #0A2A4F !important;
+    color: #FFD700 !important;
+    font-weight: bold;
+}
+
+.table td {
+    color: #0A2A4F !important;
+    font-weight: 500;
+}
+.container {
+    background: rgba(255,255,255,0.97);
+    border-radius: 16px;
+    box-shadow: 0 2px 16px rgba(10,42,79,0.10);
+    padding: 2rem 1.5rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    border: 2px solid #FFD700; /* ذهبي */
+}
+h2 {
+    color: #FFD700; /* ذهبي */
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    letter-spacing: 1px;
+    text-shadow: 0 2px 8px rgba(10,42,79,0.10);
+}
+.btn-success, .btn-primary, .btn-info, .btn-danger {
+    min-width: 90px;
+    font-weight: bold;
+    border-radius: 8px;
+    background: linear-gradient(90deg, #FFD700 60%, #FFC107 100%);
+    color: #0A2A4F;
+    border: none;
+    box-shadow: 0 2px 8px rgba(255,215,0,0.10);
+    transition: background 0.2s, color 0.2s;
+}
+.btn-success:hover, .btn-primary:hover, .btn-info:hover, .btn-danger:hover {
+    background: #0A2A4F;
+    color: #FFD700;
+    border: 1.5px solid #FFD700;
+}
+.table {
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 2px solid #FFD700;
+}
+.table th {
+    background: #0A2A4F;
+    color: #FFD700;
+    font-weight: bold;
+    border-bottom: 2px solid #FFD700;
+}
+.table td {
+    color: #0A2A4F;
+    font-weight: 500;
+}
+.table th, .table td {
+    vertical-align: middle;
+    text-align: center;
+}
+@media (max-width: 767px) {
+    .container {
+        padding: 1rem 0.3rem;
+    }
+    h2 {
+        font-size: 1.2rem;
+    }
+    .btn {
+        font-size: 0.95rem;
+        padding: 0.4rem 0.7rem;
+    }
+    .table th, .table td {
+        font-size: 0.95rem;
+        padding: 0.4rem 0.2rem;
+    }
+}
+textarea.form-control {
+    min-height: 60px;
+    border-radius: 8px;
+    border: 1.5px solid #FFD700;
+}
+form label {
+    font-weight: 600;
+    color: #0A2A4F;
+    letter-spacing: 0.5px;
+}
+input.form-control, select.form-control {
+    border: 1.5px solid #FFD700;
+    border-radius: 8px;
+    color: #0A2A4F;
+}
+input.form-control:focus, select.form-control:focus {
+    border-color: #0A2A4F;
+    box-shadow: 0 0 0 2px #FFD70033;
+}
+.alert-success, .alert-warning {
+    font-size: 1.1rem;
+    border-radius: 8px;
+    background: #FFD70022;
+    color: #0A2A4F;
+    border: 1.5px solid #FFD700;
+}
+</style>
+@endpush
+
+@section('content')
+<div class="container">
+    <h2>قائمة الامتحانات</h2>
+    <a href="{{ route('admin.exams.create') }}" class="btn btn-success mb-3">إضافة امتحان جديد</a>    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>اسم الامتحان</th>
+                <th>المادة</th>
+                <th>الفصل</th>
+                <th>العمليات</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($exams as $exam)
+            <tr>
+                <td>{{ $exam->title }}</td>
+                <td>{{ $exam->subject->name ?? '-' }}</td>
+                <td>{{ $exam->studyClass->name ?? '-' }}</td>
+                <td>
+                    <a href="{{ route('exams.edit', $exam) }}" class="btn btn-primary btn-sm">تعديل</a>
+                    <form action="{{ route('exams.destroy', $exam) }}" method="POST" style="display:inline;">
+                        @csrf @method('DELETE')
+                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('هل أنت متأكد من الحذف؟')">حذف</button>
+                    </form>
+                    <a href="{{ route('questions.index', $exam->id) }}" class="btn btn-info btn-sm">الأسئلة</a>
+                </td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
+</div>
+@endsection 

@@ -8,17 +8,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Lalezar&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
-body {
-    background-image: url('../images/download.png');
-    background-size: 300px;
-    background-color: #0A2A4F;
-    background-blend-mode: multiply;
-    font-family: 'Tajawal', sans-serif;
-    text-align: center;
-    direction: rtl;
-    color: white;
-}
-
 @keyframes gradientBG {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
@@ -45,7 +34,7 @@ body::before {
 .news-ticker-container {
     width: 100%;
     position: relative;
-    margin-top: 80px;
+    margin-top: 0; /* Changed from 80px to 0 for correct positioning below fixed navbar */
     z-index: 1000;
     box-shadow: 0 4px 25px rgba(0,0,0,0.15);
 }
@@ -357,128 +346,225 @@ body::before {
 
 /* بطاقات المحتوى */
 .cards-container {
-    max-width: 1400px;
+    max-width: 1100px;
     margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
     padding: 0 20px;
 }
 
 .glass-card {
-    background: rgba(255,255,255,0.1);
-    box-shadow: 0 8px 32px 0 rgba(31,38,135,0.18);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-radius: 30px;
-    border: 1.5px solid rgba(255,255,255,0.2);
-    margin: 60px auto;
-    padding: 40px;
-    max-width: 1200px;
+    border: 3px solid #ffd700;
+    border-radius: 24px;
+    background: rgba(10, 35, 79, 0.92);
+    box-shadow: 0 8px 40px rgba(10, 35, 79, 0.2);
+    padding: 0;
+    min-height: 270px;
     display: flex;
     align-items: center;
-    gap: 50px;
-    position: relative;
-    overflow: visible;
-    box-shadow: 0 0 0 4px rgba(255, 215, 0, 0.2), 0 8px 32px 0 rgba(31,38,135,0.2);
-    animation: fadeInUp 1.2s cubic-bezier(.6,0,.4,1) both;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.glass-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 15px 50px rgba(31,38,135,0.3), 0 0 0 6px rgba(255, 215, 0, 0.3);
-}
-
-.glass-card.reverse {
-    flex-direction: row-reverse;
-}
-
-.glass-card::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: 30px;
-    padding: 2px;
-    background: linear-gradient(135deg, rgba(255, 215, 0, 0.5) 0%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 215, 0, 0.5) 100%);
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    pointer-events: none;
-}
-
-@media (max-width: 900px) {
-    .glass-card, .glass-card.reverse {
-        flex-direction: column !important;
-        gap: 30px;
-        padding: 30px 20px;
-    }
-}
-
-.card-img {
-    flex: 0 0 380px;
-    max-width: 380px;
-    height: 450px;
-    border-radius: 25px;
-    box-shadow: 0 4px 32px rgba(10, 35, 79, 0.2), 0 0 0 6px rgba(255, 215, 0, 0.2);
-    background: #fffbe6;
-    position: relative;
-    overflow: visible;
-    z-index: 1;
-    transition: transform 0.5s cubic-bezier(.6,0,.4,1), box-shadow 0.5s;
-}
-
-.card-img:hover {
-    transform: scale(1.05) rotate(-2deg);
-    box-shadow: 0 12px 58px rgba(255, 215, 0, 0.3), 0 0 0 10px rgba(255, 215, 0, 0.3);
-}
-
-.card-img img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 25px;
-    background: #fffbe6;
-    display: block;
-    transition: transform 0.7s;
-}
-
-.card-img:hover img {
-    transform: scale(1.05);
-}
-
-.card-img::after {
-    content: '';
-    position: absolute;
-    top: -30px; left: -30px; right: -30px; bottom: -30px;
-    background: url('{{ asset('images/coptic-ornament.svg') }}') center/cover no-repeat;
-    opacity: 0.15;
-    z-index: 0;
-    pointer-events: none;
-    animation: rotate 40s linear infinite;
-}
-
-.img-frame {
-    position: absolute;
-    top: -10px; left: -10px; right: -10px; bottom: -10px;
-    border: 3px solid rgba(255, 215, 0, 0.3);
-    border-radius: 27px;
-    z-index: -1;
-}
-
-@keyframes rotate {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
+    backdrop-filter: blur(10px);
+    overflow: hidden;
 }
 
 .card-content {
-    flex: 1 1 0%;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    padding: 48px 36px 48px 24px;
     text-align: right;
-    color: #ffffff;
+}
+
+.card-title {
+    font-size: 2.1rem;
+    color: #ffd700;
+    margin-bottom: 18px;
+    text-shadow: 0 2px 12px rgba(255, 215, 0, 0.33);
+    font-weight: bold;
     position: relative;
-    z-index: 2;
+}
+
+.card-title::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    right: 0;
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(45deg, #ffd700, #ffed4a);
+    border-radius: 2px;
+}
+
+.card-text {
+    font-size: 1.15rem;
+    color: #fff;
+    margin-bottom: 28px;
+    text-align: right;
+    line-height: 1.8;
+    opacity: 0.95;
+}
+
+.card-btn {
+    background: linear-gradient(45deg, #ffd700, #ffed4a);
+    color: #1e3c72;
+    text-decoration: none;
+    padding: 12px 32px;
+    border-radius: 25px;
+    font-size: 1.05rem;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+    border: 2px solid transparent;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.card-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
+    border-color: #1e3c72;
+    color: #1e3c72;
+    text-decoration: none;
+}
+
+.card-image {
+    flex: 0 0 340px;
+    max-width: 340px;
+    min-width: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 32px 32px 0;
+}
+
+.card-image img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: 18px;
+    box-shadow: 0 4px 24px rgba(255, 215, 0, 0.26);
+    transition: transform 0.3s ease;
+}
+
+.card-image img:hover {
+    transform: scale(1.05);
+}
+
+/* كارت عن الكنيسة - بدون صورة */
+.about-card {
+    background: rgba(10, 35, 79, 0.92);
+    border: 3px solid #ffd700;
+    border-radius: 24px;
+    padding: 48px 36px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 40px rgba(10, 35, 79, 0.2);
+}
+
+.about-card .card-title {
+    font-size: 2.4rem;
+    margin-bottom: 24px;
+}
+
+.about-card .card-title::after {
+    left: 50%;
+    transform: translateX(-50%);
+    right: auto;
+}
+
+.about-card .card-text {
     font-size: 1.2rem;
-    line-height: 2.1;
-    padding: 0 10px;
-    animation: fadeInRight 1.2s cubic-bezier(.6,0,.4,1) both;
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 32px auto;
+}
+
+.church-icon {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 24px auto;
+    background: linear-gradient(45deg, #ffd700, #ffed4a);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5rem;
+    color: #1e3c72;
+    box-shadow: 0 8px 20px rgba(255, 215, 0, 0.3);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .glass-card {
+        flex-direction: column;
+        min-height: auto;
+    }
+
+    .card-content {
+        padding: 32px 24px;
+        text-align: center;
+        align-items: center;
+    }
+
+    .card-image {
+        flex: none;
+        max-width: 100%;
+        padding: 0 24px 32px 24px;
+    }
+
+    .card-image img {
+        height: 200px;
+    }
+
+    .card-title {
+        font-size: 1.8rem;
+    }
+
+    .card-title::after {
+        left: 50%;
+        transform: translateX(-50%);
+        right: auto;
+    }
+
+    .card-text {
+        font-size: 1.1rem;
+        text-align: center;
+    }
+
+    .about-card {
+        padding: 32px 24px;
+    }
+
+    .about-card .card-title {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .cards-container {
+        gap: 32px;
+    }
+
+    .card-title {
+        font-size: 1.6rem;
+    }
+
+    .card-text {
+        font-size: 1rem;
+    }
+
+    .about-card .card-title {
+        font-size: 1.8rem;
+    }
+
+    .church-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 2rem;
+    }
 }
 
 .card-content h2 {
@@ -657,62 +743,57 @@ body::before {
     margin: 0 auto;
 }
 
-.feature-card {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 20px;
-    padding: 30px;
+.features-grid > div {
+    box-shadow: 0 4px 24px #0a234f22;
+    border-radius: 22px;
+    border: 1.5px solid #ffd70055;
+    transition: transform 0.25s, box-shadow 0.25s, background 0.25s;
+    padding: 32px 18px 24px 18px;
     text-align: center;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(5px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
     position: relative;
+    cursor: pointer;
     overflow: hidden;
 }
 
-.feature-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    background: rgba(255, 255, 255, 0.15);
+.features-grid > div:hover {
+    transform: translateY(-8px) scale(1.04);
+    box-shadow: 0 12px 40px #ffd70044, 0 2px 18px #0a234f22;
 }
 
-.feature-card::before {
-    content: '';
-    position: absolute;
-    width: 150%;
-    height: 150%;
-    background: radial-gradient(circle, rgba(255, 215, 0, 0.2) 0%, transparent 70%);
-    top: -25%;
-    left: -25%;
-    opacity: 0;
-    transition: opacity 0.3s ease;
+.features-grid .feature-title {
+    color: #ffd700;
+    font-family: 'Cairo', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 800;
+    margin-bottom: 12px;
+    transition: color 0.2s;
 }
 
-.feature-card:hover::before {
-    opacity: 1;
+.features-grid > div:hover .feature-title {
+    color: #fffbe6;
+}
+
+.features-grid .feature-desc {
+    color: #fff;
+    font-size: 1.08rem;
+    margin-bottom: 0;
+    transition: color 0.2s;
+}
+
+.features-grid > div:hover .feature-desc {
+    color: #ffd700;
 }
 
 .feature-icon {
     font-size: 3rem;
     color: #ffd700;
     margin-bottom: 20px;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s, color 0.2s;
 }
 
-.feature-card:hover .feature-icon {
-    transform: scale(1.2);
-}
-
-.feature-title {
-    font-size: 1.5rem;
-    color: #ffd700;
-    margin-bottom: 15px;
-    font-weight: 700;
-}
-
-.feature-desc {
-    color: #ffffff;
-    font-size: 1.05rem;
-    line-height: 1.7;
+.features-grid > div:hover .feature-icon {
+    transform: scale(1.18) rotate(-6deg);
+    color: #fffbe6;
 }
 
 /* الفعاليات القادمة */
@@ -727,7 +808,7 @@ body::before {
     font-size: 2.5rem;
     font-weight: 800;
     text-align: center;
-    margin-bottom: 50px;
+    margin-bottom: 18px;
     color: #ffd700;
     text-shadow: 0 2px 10px rgba(255, 215, 0, 0.3);
     position: relative;
@@ -750,69 +831,144 @@ body::before {
     gap: 30px;
 }
 
+@media (max-width: 900px) {
+    .events-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 18px;
+    }
+}
+@media (max-width: 600px) {
+    .events-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+    #eventsArrows {
+        flex-direction: row !important;
+        justify-content: center !important;
+        margin-top: 10px !important;
+        margin-bottom: 0 !important;
+        display: flex !important;
+        gap: 12px !important;
+    }
+}
+
 .event-card {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
+    background: linear-gradient(135deg, rgba(10,35,79,0.95) 60%, rgba(255,215,0,0.10) 100%);
+    border-radius: 22px;
+    box-shadow: 0 4px 32px #0a234f22, 0 0 0 3px #ffd70033;
+    padding: 0 0 28px 0;
+    text-align: center;
+    min-width: 220px;
+    max-width: 340px;
+    transition: transform 0.25s, box-shadow 0.25s, background 0.25s;
     position: relative;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(5px);
+    overflow: hidden;
+    border: 1.5px solid #ffd70055;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
 }
 
 .event-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+    background: linear-gradient(135deg, #ffd700 0%, #fffbe6 100%);
+    box-shadow: 0 12px 40px #ffd70044, 0 2px 18px #0a234f22;
+    transform: translateY(-8px) scale(1.04);
 }
 
 .event-image {
+    width: 100%;
     height: 200px;
-    overflow: hidden;
     position: relative;
+    background: #fffbe6;
+    border-top-left-radius: 22px;
+    border-top-right-radius: 22px;
+    overflow: hidden;
+    margin: 0; /* أزل أي هامش */
 }
 
 .event-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.5s ease;
+    object-position: center top;
+    display: block;
+    border-top-left-radius: 22px;
+    border-top-right-radius: 22px;
+    margin: 0;
+    transition: transform 0.3s;
 }
 
 .event-card:hover .event-image img {
-    transform: scale(1.1);
+    transform: scale(1.05);
 }
 
 .event-date {
     position: absolute;
-    top: 15px;
-    right: 15px;
-    background: rgba(255, 215, 0, 0.9);
+    top: 12px;
+    right: 12px;
+    background: rgba(255, 215, 0, 0.95);
     color: #0a234f;
-    padding: 10px 15px;
-    border-radius: 8px;
+    padding: 8px 16px;
+    border-radius: 10px;
     font-weight: 700;
-    font-size: 1.1rem;
-    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    font-size: 1.05rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+    z-index: 2;
+    pointer-events: none;
 }
 
 .event-content {
-    padding: 25px;
-    text-align: right;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* أو stretch */
+    padding: 10px 16px 0 16px; /* قلل padding-top من 22px إلى 10px مثلاً */
+    text-align: center;
+    background: none;
+    flex: 1 1 auto;
+}
+
+.event-title, .event-details {
+    text-align: center; /* حتى يظل النص في المنتصف */
+    width: 100%;
 }
 
 .event-title {
-    font-size: 1.4rem;
+    font-size: 1.5rem;
     color: #ffd700;
-    margin-bottom: 15px;
-    font-weight: 700;
+    margin-bottom: 1px;
+    font-weight: bold;
+    text-shadow: 0 2px 8px #0a234f44;
+    font-family: 'Cairo', 'Lalezar', sans-serif;
+    height: 3.6em;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    align-items: flex-end;
+    justify-content: center;
+    text-align: center;
 }
 
 .event-details {
-    color: #ffffff;
-    font-size: 1.05rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* أو 3 للسطر الثالث */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-height: 2.8em; /* حسب حجم الخط */
+    max-height: 3.2em;
+    margin-bottom: 1px; /* نفس المسافة */
+    font-size: 1.08rem;
+    color: #fff;
     line-height: 1.7;
-    margin-bottom: 20px;
+    text-align: justify;
+    background: rgba(10,42,79,0.15);
+    padding: 18px 14px;
+    border-radius: 15px;
+    border: 1.5px solid #ffd70055;
+    box-shadow: 0 2px 10px #0a234f22;
+    font-family: 'Amiri', serif;
 }
 
 .event-cta {
@@ -826,12 +982,46 @@ body::before {
     font-weight: 600;
     transition: all 0.3s ease;
     text-decoration: none;
+    border: 2px solid #ffd700;
+    font-size: 1rem;
+    margin: 0 auto; /* وسط البطاقة */
+    width: auto;
+    min-width: unset;
+    max-width: 100%;
+    justify-content: center;
+    margin-top: 0; /* أو margin-top: auto إذا أردت الزر في الأسفل دائماً */
 }
 
 .event-cta:hover {
-    background: rgba(255, 215, 0, 0.9);
+    background: #0a234f;
+    color: #ffd700;
+    border: 2px solid #ffd700;
+    transform: translateY(-2px) scale(1.04);
+}
+
+.event-cta:active,
+.event-cta:focus {
+    background: rgba(255, 215, 0, 0.2);
+    color: #ffd700;
+    border: 2px solid #ffd700;
+    transform: none;
+    outline: none;
+}
+
+.event-card:hover .event-title {
     color: #0a234f;
-    transform: translateX(-5px);
+}
+
+.event-card:hover .event-details {
+    color: #0a234f;
+}
+
+@media (max-width: 600px) {
+    .event-title { font-size: 1.1rem; }
+    .event-card { padding: 0 0 12px 0; }
+    .event-content { padding: 15px 6px 0 6px; }
+    .event-image { height: 140px; }
+    .event-content { padding: 12px 4px 0 4px; }
 }
 
 /* تأثيرات حركية */
@@ -890,28 +1080,43 @@ body::before {
 
 /* زر سيرة القديس */
 .saint-bio-button {
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     background: linear-gradient(135deg, #ffd700 0%, #e6c200 100%);
     color: #0a234f;
-    padding: 15px 30px;
-    border-radius: 50px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
     font-family: 'Lalezar', 'Cairo', sans-serif;
-    font-size: 1.2rem;
+    font-size: 1.6rem;
     text-decoration: none;
-    margin: 20px auto;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+    margin: 0 10px;
+    transition: all 0.2s;
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.18);
     border: 2px solid rgba(255, 215, 0, 0.5);
+    cursor: pointer;
+    outline: none;
+    position: relative;
 }
-
-.saint-bio-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(255, 215, 0, 0.4);
-    color: #0a234f;
-}
-
 .saint-bio-button i {
-    margin-left: 8px;
+    margin: 0 !important;
+    font-size: 1.3em;
+}
+.saint-bio-button:hover, .saint-bio-button:focus {
+    background: #0a234f;
+    color: #ffd700;
+    box-shadow: 0 8px 24px rgba(10,35,79,0.25);
+    border: 2.5px solid #ffd700;
+    transform: translateY(-2px) scale(1.07);
+}
+#eventsArrows {
+    text-align: center;
+    margin-top: 18px;
+    margin-bottom: 0;
+    display: flex;
+    justify-content: center;
+    gap: 18px;
 }
 
 /* تنسيق زر المشرف */
@@ -955,14 +1160,15 @@ body::before {
     position: relative;
     background: #0A2A4F;
     margin: 5% auto;
-    padding: 20px;
+    padding: 32px 24px;
     width: 80%;
     max-width: 800px;
     border-radius: 15px;
     box-shadow: 0 0 30px rgba(255, 215, 0, 0.2);
     border: 2px solid rgba(255, 215, 0, 0.3);
     animation: modalFadeIn 0.3s ease;
-    max-height: 80vh;
+    height: auto;
+    min-height: unset;
     display: flex;
     flex-direction: column;
 }
@@ -1265,23 +1471,710 @@ body::before {
     border: 2.5px solid #ffea70;
     box-shadow: 0 0 0 2px #ffe06644;
 }
+
+.admin-news-btn, .admin-verse-btn {
+    background: linear-gradient(135deg, #ffd700 0%, #e6c200 100%);
+    color: #0a234f;
+    border: none;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    box-shadow: 0 2px 8px rgba(255, 215, 0, 0.18);
+}
+.admin-news-btn:hover, .admin-verse-btn:hover {
+    background: #0a234f;
+    color: #ffd700;
+    border: 2px solid #ffd700;
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.25);
+}
+.admin-news-btn i, .admin-verse-btn i {
+    transition: color 0.3s;
+}
+.admin-news-btn:hover i, .admin-verse-btn:hover i {
+    color: #ffd700;
+}
+
+.features-grid > div:hover {
+    transform: translateY(-8px) scale(1.04);
+    box-shadow: 0 12px 40px #ffd70044, 0 2px 18px #0a234f22;
+}
+
+
+
+.features-grid .feature-title {
+    color: #ffd700;
+}
+.features-grid .feature-desc {
+    color: #fff;
+}
+
+.services-header {
+    text-align: center;
+    margin-bottom: 32px;
+    position: relative;
+}
+.services-title {
+    font-family: 'Lalezar', 'Cairo', sans-serif;
+    font-size: 2.5rem;
+    color: #ffd700;
+    text-shadow: 0 2px 12px rgba(255, 215, 0, 0.3);
+    margin-bottom: 0;
+    letter-spacing: 1px;
+    background: linear-gradient(90deg, #ffd700 60%, #fffbe6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+.services-title-decoration {
+    width: 120px;
+    height: 8px;
+    margin: 0 auto;
+    background: url('{{ asset('images/coptic-pattern-line.svg') }}') center/cover no-repeat;
+    opacity: 0.5;
+    margin-top: 8px;
+}
+#servicesGrid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    gap: 32px 24px;
+    justify-items: center;
+}
+.service-card {
+    background: linear-gradient(135deg, rgba(10,35,79,0.95) 60%, rgba(255,215,0,0.10) 100%);
+    border-radius: 22px;
+    box-shadow: 0 4px 32px #0a234f22, 0 0 0 3px #ffd70033;
+    padding: 38px 22px 28px 22px;
+    text-align: center;
+    min-width: 220px;
+    max-width: 340px;
+    transition: transform 0.25s, box-shadow 0.25s, background 0.25s;
+    position: relative;
+    overflow: hidden;
+    border: 1.5px solid #ffd70055;
+    cursor: pointer;
+}
+.service-card:hover {
+    background: linear-gradient(135deg, #ffd700 0%, #fffbe6 100%);
+    box-shadow: 0 12px 40px #ffd70044, 0 2px 18px #0a234f22;
+    transform: translateY(-8px) scale(1.04);
+}
+.service-card .service-icon {
+    font-size: 3.2rem;
+    color: #ffd700;
+    margin-bottom: 18px;
+    transition: transform 0.3s, color 0.2s;
+}
+.service-card:hover .service-icon {
+    color: #0a234f;
+    transform: scale(1.18) rotate(-6deg);
+}
+.service-card .service-title {
+    color: #ffd700;
+    font-family: 'Cairo', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 800;
+    margin-bottom: 14px;
+    transition: color 0.2s;
+}
+.service-card:hover .service-title {
+    color: #0a234f;
+}
+.service-card .service-desc {
+    color: #fff;
+    font-size: 1.08rem;
+    margin-bottom: 0;
+    transition: color 0.2s;
+}
+.service-card:hover .service-desc {
+    color: #0a234f;
+}
+@media (max-width: 600px) {
+    .services-title { font-size: 1.5rem; }
+    .service-card { padding: 22px 8px 18px 8px; }
+}
+
+/* أضف هذا في نهاية قسم الستايلات */
+.details-modal-img {
+    max-width: 90%;
+    border-radius: 22px;
+    box-shadow: 0 4px 24px #ffd70044;
+    margin-bottom: 18px;
+    margin-top: 10px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    background: #fffbe6;
+    padding: 8px;
+}
+
+/* تأكيد أن زر التفصيل صغير */
+.event-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255, 215, 0, 0.2);
+    color: #ffd700;
+    padding: 8px 20px;
+    border-radius: 30px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    border: 2px solid #ffd700;
+    font-size: 1rem;
+    margin: 0 auto; /* وسط البطاقة */
+    width: auto;
+    min-width: unset;
+    max-width: 100%;
+    justify-content: center;
+}
+
+// ... existing code ...
+// عدل دالة showEventDetails في السكريبت:
+window.showEventDetails = function(idx) {
+    const e = window.events[idx];
+    document.getElementById('detailsModalTitle').textContent = e.title;
+    document.getElementById('detailsModalBody').innerHTML = `
+        <div style="display: flex; flex-direction: row; gap: 32px; align-items: flex-start; justify-content: center;">
+            <div style="min-width: 260px; max-width: 320px; width: 280px; text-align: center; flex-shrink:0;">
+                <div class="image-container" style="height:340px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;">
+                    <img src='${e.image}' alt='${e.title}' class='details-modal-img' style='height:320px;max-width:100%;object-fit:cover;'>
+                    <div class='date-badge'>${e.date}</div>
+                </div>
+            </div>
+            <div style="flex: 1 1 0; direction: rtl; display: flex; align-items: flex-start;">
+                <div class='event-details' style="font-size:1.15rem; width:100%; background:rgba(10,42,79,0.15); min-height:120px; overflow:visible; display:block; -webkit-line-clamp:unset;">${e.details}</div>
+            </div>
+        </div>
+    `;
+    document.getElementById('detailsModal').style.display = 'block';
+    // أضف هذا في دالة showEventDetails بعد فتح المودال
+    setTimeout(() => {
+        document.activeElement && document.activeElement.blur && document.activeElement.blur();
+    }, 100);
+}
+// ... existing code ...
+/* --- تفاصيل مودال الفعالية العصري بالألوان الكنسية --- */
+.details-modal-img {
+    width: 100%;
+    max-width: 260px;
+    height: auto;
+    border-radius: 18px;
+    border: 3px solid #ffd700;
+    box-shadow: 0 10px 24px #0a234f55;
+    background: #fffbe6;
+    margin-bottom: 18px;
+    margin-top: 10px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 6px;
+    transition: transform 0.3s;
+}
+.details-modal-img:hover {
+    transform: scale(1.05);
+}
+.image-container {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 18px;
+}
+.date-badge {
+    position: absolute;
+    top: -12px;
+    right: -12px;
+    background: linear-gradient(90deg, #ffd700 60%, #fffbe6 100%);
+    color: #0a234f;
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    box-shadow: 0 4px 12px #ffd70044;
+    border: 2px solid #0a234f;
+    z-index: 2;
+}
+.event-title {
+    font-size: 1.5rem;
+    color: #ffd700;
+    margin-bottom: 1px;
+    font-weight: bold;
+    text-shadow: 0 2px 8px #0a234f44;
+    font-family: 'Cairo', 'Lalezar', sans-serif;
+    height: 3.6em;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    align-items: flex-end;
+    justify-content: center;
+    text-align: center;
+}
+.event-details {
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* أو 3 للسطر الثالث */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-height: 2.8em; /* حسب حجم الخط */
+    max-height: 3.2em;
+    margin-bottom: 18px; /* نفس المسافة */
+    font-size: 1.08rem;
+    color: #fff;
+    line-height: 1.7;
+    text-align: justify;
+    background: rgba(10,42,79,0.15);
+    padding: 18px 14px;
+    border-radius: 15px;
+    border: 1.5px solid #ffd70055;
+    box-shadow: 0 2px 10px #0a234f22;
+    font-family: 'Amiri', serif;
+}
+@media (max-width: 600px) {
+    .details-modal-img { width: 140px; height: 180px; }
+    .event-title { font-size: 1.1rem; }
+    .event-details { font-size: 0.95rem; padding: 10px 6px; }
+}
+/* --- نهاية تفاصيل المودال --- */
+
+.custom-main-card {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background: rgba(10,35,79,0.92);
+    border: 3px solid #ffd700;
+    border-radius: 32px;
+    box-shadow: 0 8px 40px #0a234f33;
+    padding: 0 0 0 0;
+    margin: 60px auto 60px auto;
+    max-width: 1400px;
+    min-height: 420px;
+    position: relative;
+    overflow: visible;
+    transition: box-shadow 0.35s, filter 0.35s;
+}
+.custom-main-card:hover {
+    box-shadow: 0 0 32px 8px #ffd70099, 0 8px 40px #0a234f44;
+    filter: brightness(1.07) drop-shadow(0 0 16px #ffd70088);
+    z-index: 2;
+}
+.custom-main-card .custom-card-img {
+    flex: 0 0 540px;
+    max-width: 540px;
+    min-width: 320px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    padding: 40px 0 40px 40px;
+}
+.custom-main-card .custom-card-img img {
+    width: 100%;
+    height: 340px;
+    object-fit: cover;
+    border-radius: 32px; /* Border radius for rounded corners */
+    box-shadow: 0 8px 32px #ffd70044;
+    background: #fffbe6;
+    display: block;
+    transition: transform 0.35s cubic-bezier(.6,0,.4,1), box-shadow 0.35s;
+}
+.custom-main-card .custom-card-img img:hover {
+    transform: scale(1.07); /* Zoom on hover */
+    box-shadow: 0 12px 40px #ffd70099;
+    z-index: 3;
+}
+.custom-main-card .custom-card-content {
+    flex: 1 1 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    padding: 60px 60px 60px 0;
+    text-align: right;
+    position: relative;
+}
+.custom-main-card .custom-card-title {
+    font-family: 'Lalezar', 'Cairo', sans-serif;
+    font-size: 2.8rem;
+    color: #ffd700;
+    margin-bottom: 18px;
+    text-shadow: 0 4px 18px #ffd70099, 0 2px 8px #0a234f44;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-align: center;
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.custom-main-card .custom-card-title::after {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -10px;
+    width: 120px;
+    height: 5px;
+    background: linear-gradient(90deg, #ffd700 60%, #fffbe6 100%);
+    border-radius: 3px;
+    opacity: 0.7;
+}
+.custom-main-card .custom-card-text {
+    font-family: 'Amiri', serif;
+    font-size: 1.35rem;
+    color: #fff;
+    margin-bottom: 38px;
+    line-height: 2.1;
+    max-width: 700px;
+    text-align: right;
+}
+.custom-main-card .custom-card-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background: linear-gradient(90deg, #ffd700 60%, #fffbe6 100%);
+    color: #0a234f;
+    font-weight: bold;
+    font-size: 1.25rem;
+    border: none;
+    border-radius: 16px;
+    padding: 18px 48px;
+    box-shadow: 0 6px 32px #ffd70044, 0 2px 8px #0a234f22;
+    cursor: pointer;
+    transition: all 0.3s;
+    outline: none;
+    margin-top: 0;
+    text-decoration: none;
+    align-self: flex-start; /* زرار على اليمين */
+}
+.custom-main-card .custom-card-btn i {
+    font-size: 1.3em;
+}
+.custom-main-card .custom-card-btn:hover {
+    background: linear-gradient(90deg, #fffbe6 60%, #ffd700 100%);
+    color: #0a234f;
+    transform: translateY(-2px) scale(1.04);
+    box-shadow: 0 12px 40px #ffd70055;
+}
+@media (max-width: 1100px) {
+    .custom-main-card .custom-card-img { max-width: 340px; min-width: 180px; padding: 30px 0 30px 10px; }
+    .custom-main-card .custom-card-img img { height: 220px; }
+    .custom-main-card .custom-card-content { padding: 30px 10px 30px 0; }
+}
+@media (max-width: 800px) {
+    .custom-main-card { flex-direction: column; min-height: unset; }
+    .custom-main-card .custom-card-img { width: 100%; max-width: 100%; min-width: 0; padding: 20px 0 0 0; }
+    .custom-main-card .custom-card-img img { width: 90vw; height: 180px; border-radius: 24px; }
+    .custom-main-card .custom-card-content { align-items: center; text-align: center; padding: 24px 8vw 24px 8vw; }
+    .custom-main-card .custom-card-title { justify-content: center; text-align: center; }
+    .custom-main-card .custom-card-btn { align-self: center; }
+}
+
+.main-cards-container {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+    max-width: 1400px;
+    margin: 0 auto 60px auto;
+}
+.main-card {
+    display: flex;
+    flex-direction: row;
+    background: rgba(10, 35, 79, 0.92);
+    border: 3px solid #ffd700;
+    border-radius: 24px;
+    box-shadow: 0 8px 40px rgba(10, 35, 79, 0.2);
+    overflow: hidden;
+    min-height: 320px;
+    align-items: stretch;
+    transition: box-shadow 0.35s, filter 0.35s;
+    position: relative;
+}
+.main-card:hover {
+    box-shadow: 0 0 32px 8px #ffd70099, 0 8px 40px #0a234f44;
+    filter: brightness(1.04) drop-shadow(0 0 16px #ffd70088);
+    z-index: 2;
+}
+.main-card-reverse {
+    flex-direction: row-reverse;
+}
+.main-card-img {
+    flex: 0 0 420px;
+    max-width: 420px;
+    min-width: 260px;
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    background: #fffbe6;
+    padding: 32px 24px;
+    border-radius: 0 18px 18px 0;
+    box-sizing: border-box;
+}
+.main-card-reverse .main-card-img {
+    border-radius: 18px 0 0 18px;
+}
+.main-card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 18px;
+    border: 3px solid #ffd700;
+    box-shadow: 0 4px 24px #ffd70033;
+    background: #fffbe6;
+    transition: transform 0.35s cubic-bezier(.6,0,.4,1), box-shadow 0.35s;
+}
+.main-card-img img:hover {
+    transform: scale(1.06);
+    box-shadow: 0 8px 32px #ffd70066;
+    z-index: 3;
+}
+.main-card-content {
+    flex: 1 1 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    padding: 48px 36px;
+    text-align: right;
+}
+.main-card-title {
+    font-size: 2.4rem;
+    color: #ffd700;
+    margin-bottom: 18px;
+    font-weight: bold;
+    text-shadow: 0 2px 12px #ffd70099, 0 2px 8px #0a234f44;
+    text-align: right;
+    align-self: flex-end;
+}
+.main-card-text {
+    font-size: 1.2rem;
+    color: #fff;
+    margin-bottom: 32px;
+    line-height: 1.8;
+    text-align: right;
+    align-self: flex-end;
+}
+.main-card-btn {
+    background: linear-gradient(45deg, #ffd700, #ffed4a);
+    color: #1e3c72;
+    text-decoration: none;
+    padding: 16px 38px;
+    border-radius: 25px;
+    font-size: 1.15rem;
+    font-weight: bold;
+    transition: all 0.3s;
+    box-shadow: 0 4px 15px #ffd70044;
+    border: 2px solid transparent;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    align-self: flex-end;
+}
+.main-card-btn:hover {
+    background: linear-gradient(45deg, #fffbe6, #ffd700);
+    color: #0a234f;
+    border-color: #1e3c72;
+    transform: translateY(-2px) scale(1.04);
+}
+@media (max-width: 900px) {
+    .main-card, .main-card-reverse { flex-direction: column !important; }
+    .main-card-img { max-width: 100%; min-width: 0; height: 220px; padding: 12px 8px; border-radius: 18px 18px 0 0 !important; }
+    .main-card-img img { height: 220px; }
+    .main-card-content { align-items: center; text-align: center; padding: 32px 18px; }
+    .main-card-title, .main-card-text, .main-card-btn { align-self: center; text-align: center; }
+}
+
+<div class="main-cards-container">
+    <!-- عن الكنيسة -->
+    <div class="main-card">
+        <div class="main-card-img">
+            <img src="ضع_مسار_الصورة_هنا" alt="عن الكنيسة">
+        </div>
+        <div class="main-card-content">
+            <h2 class="main-card-title">عن الكنيسة</h2>
+            <p class="main-card-text">
+                كنيسة القديسة دميانة والأنبا توماس السائح هي بيت الله ومركز للعبادة والخدمة الروحية. نسعى جاهدين لنشر رسالة المحبة والسلام من خلال خدماتنا المتنوعة.
+            </p>
+            <a href="#features-section" class="main-card-btn">
+                اقرأ المزيد <i class="fas fa-arrow-left"></i>
+            </a>
+        </div>
+    </div>
+    <!-- خدماتنا (صورة يسار نص يمين) -->
+    <div class="main-card main-card-reverse">
+        <div class="main-card-img">
+            <img src="ضع_مسار_الصورة_هنا" alt="خدمات الكنيسة">
+        </div>
+        <div class="main-card-content">
+            <h2 class="main-card-title">خدماتنا</h2>
+            <p class="main-card-text">
+                نقدم مجموعة متنوعة من الخدمات الروحية والاجتماعية تشمل مدارس الأحد، الكورال، الخدمات الاجتماعية، وبرامج الشباب.
+            </p>
+            <a href="#features-section" class="main-card-btn">
+                تعرف على خدماتنا <i class="fas fa-arrow-left"></i>
+            </a>
+        </div>
+    </div>
+    <!-- فعالياتنا (صورة يمين نص يسار) -->
+    <div class="main-card">
+        <div class="main-card-img">
+            <img src="ضع_مسار_الصورة_هنا" alt="فعاليات الكنيسة">
+        </div>
+        <div class="main-card-content">
+            <h2 class="main-card-title">فعالياتنا</h2>
+            <p class="main-card-text">
+                نقيم العديد من الفعاليات والمناسبات على مدار العام، من اجتماعات صلاة ونهضات روحية إلى مؤتمرات روحية وترفيهية.
+            </p>
+            <a href="#events-section" class="main-card-btn">
+                تصفح الفعاليات <i class="fas fa-arrow-left"></i>
+            </a>
+        </div>
+    </div>
+</div>
+<!-- نهاية الدفّات الرئيسية -->
+
+<style>
+.main-cards-container {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+    max-width: 1400px;
+    margin: 0 auto 60px auto;
+}
+.main-card {
+    display: flex;
+    flex-direction: row;
+    background: rgba(10, 35, 79, 0.92);
+    border: 3px solid #ffd700;
+    border-radius: 24px;
+    box-shadow: 0 8px 40px rgba(10, 35, 79, 0.2);
+    overflow: hidden;
+    min-height: 320px;
+    align-items: stretch;
+    transition: box-shadow 0.35s, filter 0.35s;
+    position: relative;
+}
+.main-card:hover {
+    box-shadow: 0 0 32px 8px #ffd70099, 0 8px 40px #0a234f44;
+    filter: brightness(1.04) drop-shadow(0 0 16px #ffd70088);
+    z-index: 2;
+}
+.main-card-reverse {
+    flex-direction: row-reverse;
+}
+.main-card-img {
+    flex: 0 0 420px;
+    max-width: 420px;
+    min-width: 260px;
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    background: #fffbe6;
+    padding: 32px 24px;
+    border-radius: 0 18px 18px 0;
+    box-sizing: border-box;
+}
+.main-card-reverse .main-card-img {
+    border-radius: 18px 0 0 18px;
+}
+.main-card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 18px;
+    border: 3px solid #ffd700;
+    box-shadow: 0 4px 24px #ffd70033;
+    background: #fffbe6;
+    transition: transform 0.35s cubic-bezier(.6,0,.4,1), box-shadow 0.35s;
+}
+.main-card-img img:hover {
+    transform: scale(1.06);
+    box-shadow: 0 8px 32px #ffd70066;
+    z-index: 3;
+}
+.main-card-content {
+    flex: 1 1 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    padding: 48px 36px;
+    text-align: right;
+}
+.main-card-title {
+    font-size: 2.4rem;
+    color: #ffd700;
+    margin-bottom: 18px;
+    font-weight: bold;
+    text-shadow: 0 2px 12px #ffd70099, 0 2px 8px #0a234f44;
+    text-align: right;
+    align-self: flex-end;
+}
+.main-card-text {
+    font-size: 1.2rem;
+    color: #fff;
+    margin-bottom: 32px;
+    line-height: 1.8;
+    text-align: right;
+    align-self: flex-end;
+}
+.main-card-btn {
+    background: linear-gradient(45deg, #ffd700, #ffed4a);
+    color: #1e3c72;
+    text-decoration: none;
+    padding: 16px 38px;
+    border-radius: 25px;
+    font-size: 1.15rem;
+    font-weight: bold;
+    transition: all 0.3s;
+    box-shadow: 0 4px 15px #ffd70044;
+    border: 2px solid transparent;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    align-self: flex-end;
+}
+.main-card-btn:hover {
+    background: linear-gradient(45deg, #fffbe6, #ffd700);
+    color: #0a234f;
+    border-color: #1e3c72;
+    transform: translateY(-2px) scale(1.04);
+}
+@media (max-width: 900px) {
+    .main-card, .main-card-reverse { flex-direction: column !important; }
+    .main-card-img { max-width: 100%; min-width: 0; height: 220px; padding: 12px 8px; border-radius: 18px 18px 0 0 !important; }
+    .main-card-img img { height: 220px; }
+    .main-card-content { align-items: center; text-align: center; padding: 32px 18px; }
+    .main-card-title, .main-card-text, .main-card-btn { align-self: center; text-align: center; }
+}
+</style>
+
 </style>
 
 <!-- رأس الصفحة والعنوان الرئيسي -->
 <header class="header-section">
     <div class="golden-cross"></div>
     <div class="main-title-wrapper">
-        <h1 class="main-title">كنيسة القديسة دميانه والأنباء توماس السائح</h1>
+        <h1 class="main-title">كنيسة الشهيدة دميانة والأنبا توماس السائح</h1>
         <div class="title-decoration"></div>
     </div>
     <p class="subtitle">بيت الله - بوابة السماء</p>
 </header>
 
+@if(auth()->check() && auth()->user()->is_admin)
+<!-- زر إدارة الآيات خارج الحاوية مع ضبط مكانه -->
+<button class="admin-verse-btn" onclick="openVerseModal()" style="display:block; margin: 0 auto 10px auto; position:relative; top:0; right:0; min-width: 110px; min-height: 32px; font-size: 0.95rem;">
+    <i class="fas fa-cog"></i> إدارة الآيات
+</button>
+@endif
+
 <!-- الآية المتحركة -->
-<div class="verse-container slide-in-left">
-    <button class="admin-verse-btn" onclick="openVerseModal()">
-        <i class="fas fa-cog"></i> إدارة لآيات
-    </button>
+<div class="verse-container slide-in-left" style="position:relative;">
     <p class="verse-text" id="current-verse"></p>
     <p class="verse-reference" id="current-reference"></p>
 </div>
@@ -1289,17 +2182,12 @@ body::before {
 <div class="decor-divider"></div>
 
 <!-- شريط الأخبار المتحرك المُحسّن -->
-<div class="news-ticker-container fade-in">
-    @if(auth()->check())
-        <!-- Debug Info -->
-        <div style="position: absolute; top: -60px; right: 20px; color: white; background: rgba(0,0,0,0.5); padding: 5px; border-radius: 5px;">
-            User ID: {{ auth()->id() }}<br>
-            Is Admin: {{ auth()->user()->is_admin ? 'Yes' : 'No' }}
-        </div>
-    @endif
-    <button class="admin-news-btn" onclick="openNewsModal()">
+<div class="news-ticker-container fade-in" style="position:relative;">
+    @if(auth()->check() && auth()->user()->is_admin)
+    <button class="admin-news-btn" onclick="openNewsModal()" style="position:absolute; top:-38px; right:18px; min-width: 110px; min-height: 32px; font-size: 0.95rem; padding: 6px 12px; border-radius: 14px;">
         <i class="fas fa-cog"></i> إدارة الأخبار
     </button>
+    @endif
     <div class="news-ticker">
         <div class="news-ticker-label">
             <i class="fas fa-newspaper"></i> أخبار الكنيسة
@@ -1310,42 +2198,58 @@ body::before {
     </div>
 </div>
 
-<!-- بطاقات المحتوى المُحسّنة -->
-<div class="cards-container">
-    <div class="glass-card slide-in-right">
-        <div class="card-img">
-            <div class="img-frame"></div>
-            <img src="{{ asset('images/stthomas (3).jpg') }}" alt="الأنبا توماس السائح">
+<!-- بطاقات المحتوى الرئيسية الجديدة بتصميم أفقي كبير -->
+<div style="display: flex; flex-direction: column; gap: 48px; margin: 48px auto 60px auto; max-width: 1400px;">
+    <!-- عن الكنيسة -->
+    <div class="custom-main-card" style="margin: 0 auto;">
+        <div class="custom-card-img" style="z-index:2;">
+            <img src="{{ asset('images/church-front.jpg') }}" alt="عن الكنيسة" style="margin-left: -80px;">
         </div>
-        <div class="card-content">
-            <h2>الأنبا توماس السائح (شفيع الكنيسة)</h2>
-            <p>
-                وُلد أنبا توماس بشنشيف (شنشيف)، بإقليم أخميم، من أبوين تقيين محبين لله، فربياه بآداب الكنيسة. التهب قلبه بمحبة الله، وإذ كان يميل إلى الحياة التأملية انطلق إلى جبل مجاور يمارس فيه رياضته الروحية. كان محبًا للصلاة والتسبيح بصوته الرخيم، جادًا في نسكه حتى صار فيما بعد يأكل مرة واحدة في الأسبوع، يحفظ الكتاب المقدس عن ظهر قلب ليمارس وصاياه ويعيش إنجيله بفرح.
-            </p>
-            <p>
-                فاحت رائحة المسيح فيه، فكان بعض الإخوة القاطنين في الجبل يأتون إليه ليشتركوا معه في بعض الصلوات. في يومٍ إذ كان قد بدأ يسبح بمزاميره التفت خلفه فرأى ثلاثة رجال بلباسٍ أبيض يسبحون معه، وكانت أصواتهم كأصوات ملائكة.
-            </p>
-            <a href="{{ route('saints.thomas') }}" class="card-btn"><i class="fas fa-book-open"></i> إقرأ المزيد عن حياة القديس</a>
+        <div class="custom-card-content">
+            <div class="custom-card-title">عن الكنيسة</div>
+            <div class="custom-card-text">
+                كنيسة القديسة دميانة والأنبا توماس السائح هي بيت الله ومركز للعبادة والخدمة الروحية. نسعى جاهدين لنشر رسالة المحبة والسلام من خلال خدماتنا المتنوعة.
+            </div>
+            <a href="#features-section" class="custom-card-btn" onclick="scrollToSection('features-section'); return false;">
+                اقرأ المزيد <i class="fas fa-arrow-left"></i>
+            </a>
         </div>
     </div>
-
-    <div class="glass-card reverse slide-in-left">
-        <div class="card-img">
-            <div class="img-frame"></div>
-            <img src="{{ asset('images/القديسة-دميانة.jpg') }}" alt="القديسة دميانه">
+    <!-- خدماتنا -->
+    <div class="custom-main-card" style="flex-direction: row-reverse; margin: 0 auto;">
+        <div class="custom-card-img">
+            <img src="{{ asset('images/IMG-20250704-WA0011.jpg') }}" alt="خدمات الكنيسة">
         </div>
-        <div class="card-content">
-            <h2>القديسة العفيفة دميانه (شفيعة الكنيسة)</h2>
-            <p>
-                من قديسات القرون الأولى فى المسيحية وهى أول راهبة فى التاريخ وارتبط اسمها بقصة الأربعين عذراء. وُلدت من أبوين مسيحيين تقيين فى أواخر القرن الثالث، وكان أبوها مرقس واليًا على البرلس.
-            </p>
-            <p>
-                فى سن الثامنة عشر كشفت عن عزمها على حياة البتولية، فرحب والدها بهذا الاتجاه، ولتحقيق هذه الرغبة بنى لها قصرًا فى جهة الزعفران بناء على طلبها، لتنفرد فيه للعبادة، واجتمع حولها أربعون من العذارى اللاتى نذرن البتولية.
-            </p>
-            <a href="{{ route('saints.demiana') }}" class="card-btn"><i class="fas fa-book-open"></i> إقرأ المزيد عن سيرة القديسة</a>
+        <div class="custom-card-content">
+            <div class="custom-card-title">خدماتنا</div>
+            <div class="custom-card-text">
+                نقدم مجموعة متنوعة من الخدمات الروحية والاجتماعية تشمل مدارس الأحد، الكورال، الخدمات الاجتماعية، وبرامج الشباب.
+            </div>
+            <a href="#features-section" class="custom-card-btn" onclick="scrollToSection('features-section'); return false;">
+                تعرف على خدماتنا <i class="fas fa-arrow-left"></i>
+            </a>
+        </div>
+    </div>
+    <!-- فعالياتنا -->
+    <div class="custom-main-card" style="margin: 0 auto;">
+        <div class="custom-card-img" style="z-index:2;">
+            <img src="{{ asset('images/IMG-20250403-WA0260.jpg') }}" alt="فعاليات الكنيسة" style="margin-left: -80px;">
+        </div>
+        <div class="custom-card-content">
+            <div class="custom-card-title">فعالياتنا</div>
+            <div class="custom-card-text">
+                نقيم العديد من الفعاليات والمناسبات على مدار العام، من اجتماعات صلاة ونهضات روحية إلى مؤتمرات روحية وترفيهية.
+            </div>
+            <a href="#events-section" class="custom-card-btn" onclick="scrollToSection('events-section'); return false;">
+                تصفح الفعاليات <i class="fas fa-arrow-left"></i>
+            </a>
         </div>
     </div>
 </div>
+<!-- نهاية البطاقات الرئيسية الجديدة -->
+
+<!-- احذف أو علّق البطاقات القديمة -->
+{{-- <div class="cards-container"> ... البطاقات القديمة ... </div> --}}
 
 <!-- فقرة الإقتباس المُحسّنة -->
 <div class="quote-box scale-in">
@@ -1353,76 +2257,60 @@ body::before {
 </div>
 
 <!-- قسم المميزات الجديد -->
-<section class="features-section">
-    <h2 class="features-title fade-in">خدمات الكنيسة</h2>
-    <div class="features-grid">
-        <div class="feature-card slide-in-left">
-            <div class="feature-icon">
-                <i class="fas fa-bible"></i>
-            </div>
-            <h3 class="feature-title">مدارس الأحد</h3>
-            <p class="feature-desc">دروس روحية وتعليمية لمختلف الأعمار تقام كل أسبوع لتنمية الإيمان لدى أبنائنا وتعليمهم مبادئ المسيحية والكتاب المقدس.</p>
-        </div>
-        
-        <div class="feature-card fade-in">
-            <div class="feature-icon">
-                <i class="fas fa-hands-helping"></i>
-            </div>
-            <h3 class="feature-title">الخدمات الاجتماعية</h3>
-            <p class="feature-desc">مساعدات مادية وعينية للمحتاجين، زيارات للمرضى والمسنين، ودعم للأسر الفقيرة لتعكس محبة المسيح في المجتمع.</p>
-        </div>
-        
-        <div class="feature-card slide-in-right">
-            <div class="feature-icon">
-                <i class="fas fa-music"></i>
-            </div>
-            <h3 class="feature-title">كورال الكنيسة</h3>
-            <p class="feature-desc">فريق من المرتلين الموهوبين يقدمون الترانيم والألحان الكنسية التقليدية والمعاصرة في القداسات والمناسبات المختلفة.</p>
-        </div>
+<div id="features-section" style="margin: 40px 0 0 0;">
+    <div class="services-header">
+      <h2 class="services-title">خدمات الكنيسة</h2>
+      <div class="services-title-decoration"></div>
     </div>
-</section>
+    <div class="features-grid" id="servicesGrid" style="background:none;box-shadow:none;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:32px 24px;justify-items:center;"></div>
+</div>
 
 <!-- قسم الفعاليات القادمة -->
-<section class="events-section">
-    <h2 class="events-title fade-in">الفعاليات القادمة</h2>
-    <div class="events-grid">
-        <div class="event-card slide-in-left">
-            <div class="event-image">
-                <img src="{{ asset('images/prayer-meeting.jpg') }}" alt="اجتماع صلاة">
-                <div class="event-date">25 مايو</div>
-            </div>
-            <div class="event-content">
-                <h3 class="event-title">نهضة صلاة للسيدة العذراء</h3>
-                <p class="event-details">اجتماع صلاة خاص يقام لمدة ثلاثة أيام متتالية بمناسبة صوم السيدة العذراء، يتخلله عظات روحية وترانيم.</p>
-                <a href="#" class="event-cta">التفاصيل <i class="fas fa-arrow-left"></i></a>
-            </div>
-        </div>
-        
-        <div class="event-card fade-in">
-            <div class="event-image">
-                <img src="{{ asset('images/youth-meeting.jpg') }}" alt="اجتماع الشباب">
-                <div class="event-date">30 مايو</div>
-            </div>
-            <div class="event-content">
-                <h3 class="event-title">اجتماع شباب مع أبونا باخوم</h3>
-                <p class="event-details">اجتماع خاص للشباب يتناول موضوعات إيمانية معاصرة ومشاكل الشباب مع أنشطة ترفيهية وروحية.</p>
-                <a href="#" class="event-cta">التفاصيل <i class="fas fa-arrow-left"></i></a>
-            </div>
-        </div>
-        
-        <div class="event-card slide-in-right">
-            <div class="event-image">
-                <img src="{{ asset('images/charity-event.jpg') }}" alt="مبادرة خيرية">
-                <div class="event-date">5 يونيو</div>
-            </div>
-            <div class="event-content">
-                <h3 class="event-title">مبادرة "يد المحبة" الخيرية</h3>
-                <p class="event-details">حملة لجمع التبرعات والملابس والأدوية لتوزيعها على المحتاجين في المنطقة المحيطة بالكنيسة.</p>
-                <a href="#" class="event-cta">التفاصيل <i class="fas fa-arrow-left"></i></a>
-            </div>
-        </div>
+<section class="events-section" id="events-section">
+    <div style="text-align:center;">
+        <h2 class="events-title fade-in" style="margin-bottom: 0;">الفعاليات القادمة</h2>
+        @if(auth()->check() && auth()->user()->is_admin)
+        <button class="admin-news-btn" style="min-width: 110px; min-height: 32px; font-size: 0.95rem; padding: 6px 12px; border-radius: 14px; margin: 10px auto 30px auto; display:inline-block; position:relative; top:0;" onclick="openManageEventsModal()">
+            <i class="fas fa-cog"></i> إدارة الفعاليات
+        </button>
+        @endif
+    </div>
+    <div class="events-grid" id="eventsGrid">
+        <!-- سيتم ملؤها ديناميكياً -->
+    </div>
+    <div id="eventsArrows" style="text-align:center; margin-top:10px; display:none;">
+        <button onclick="scrollEvents('left'); this.blur();" class="saint-bio-button" style="margin-left:10px;"><i class="fas fa-arrow-right"></i></button>
+        <button onclick="scrollEvents('right'); this.blur()" class="saint-bio-button"><i class="fas fa-arrow-left"></i></button>
     </div>
 </section>
+<!-- Modal إدارة الفعاليات -->
+<div id="manageEventsModal" class="news-modal" dir="rtl">
+    <div class="news-modal-content" style="max-width:900px; min-width:350px; direction:rtl; overflow-y:auto; max-height:90vh;">
+        <div class="news-modal-header" style="flex-direction:row-reverse;">
+            <div class="d-flex align-items-center">
+                <h5 class="modal-title mb-0">إدارة الفعاليات</h5>
+            </div>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" onclick="closeManageEventsModal()"></button>
+        </div>
+        <div id="manageEventsBody" style="overflow-y:auto; max-height:65vh;">
+            <!-- سيتم ملؤها ديناميكياً -->
+        </div>
+        <!-- نموذج إضافة فعالية جديدة -->
+        <div style="margin-top:18px;padding:14px 10px;background:rgba(255,255,255,0.09);border-radius:12px;">
+            <h4 style="color:#ffd700;margin-bottom:10px;text-align:right;">إضافة فعالية جديدة</h4>
+            <form id="addEventForm" style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;flex-direction:row-reverse;">
+                <div style="display:flex;flex-direction:column;align-items:center;">
+                    <label style="color:#ffd700;font-size:0.95rem;">صورة</label>
+                    <input id="newEventImage" type="file" accept="image/*" style="width:120px;">
+                </div>
+                <input id="newEventTitle" type="text" placeholder="اسم الفعالية" style="flex:1 1 120px;padding:6px 10px;border-radius:6px;border:1.5px solid #ffd700;font-weight:bold;font-size:1.1rem;text-align:right;">
+                <input id="newEventDetails" type="text" placeholder="وصف مختصر" style="flex:2 1 220px;padding:6px 10px;border-radius:6px;border:1.5px solid #ffd700;font-size:1rem;text-align:right;">
+                <input id="newEventDate" type="text" placeholder="تاريخ (مثال: 1 يوليو)" style="width:90px;padding:6px 8px;border-radius:6px;border:1.5px solid #ffd700;font-size:0.95rem;text-align:right;">
+                <button type="button" onclick="addNewEvent()" class="add-news-btn" style="background:linear-gradient(135deg,#4CAF50 0%,#45a049 100%);"><i class="fas fa-plus"></i> إضافة</button>
+            </form>
+        </div>
+    </div>
+</div>
 
 <!-- Modal إدارة الأخبار -->
 <div id="newsModal" class="news-modal">
@@ -1466,6 +2354,43 @@ body::before {
                 </button>
             </div>
         </div>
+    </div>
+</div>
+
+<!-- Modal إضافة خدمة -->
+<div id="addServiceModal" class="news-modal">
+    <div class="news-modal-content">
+        <div class="news-modal-header">
+            <h2>إضافة خدمة جديدة</h2>
+            <button class="close-modal" onclick="closeAddServiceModal()">&times;</button>
+        </div>
+        <div>
+            <p style="text-align:center; color:#ffd700;">(سيتم تنفيذ النموذج لاحقًا)</p>
+        </div>
+    </div>
+</div>
+<!-- Modal إضافة فعالية -->
+<div id="addEventModal" class="news-modal">
+    <div class="news-modal-content">
+        <div class="news-modal-header">
+            <h2>إضافة فعالية جديدة</h2>
+            <button class="close-modal" onclick="closeAddEventModal()">&times;</button>
+        </div>
+        <div>
+            <!-- سيتم إضافة نموذج إضافة الفعالية هنا -->
+            <p style="text-align:center; color:#ffd700;">(سيتم تنفيذ النموذج لاحقًا)</p>
+        </div>
+    </div>
+</div>
+
+<!-- Modal تفاصيل الخدمة/الفعالية -->
+<div id="detailsModal" class="news-modal">
+    <div class="news-modal-content" style="max-width:600px;">
+        <div class="news-modal-header">
+            <h2 id="detailsModalTitle"></h2>
+            <button class="close-modal" onclick="closeDetailsModal()">&times;</button>
+        </div>
+        <div id="detailsModalBody" style="text-align:center;"></div>
     </div>
 </div>
 
@@ -1839,5 +2764,593 @@ document.addEventListener('DOMContentLoaded', function() {
     window.updateCurrentVerse();
     window.startVerseRotation();
 });
+
+function scrollToSection(id) {
+    const el = document.getElementById(id);
+    if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+}
+
+function openAddServiceModal() {
+    document.getElementById('addServiceModal').style.display = 'block';
+}
+function closeAddServiceModal() {
+    document.getElementById('addServiceModal').style.display = 'none';
+}
+function openAddEventModal() {
+    document.getElementById('addEventModal').style.display = 'block';
+}
+function closeAddEventModal() {
+    document.getElementById('addEventModal').style.display = 'none';
+}
+
+// بيانات الخدمات (مؤقتاً)
+window.services = [
+    {
+        id: 1,
+        icon: 'fa-bible',
+        title: 'مدارس الأحد',
+        desc: 'دروس روحية وتعليمية لمختلف الأعمار تقام كل أسبوع لتنمية الإيمان لدى أبنائنا وتعليمهم مبادئ المسيحية والكتاب المقدس.',
+        image: 'images/church-front.jpg',
+    },
+    {
+        id: 2,
+        icon: 'fa-church',
+        title: 'مدرسة الشمامسة',
+        desc: 'تعليم الألحان والطقوس الكنسية وتدريب الشمامسة الصغار على خدمة المذبح والصلوات الكنسية بشكل منتظم.',
+        image: 'images/church-service.jpg',
+    },
+    {
+        id: 3,
+        icon: 'fa-music',
+        title: 'كورال الكنيسة',
+        desc: 'فريق من المرتلين الموهوبين يقدمون الترانيم والألحان الكنسية التقليدية والمعاصرة في المناسبات المختلفة.',
+        image: 'images/church-event.jpg',
+    }
+];
+window.servicesStart = 0;
+window.servicesPerPage = 3;
+
+window.renderServices = function() {
+    const grid = document.getElementById('servicesGrid');
+    grid.innerHTML = '';
+    let start = window.servicesStart;
+    let end = Math.min(start + window.servicesPerPage, window.services.length);
+    for (let i = start; i < end; i++) {
+        const s = window.services[i];
+        const card = document.createElement('div');
+        card.className = 'service-card';
+        card.innerHTML = `
+            <div class="service-icon"><i class="fas ${s.icon}"></i></div>
+            <div class="service-title">${s.title}</div>
+            <div class="service-desc">${s.desc}</div>
+        `;
+        grid.appendChild(card);
+    }
+    document.getElementById('servicesArrows').style.display = 'none';
+}
+window.scrollServices = function(dir) {
+    if (dir === 'left' && window.servicesStart > 0) window.servicesStart--;
+    if (dir === 'right' && window.servicesStart + window.servicesPerPage < window.services.length) window.servicesStart++;
+    window.renderServices();
+}
+window.editService = function(idx) { alert('تعديل الخدمة (سيتم لاحقًا)'); };
+window.deleteService = function(idx) { if(confirm('حذف الخدمة؟')) { window.services.splice(idx,1); window.renderServices(); } };
+window.moveService = function(idx,dir) {
+    const newIdx = idx+dir;
+    if(newIdx<0||newIdx>=window.services.length) return;
+    [window.services[idx],window.services[newIdx]]=[window.services[newIdx],window.services[idx]];
+    window.renderServices();
+};
+window.showServiceDetails = function(idx) {
+    const s = window.services[idx];
+    document.getElementById('detailsModalTitle').textContent = s.title;
+    document.getElementById('detailsModalBody').innerHTML = `
+        <img src='${s.image}' alt='${s.title}' style='max-width:100%; border-radius:18px; box-shadow:0 4px 24px #ffd70044; margin-bottom:18px;'>
+        <div style='font-size:1.2rem; color:#fff; margin-bottom:10px;'>${s.desc}</div>
+    `;
+    document.getElementById('detailsModal').style.display = 'block';
+}
+// عند تحميل الصفحة
+window.addEventListener('DOMContentLoaded',()=>{ window.renderServices(); });
+
+// بيانات الفعاليات (مؤقتاً)
+window.events = [
+    {
+        id: 1,
+        image: '/images/prayer-meeting.jpg',
+        date: '25 مايو',
+        title: 'نهضة صلاة للسيدة العذراء',
+        details: 'اجتماع صلاة خاص يقام لمدة ثلاثة أيام متتالية بمناسبة صوم السيدة العذراء، يتخلله عظات روحية وترانيم.'
+    },
+    {
+        id: 2,
+        image: '/images/youth-meeting.jpg',
+        date: '30 مايو',
+        title: 'اجتماع شباب مع أبونا باخوم',
+        details: 'اجتماع خاص للشباب يتناول موضوعات إيمانية معاصرة ومشاكل الشباب مع أنشطة ترفيهية وروحية.'
+    },
+    {
+        id: 3,
+        image: '/images/charity-event.jpg',
+        date: '5 يونيو',
+        title: 'مبادرة "يد المحبة" الخيرية',
+        details: 'حملة لجمع التبرعات والملابس والأدوية لتوزيعها على المحتاجين في المنطقة المحيطة بالكنيسة.'
+    },
+    {
+        id: 4,
+        image: '/images/stthomas (3).jpg',
+        date: '12 يونيو',
+        title: 'رحلة ترفيهية لأطفال مدارس الأحد',
+        details: 'تنظم الكنيسة رحلة ترفيهية وثقافية لأطفال مدارس الأحد لزيارة معالم دينية وحدائق عامة.'
+    },
+    {
+        id: 5,
+        image: '/images/saint-stephen.jpg',
+        date: '20 يونيو',
+        title: 'مسابقة الكتاب المقدس السنوية',
+        details: 'مسابقة شيقة لجميع الأعمار حول أسفار الكتاب المقدس مع جوائز قيمة للفائزين.'
+    },
+    {
+        id: 6,
+        image: '/images/download1.png',
+        date: '28 يونيو',
+        title: 'دورة رياضية للشباب',
+        details: 'بطولة كرة قدم وتنس طاولة للشباب والفتيات في قاعة الكنيسة بمشاركة فرق من كنائس أخرى.'
+    }
+];
+window.eventsStart = 0;
+window.eventsPerPage = 3;
+
+window.renderEvents = function() {
+    const grid = document.getElementById('eventsGrid');
+    grid.innerHTML = '';
+    let start = window.eventsStart;
+    let end = Math.min(start + window.eventsPerPage, window.events.length);
+    for (let i = start; i < end; i++) {
+        const e = window.events[i];
+        const card = document.createElement('div');
+        card.className = 'event-card';
+        card.innerHTML = `
+            <div class='event-image'>
+                <img src='${e.image}' alt='${e.title}'>
+                <div class='event-date'>${e.date}</div>
+            </div>
+            <div class='event-content' style="display:flex;flex-direction:column;justify-content:space-between;height:260px;">
+                <div>
+                    <h3 class='event-title'>${e.title}</h3>
+                    <p class='event-details'>${e.details}</p>
+                </div>
+                <a href='javascript:void(0)' class='event-cta' onclick='showEventDetails(${i}); this.blur();'>التفاصيل <i class="fas fa-arrow-left"></i></a>
+            </div>
+        `;
+        grid.appendChild(card);
+    }
+    document.getElementById('eventsArrows').style.display = window.events.length > window.eventsPerPage ? 'block' : 'none';
+}
+window.scrollEvents = function(dir) {
+    if (dir === 'left') {
+        if (window.eventsStart > 0) {
+            window.eventsStart--;
+        } else {
+            window.eventsStart = Math.max(0, window.events.length - window.eventsPerPage);
+        }
+    }
+    if (dir === 'right') {
+        if (window.eventsStart + window.eventsPerPage < window.events.length) {
+            window.eventsStart++;
+        } else {
+            window.eventsStart = 0;
+        }
+    }
+    window.renderEvents();
+}
+window.addNewEvent = function() {
+    const title = document.getElementById('newEventTitle').value.trim();
+    const details = document.getElementById('newEventDetails').value.trim();
+    const date = document.getElementById('newEventDate').value.trim();
+    const imageInput = document.getElementById('newEventImage');
+    let image = '';
+    if(imageInput.files && imageInput.files[0]) {
+        image = URL.createObjectURL(imageInput.files[0]);
+    }
+    if(title && details && date && image) {
+        window.events.push({id:Date.now(),image,title,date,details});
+        window.renderEvents();
+        if(typeof renderManageEvents === 'function') renderManageEvents();
+        document.getElementById('newEventTitle').value = '';
+        document.getElementById('newEventDetails').value = '';
+        document.getElementById('newEventDate').value = '';
+        document.getElementById('newEventImage').value = '';
+    } else {
+        alert('يرجى ملء جميع الحقول واختيار صورة');
+    }
+};
+window.deleteEvent = function(idx) {
+    if(confirm('حذف الفعالية؟')) {
+        window.events.splice(idx,1);
+        window.renderEvents();
+        if(typeof renderManageEvents === 'function') renderManageEvents();
+    }
+};
+window.moveEvent = function(idx,dir) {
+    const newIdx = idx+dir;
+    if(newIdx<0||newIdx>=window.events.length) return;
+    [window.events[idx],window.events[newIdx]]=[window.events[newIdx],window.events[idx]];
+    window.renderEvents();
+    if(typeof renderManageEvents === 'function') renderManageEvents();
+};
+window.showEventDetails = function(idx) {
+    const e = window.events[idx];
+    document.getElementById('detailsModalTitle').textContent = e.title;
+    document.getElementById('detailsModalBody').innerHTML = `
+        <div style="display: flex; flex-direction: row; gap: 32px; align-items: flex-start; justify-content: center;">
+            <div style="min-width: 260px; max-width: 320px; width: 280px; text-align: center; flex-shrink:0;">
+                <div class="image-container" style="height:340px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;">
+                    <img src='${e.image}' alt='${e.title}' class='details-modal-img' style='height:320px;max-width:100%;object-fit:cover;'>
+                    <div class='date-badge'>${e.date}</div>
+                </div>
+            </div>
+            <div style="flex: 1 1 0; direction: rtl; display: flex; align-items: flex-start;">
+                <div class='event-details' style="font-size:1.15rem; width:100%; background:rgba(10,42,79,0.15); min-height:120px; overflow:visible; display:block; -webkit-line-clamp:unset;">${e.details}</div>
+            </div>
+        </div>
+    `;
+    document.getElementById('detailsModal').style.display = 'block';
+    setTimeout(() => {
+        document.activeElement && document.activeElement.blur && document.activeElement.blur();
+    }, 100);
+}
+window.closeDetailsModal = function() {
+    document.getElementById('detailsModal').style.display = 'none';
+}
+window.addEventListener('DOMContentLoaded',()=>{ window.renderEvents(); });
+
+function openManageServicesModal() {
+    document.getElementById('manageServicesModal').style.display = 'block';
+    renderManageServices();
+}
+function closeManageServicesModal() {
+    document.getElementById('manageServicesModal').style.display = 'none';
+}
+function renderManageServices() {
+    const body = document.getElementById('manageServicesBody');
+    body.innerHTML = '';
+    window.services.forEach((s, i) => {
+        const row = document.createElement('div');
+        row.style = 'display:flex;align-items:center;gap:10px;background:rgba(255,255,255,0.07);border-radius:10px;padding:12px 10px;margin-bottom:10px;flex-direction:row-reverse;';
+        row.innerHTML = `
+            <span style='font-size:2rem;color:#ffd700;width:48px;text-align:center;'><i class='fas ${s.icon}'></i></span>
+            <input type='text' value='${s.title}' onchange='updateServiceTitle(${i},this.value)' style='flex:1 1 120px;padding:6px 10px;border-radius:6px;border:1.5px solid #ffd700;font-weight:bold;font-size:1.1rem;margin-right:8px;text-align:right;'>
+            <input type='text' value='${s.desc}' onchange='updateServiceDesc(${i},this.value)' style='flex:2 1 220px;padding:6px 10px;border-radius:6px;border:1.5px solid #ffd700;font-size:1rem;text-align:right;'>
+            <input type='text' value='${s.icon}' onchange='updateServiceIcon(${i},this.value)' style='width:90px;padding:6px 8px;border-radius:6px;border:1.5px solid #ffd700;font-size:0.95rem;margin-right:8px;text-align:right;' placeholder='fa-icon'>
+            <button onclick='deleteService(${i},true)' class='add-news-btn' style='background:linear-gradient(135deg,#ff4444 0%,#d32f2f 100%);margin-right:2px;' title='حذف'><i class='fas fa-trash'></i></button>
+            <button onclick='moveService(${i},1,true)' class='add-news-btn' ${i===window.services.length-1?'disabled':''} style='background:linear-gradient(135deg,#4CAF50 0%,#45a049 100%);margin-right:2px;' title='أسفل'><i class='fas fa-arrow-down'></i></button>
+            <button onclick='moveService(${i},-1,true)' class='add-news-btn' ${i===0?'disabled':''} style='background:linear-gradient(135deg,#4CAF50 0%,#45a049 100%);margin-right:2px;' title='أعلى'><i class='fas fa-arrow-up'></i></button>
+        `;
+        body.appendChild(row);
+    });
+    // نموذج إضافة خدمة جديدة
+    const addDiv = document.createElement('div');
+    addDiv.style = 'margin-top:18px;padding:14px 10px;background:rgba(255,255,255,0.09);border-radius:12px;';
+    addDiv.innerHTML = `
+        <h4 style='color:#ffd700;margin-bottom:10px;text-align:right;'>إضافة خدمة جديدة</h4>
+        <div style='display:flex;gap:10px;align-items:center;flex-wrap:wrap;flex-direction:row-reverse;'>
+            <input id='newServiceTitle' type='text' placeholder='اسم الخدمة' style='flex:1 1 120px;padding:6px 10px;border-radius:6px;border:1.5px solid #ffd700;font-weight:bold;font-size:1.1rem;text-align:right;'>
+            <input id='newServiceDesc' type='text' placeholder='وصف مختصر' style='flex:2 1 220px;padding:6px 10px;border-radius:6px;border:1.5px solid #ffd700;font-size:1rem;text-align:right;'>
+            <input id='newServiceIcon' type='text' placeholder='fa-icon (مثال: fa-bible)' style='width:110px;padding:6px 8px;border-radius:6px;border:1.5px solid #ffd700;font-size:0.95rem;text-align:right;'>
+            <button onclick='addNewService()' class='add-news-btn' style='background:linear-gradient(135deg,#4CAF50 0%,#45a049 100%);'><i class='fas fa-plus'></i> إضافة</button>
+        </div>
+    `;
+    body.appendChild(addDiv);
+}
+window.updateServiceTitle = function(i, val) { window.services[i].title = val; window.renderServices(); };
+window.updateServiceDesc = function(i, val) { window.services[i].desc = val; window.renderServices(); };
+window.updateServiceIcon = function(i, val) { window.services[i].icon = val; window.renderServices(); };
+window.deleteService = function(idx,fromManage) { if(confirm('حذف الخدمة؟')) { window.services.splice(idx,1); window.renderServices(); if(fromManage) renderManageServices(); } };
+window.moveService = function(idx,dir,fromManage) {
+    const newIdx = idx+dir;
+    if(newIdx<0||newIdx>=window.services.length) return;
+    [window.services[idx],window.services[newIdx]]=[window.services[newIdx],window.services[idx]];
+    window.renderServices();
+    if(fromManage) renderManageServices();
+};
+window.addNewService = function() {
+    const title = document.getElementById('newServiceTitle').value.trim();
+    const desc = document.getElementById('newServiceDesc').value.trim();
+    const icon = document.getElementById('newServiceIcon').value.trim() || 'fa-bible';
+    if(title && desc) {
+        window.services.push({id:Date.now(),icon,title,desc,image:''});
+        window.renderServices();
+        renderManageServices();
+        document.getElementById('newServiceTitle').value = '';
+        document.getElementById('newServiceDesc').value = '';
+        document.getElementById('newServiceIcon').value = '';
+    }
+};
+
+function openManageEventsModal() {
+    document.getElementById('manageEventsModal').style.display = 'block';
+    renderManageEvents();
+}
+function closeManageEventsModal() {
+    document.getElementById('manageEventsModal').style.display = 'none';
+}
+function renderManageEvents() {
+    const body = document.getElementById('manageEventsBody');
+    body.innerHTML = '';
+    window.events.forEach((e, i) => {
+        const row = document.createElement('div');
+        row.style = 'display:flex;align-items:center;gap:10px;background:rgba(255,255,255,0.07);border-radius:10px;padding:12px 10px;margin-bottom:10px;flex-direction:row;overflow-x:auto;min-width:350px;';
+        row.innerHTML = `
+            <div style='display:flex;flex-direction:column;align-items:center;min-width:70px;'>
+                <img src='${e.image}' alt='صورة' style='width:60px;height:60px;object-fit:cover;border-radius:8px;margin-left:8px;'>
+                <span style='color:#ffd700;font-size:0.95rem;'>صورة</span>
+            </div>
+            <input type='text' value='${e.date}' onchange='updateEventDate(${i},this.value)' style='width:90px;padding:6px 8px;border-radius:6px;border:1.5px solid #ffd700;font-size:0.95rem;text-align:right;margin-left:8px;' placeholder='تاريخ'>
+            <input type='text' value='${e.title}' onchange='updateEventTitle(${i},this.value)' style='flex:1 1 120px;padding:6px 10px;border-radius:6px;border:1.5px solid #ffd700;font-weight:bold;font-size:1.1rem;text-align:right;max-width:180px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;text-overflow:ellipsis;margin-left:8px;'>
+            <input type='text' value='${e.details}' onchange='updateEventDetails(${i},this.value)' style='flex:2 1 220px;padding:6px 10px;border-radius:6px;border:1.5px solid #ffd700;font-size:1rem;text-align:right;max-width:260px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;text-overflow:ellipsis;margin-left:8px;'>
+            <button onclick='moveEvent(${i},1,true)' class='add-news-btn' ${i===window.events.length-1?'disabled':''} style='background:linear-gradient(135deg,#4CAF50 0%,#45a049 100%);margin-left:4px;' title='أسفل'><i class='fas fa-arrow-down'></i></button>
+            <button onclick='moveEvent(${i},-1,true)' class='add-news-btn' ${i===0?'disabled':''} style='background:linear-gradient(135deg,#4CAF50 0%,#45a049 100%);margin-left:4px;' title='أعلى'><i class='fas fa-arrow-up'></i></button>
+            <button onclick='deleteEvent(${i},true)' class='add-news-btn' style='background:linear-gradient(135deg,#ff4444 0%,#d32f2f 100%);margin-left:4px;' title='حذف'><i class='fas fa-trash'></i></button>
+        `;
+        body.appendChild(row);
+    });
+}
+window.updateEventTitle = function(i, val) { window.events[i].title = val; window.renderEvents(); };
+window.updateEventDetails = function(i, val) { window.events[i].details = val; window.renderEvents(); };
+window.updateEventDate = function(i, val) { window.events[i].date = val; window.renderEvents(); };
+window.deleteEvent = function(idx,fromManage) { if(confirm('حذف الفعالية؟')) { window.events.splice(idx,1); window.renderEvents(); if(fromManage) renderManageEvents(); } };
+window.moveEvent = function(idx,dir,fromManage) {
+    const newIdx = idx+dir;
+    if(newIdx<0||newIdx>=window.events.length) return;
+    [window.events[idx],window.events[newIdx]]=[window.events[newIdx],window.events[idx]];
+    window.renderEvents();
+    if(fromManage) renderManageEvents();
+};
+window.addNewEvent = function() {
+    const title = document.getElementById('newEventTitle').value.trim();
+    const details = document.getElementById('newEventDetails').value.trim();
+    const date = document.getElementById('newEventDate').value.trim();
+    const imageInput = document.getElementById('newEventImage');
+    let image = '';
+    if(imageInput.files && imageInput.files[0]) {
+        // سنستخدم URL.createObjectURL مؤقتاً للعرض الفوري
+        image = URL.createObjectURL(imageInput.files[0]);
+    }
+    if(title && details && date && image) {
+        window.events.push({id:Date.now(),image,title,date,details});
+        window.renderEvents();
+        renderManageEvents();
+        document.getElementById('newEventTitle').value = '';
+        document.getElementById('newEventDetails').value = '';
+        document.getElementById('newEventDate').value = '';
+        document.getElementById('newEventImage').value = '';
+    } else {
+        alert('يرجى ملء جميع الحقول واختيار صورة');
+    }
+};
+
+// ... existing code ...
+// --- EVENTS API INTEGRATION WITH FALLBACK ---
+window.defaultEvents = [
+    {
+        id: 1,
+        image: '/images/prayer-meeting.jpg',
+        date: '25 مايو',
+        title: 'نهضة صلاة للسيدة العذراء',
+        details: 'اجتماع صلاة خاص يقام لمدة ثلاثة أيام متتالية بمناسبة صوم السيدة العذراء، يتخلله عظات روحية وترانيم.'
+    },
+    {
+        id: 2,
+        image: '/images/youth-meeting.jpg',
+        date: '30 مايو',
+        title: 'اجتماع شباب مع أبونا باخوم',
+        details: 'اجتماع خاص للشباب يتناول موضوعات إيمانية معاصرة ومشاكل الشباب مع أنشطة ترفيهية وروحية.'
+    },
+    {
+        id: 3,
+        image: '/images/charity-event.jpg',
+        date: '5 يونيو',
+        title: 'مبادرة "يد المحبة" الخيرية',
+        details: 'حملة لجمع التبرعات والملابس والأدوية لتوزيعها على المحتاجين في المنطقة المحيطة بالكنيسة.'
+    },
+    {
+        id: 4,
+        image: '/images/stthomas (3).jpg',
+        date: '12 يونيو',
+        title: 'رحلة ترفيهية لأطفال مدارس الأحد',
+        details: 'تنظم الكنيسة رحلة ترفيهية وثقافية لأطفال مدارس الأحد لزيارة معالم دينية وحدائق عامة.'
+    },
+    {
+        id: 5,
+        image: '/images/saint-stephen.jpg',
+        date: '20 يونيو',
+        title: 'مسابقة الكتاب المقدس السنوية',
+        details: 'مسابقة شيقة لجميع الأعمار حول أسفار الكتاب المقدس مع جوائز قيمة للفائزين.'
+    },
+    {
+        id: 6,
+        image: '/images/download1.png',
+        date: '28 يونيو',
+        title: 'دورة رياضية للشباب',
+        details: 'بطولة كرة قدم وتنس طاولة للشباب والفتيات في قاعة الكنيسة بمشاركة فرق من كنائس أخرى.'
+    }
+];
+window.events = [];
+window.eventsStart = 0;
+window.eventsPerPage = 3;
+
+async function fetchEvents() {
+    try {
+        const res = await fetch('/api/events');
+        if (!res.ok) throw new Error('فشل في جلب الفعاليات من السيرفر');
+        window.events = await res.json();
+        if (!Array.isArray(window.events) || window.events.length === 0) {
+            window.events = window.defaultEvents.slice();
+        }
+    } catch (e) {
+        window.events = window.defaultEvents.slice();
+        // alert('تعذر الاتصال بالسيرفر، سيتم عرض فعاليات افتراضية فقط.');
+    }
+    window.renderEvents();
+    if (typeof renderManageEvents === 'function') renderManageEvents();
+}
+
+window.renderEvents = function() {
+    const grid = document.getElementById('eventsGrid');
+    grid.innerHTML = '';
+    let start = window.eventsStart;
+    let end = Math.min(start + window.eventsPerPage, window.events.length);
+    for (let i = start; i < end; i++) {
+        const e = window.events[i];
+        const card = document.createElement('div');
+        card.className = 'event-card';
+        card.innerHTML = `
+            <div class='event-image'>
+                <img src='${e.image}' alt='${e.title}'>
+                <div class='event-date'>${e.date}</div>
+            </div>
+            <div class='event-content' style="display:flex;flex-direction:column;justify-content:space-between;height:260px;">
+                <div>
+                    <h3 class='event-title'>${e.title}</h3>
+                    <p class='event-details'>${e.details}</p>
+                </div>
+                <a href='javascript:void(0)' class='event-cta' onclick='showEventDetails(${i}); this.blur();'>التفاصيل <i class="fas fa-arrow-left"></i></a>
+            </div>
+        `;
+        grid.appendChild(card);
+    }
+    document.getElementById('eventsArrows').style.display = window.events.length > window.eventsPerPage ? 'block' : 'none';
+}
+window.scrollEvents = function(dir) {
+    if (dir === 'left') {
+        if (window.eventsStart > 0) {
+            window.eventsStart--;
+        } else {
+            window.eventsStart = Math.max(0, window.events.length - window.eventsPerPage);
+        }
+    }
+    if (dir === 'right') {
+        if (window.eventsStart + window.eventsPerPage < window.events.length) {
+            window.eventsStart++;
+        } else {
+            window.eventsStart = 0;
+        }
+    }
+    window.renderEvents();
+}
+window.addNewEvent = async function() {
+    const title = document.getElementById('newEventTitle').value.trim();
+    const details = document.getElementById('newEventDetails').value.trim();
+    const date = document.getElementById('newEventDate').value.trim();
+    const imageInput = document.getElementById('newEventImage');
+    let image = '';
+    if(imageInput.files && imageInput.files[0]) {
+        image = imageInput.files[0].name;
+    }
+    if(title && details && date && image) {
+        try {
+            const res = await fetch('/api/events', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ title, details, date, image })
+            });
+            if (!res.ok) throw new Error('فشل في إضافة الفعالية');
+            await fetchEvents();
+            document.getElementById('newEventTitle').value = '';
+            document.getElementById('newEventDetails').value = '';
+            document.getElementById('newEventDate').value = '';
+            document.getElementById('newEventImage').value = '';
+        } catch (e) {
+            alert(e.message);
+        }
+    } else {
+        alert('يرجى ملء جميع الحقول واختيار صورة');
+    }
+};
+window.deleteEvent = async function(idx) {
+    if(!confirm('حذف الفعالية؟')) return;
+    try {
+        const event = window.events[idx];
+        const res = await fetch(`/api/events/${event.id}`, { method: 'DELETE' });
+        if (!res.ok) throw new Error('فشل في حذف الفعالية');
+        await fetchEvents();
+    } catch (e) { alert(e.message); }
+};
+window.moveEvent = function(idx,dir) {
+    // الترتيب محلي فقط (يمكن تطويره لاحقاً)
+    const newIdx = idx+dir;
+    if(newIdx<0||newIdx>=window.events.length) return;
+    [window.events[idx],window.events[newIdx]]=[window.events[newIdx],window.events[idx]];
+    window.renderEvents();
+    if(typeof renderManageEvents === 'function') renderManageEvents();
+};
+window.showEventDetails = function(idx) {
+    const e = window.events[idx];
+    document.getElementById('detailsModalTitle').textContent = e.title;
+    document.getElementById('detailsModalBody').innerHTML = `
+        <div style="display: flex; flex-direction: row; gap: 32px; align-items: flex-start; justify-content: center;">
+            <div style="min-width: 260px; max-width: 320px; width: 280px; text-align: center; flex-shrink:0;">
+                <div class="image-container" style="height:340px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;">
+                    <img src='${e.image}' alt='${e.title}' class='details-modal-img' style='height:320px;max-width:100%;object-fit:cover;'>
+                    <div class='date-badge'>${e.date}</div>
+                </div>
+            </div>
+            <div style="flex: 1 1 0; direction: rtl; display: flex; align-items: flex-start;">
+                <div class='event-details' style="font-size:1.15rem; width:100%; background:rgba(10,42,79,0.15); min-height:120px; overflow:visible; display:block; -webkit-line-clamp:unset;">${e.details}</div>
+            </div>
+        </div>
+    `;
+    document.getElementById('detailsModal').style.display = 'block';
+    setTimeout(() => {
+        document.activeElement && document.activeElement.blur && document.activeElement.blur();
+    }, 100);
+}
+window.closeDetailsModal = function() {
+    document.getElementById('detailsModal').style.display = 'none';
+}
+window.addEventListener('DOMContentLoaded', fetchEvents);
+// ... existing code ...
 </script>
+
+<script>document.getElementById('footerYear').textContent = new Date().getFullYear();</script>
 @endsection
+
+<style>
+#detailsModalTitle {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-word;
+  max-width: 90%;
+  text-align: right;
+  direction: rtl;
+  font-size: 2rem;
+  transition: font-size 0.2s;
+}
+#detailsModalTitle.long-title {
+  font-size: 1.1rem !important;
+}
+</style>
+<script>
+function adjustModalTitleFont() {
+  const title = document.getElementById('detailsModalTitle');
+  if (!title) return;
+  if (title.textContent.length > 50) {
+    title.classList.add('long-title');
+  } else {
+    title.classList.remove('long-title');
+  }
+}
+const origShowEventDetails = window.showEventDetails;
+window.showEventDetails = function(idx) {
+  origShowEventDetails(idx);
+  adjustModalTitleFont();
+}
+</script>
+
+

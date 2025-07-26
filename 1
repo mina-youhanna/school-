@@ -1,0 +1,70 @@
+import requests
+import json
+from datetime import datetime
+
+def scrape_daily_readings():
+    url = "https://katamars.avabishoy.com/api/Katamars/GetReadings"
+    
+    # البيانات المطلوبة للـ API
+    params = {
+        "year": 2025,
+        "month": 4,
+        "day": 17,
+        "katamarsSourceId": 1,
+        "synaxariumSourceId": 0
+    }
+    # البيانات المرسلة في body الطلب
+    data = [
+        {"fontSection": 2, "fontName": "Arial", "fontSize": 14, "isBold": False, "color": "#000000", "isRtl": True},
+        {"fontSection": 1, "fontName": "Arial", "fontSize": 14, "isBold": False, "color": "#000000", "isRtl": True},
+        {"fontSection": 0, "fontName": "Arial", "fontSize": 14, "isBold": False, "color": "#000000", "isRtl": True},
+        {"fontSection": 4, "fontName": "Arial", "fontSize": 14, "isBold": False, "color": "#000000", "isRtl": True},
+        {"fontSection": 5, "fontName": "Arial", "fontSize": 14, "isBold": False, "color": "#000000", "isRtl": True},
+        {"fontSection": 3, "fontName": "Athanasius", "fontSize": 20, "isBold": False, "color": "#8B0000", "isRtl": True},
+        {"fontSection": 7, "fontName": "Arial", "fontSize": 14, "isBold": False, "color": "#000000", "isRtl": True},
+        {"fontSection": 8, "fontName": "Arial", "fontSize": 14, "isBold": False, "color": "#000080", "isRtl": True},
+        {"fontSection": 6, "fontName": "Bwgrki", "fontSize": 16, "isBold": False, "color": "#FF8C00", "isRtl": True},
+        {"fontSection": 10, "fontName": "Hebrew", "fontSize": 16, "isBold": False, "color": "#191970", "isRtl": True},
+        {"fontSection": 9, "fontName": "Arial", "fontSize": 14, "isBold": False, "color": "#000000", "isRtl": True},
+        {"fontSection": 11, "fontName": "Arial", "fontSize": 16, "isBold": False, "color": "#136FB1", "isRtl": True},
+        {"fontSection": 12, "fontName": "Arial", "fontSize": 8, "isBold": False, "color": "#FE0770", "isRtl": True},
+        {"fontSection": 13, "fontName": "Arial", "fontSize": 14, "isBold": False, "color": "#000000", "isRtl": True},
+        {"fontSection": 14, "fontName": "Arial", "fontSize": 15, "isBold": False, "color": "#136FB1", "isRtl": True},
+        {"fontSection": 15, "fontName": "Arial", "fontSize": 13, "isBold": False, "color": "#B41717", "isRtl": True}
+    ]
+    
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36",
+        "Accept": "*/*",
+        "Accept-Language": "en-US,en;q=0.9",
+        "Content-Type": "application/json; charset=utf-8",
+        "Origin": "https://katamars.avabishoy.com",
+        "Referer": "https://katamars.avabishoy.com/"
+    }
+    
+    try:
+        print(f"محاولة الوصول إلى API: {url}")
+        response = requests.post(url, params=params, json=data, headers=headers, timeout=10)
+        
+        if response.status_code == 200:
+            print("تم الوصول للـ API بنجاح!")
+            content = response.json()
+            print("\n--- محتوى القراءات ---\n")
+            print(json.dumps(content, ensure_ascii=False, indent=2))
+            print(f"طول البيانات: {len(str(content))} حرف")
+            return True
+        else:
+            print(f"خطأ HTTP: {response.status_code}")
+            print(f"الاستجابة: {response.text}")
+            return False
+    except Exception as e:
+        print(f"حدث خطأ: {str(e)}")
+        return False
+
+if __name__ == "__main__":
+    print("بدء سحب القراءات اليومية من API...")
+    success = scrape_daily_readings()
+    if success:
+        print("تم سحب البيانات بنجاح!")
+    else:
+        print("فشل في سحب البيانات!") 

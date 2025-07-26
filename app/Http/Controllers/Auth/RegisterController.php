@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use Illuminate\Routing\Controller;
 use App\Models\User;
+use App\Models\SundayClass;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -26,10 +27,10 @@ class RegisterController extends Controller
     public function showRegistrationForm()
     {
         try {
-            $maleClasses = \App\Models\StudyClass::where('gender', 'male')->get();
-            $femaleClasses = \App\Models\StudyClass::where('gender', 'female')->get();
+            $maleClasses = SundayClass::where('stage', '!=', 'الخدام')->get();
+            $femaleClasses = SundayClass::where('stage', '!=', 'الخدام')->get();
             
-            \Log::info('Classes loaded successfully', [
+            \Log::info('Classes fetched for registration form', [
                 'male_count' => $maleClasses->count(),
                 'female_count' => $femaleClasses->count()
             ]);
@@ -77,7 +78,7 @@ class RegisterController extends Controller
             'dob' => ['required', 'date'],
             'gender' => ['required', 'string', 'in:ذكر,أنثى'],
             'role' => ['required', 'string', 'in:خادم,مخدوم'],
-            'my_class_id' => ['required', 'exists:study_classes,id'],
+            'my_class_id' => ['required', 'exists:sunday_classes,id'],
             'is_deacon' => ['required', 'string', 'in:نعم,لا'],
             'code' => ['required', 'string'],
             'profile_image' => ['required', 'image', 'max:2048'],
@@ -87,8 +88,21 @@ class RegisterController extends Controller
             return response()->json(['errors' => $validator->errors()], 422);
         }
 
+        // التحقق من صحة الكود وتحديد الدور بناءً عليه
+        $key = $request->role . '-' . $request->gender;
+        $validCode = $this->fixedCodes[$key] ?? null;
+
+        if ($request->code !== $validCode) {
+            return response()->json([
+                'errors' => ['code' => ['الكود غير صحيح']]
+            ], 422);
+        }
+
         // Handle profile image upload
         $profileImagePath = $request->file('profile_image')->store('profile_images', 'public');
+
+        // تحديد الدور بناءً على الكود
+        $role = $request->code === '7777' || $request->code === '6666' ? 'مخدوم' : 'خادم';
 
         $user = User::create([
             'full_name' => $request->full_name,
@@ -101,7 +115,7 @@ class RegisterController extends Controller
             'confession_father' => $request->confession_father,
             'dob' => $request->dob,
             'gender' => $request->gender,
-            'role' => $request->role,
+            'role' => $role, // استخدام الدور المحدد من الكود
             'my_class_id' => $request->my_class_id,
             'is_deacon' => $request->is_deacon === 'نعم' ? 1 : 0,
             'profile_image' => $profileImagePath,

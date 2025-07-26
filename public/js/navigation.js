@@ -50,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
             dropdowns.forEach(dropdown => {
                 dropdown.classList.remove('active');
             });
-            menuToggle.innerHTML = '&#9776;'; // Reset to hamburger icon
+            menuToggle.innerHTML = '&#9776;';
         }
     });
 
@@ -83,29 +83,91 @@ document.addEventListener('DOMContentLoaded', function() {
     if (bellIcon && notificationsMenu) {
         bellIcon.addEventListener('click', function(e) {
             e.stopPropagation();
-            
-            // Toggle notifications display
-            if (notificationsMenu.style.display === 'block') {
+            notificationsMenu.style.display = notificationsMenu.style.display === 'block' ? 'none' : 'block';
+        });
+
+        // Close notifications when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!notificationsMenu.contains(e.target) && e.target !== bellIcon) {
                 notificationsMenu.style.display = 'none';
-                notificationsMenu.style.opacity = '0';
-                notificationsMenu.style.visibility = 'hidden';
-            } else {
-                notificationsMenu.style.display = 'block';
-                notificationsMenu.style.opacity = '1';
-                notificationsMenu.style.visibility = 'visible';
             }
         });
+    }
 
-        // Close notifications when clicking elsewhere
-        document.addEventListener('click', function() {
-            notificationsMenu.style.display = 'none';
-            notificationsMenu.style.opacity = '0';
-            notificationsMenu.style.visibility = 'hidden';
+    // User profile dropdown behavior
+    const userProfile = document.querySelector('.user-profile');
+    const userDropdown = userProfile?.querySelector('.dropdown-menu');
+    
+    if (userProfile && userDropdown) {
+        userProfile.addEventListener('click', function(e) {
+            e.stopPropagation();
+            userDropdown.style.display = userDropdown.style.display === 'block' ? 'none' : 'block';
         });
 
-        // Prevent closing when clicking inside the menu
-        notificationsMenu.addEventListener('click', function(e) {
-            e.stopPropagation();
+        // Close user dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!userDropdown.contains(e.target) && e.target !== userProfile) {
+                userDropdown.style.display = 'none';
+            }
         });
     }
+
+    // Update user score periodically
+    function updateUserScore() {
+        const scoreElement = document.getElementById('user-score');
+        if (scoreElement) {
+            fetch('/api/user/score')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.score !== undefined) {
+                        const oldScore = parseInt(scoreElement.textContent);
+                        const newScore = data.score;
+                        
+                        if (oldScore !== newScore) {
+                            // Animate score change
+                            scoreElement.style.transform = 'scale(1.2)';
+                            scoreElement.style.color = newScore > oldScore ? '#4CAF50' : '#FFD700';
+                            
+                            setTimeout(() => {
+                                scoreElement.textContent = newScore;
+                                scoreElement.style.transform = 'scale(1)';
+                                scoreElement.style.color = '';
+                            }, 300);
+                        }
+                    }
+                })
+                .catch(error => console.error('Error updating score:', error));
+        }
+    }
+
+    // Update score every 30 seconds
+    setInterval(updateUserScore, 30000);
+
+    // Check for new notifications periodically
+    function checkNotifications() {
+        fetch('/api/notifications')
+            .then(response => response.json())
+            .then(data => {
+                const notificationsList = document.querySelector('.notifications-menu ul');
+                if (notificationsList && data.notifications) {
+                    notificationsList.innerHTML = data.notifications.length > 0 
+                        ? data.notifications.map(notification => `
+                            <li>
+                                <i class="fas ${notification.icon || 'fa-bell'}"></i>
+                                ${notification.message}
+                            </li>
+                        `).join('')
+                        : '<li>لا توجد إشعارات جديدة</li>';
+                    
+                    // Update bell icon if there are new notifications
+                    if (bellIcon) {
+                        bellIcon.style.color = data.notifications.length > 0 ? '#FFD700' : 'white';
+                    }
+                }
+            })
+            .catch(error => console.error('Error checking notifications:', error));
+    }
+
+    // Check notifications every minute
+    setInterval(checkNotifications, 60000);
 }); 

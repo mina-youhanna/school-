@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="header-image">
-    <img src="{{ asset('images/632480d916e24e1f8f1c886042cc3aa5.png') }}" alt="صورة مقدسة">
+    <img src="{{ asset('images/login.png') }}" alt="صورة مقدسة">
 </div>
 
 <div class="login-container">
@@ -18,16 +18,15 @@
             <input type="email" id="email" name="email" required autocomplete="email">
         </div>
 
-        <div class="input-group password-group">
+        <div class="input-group password-group" style="position: relative;">
             <label for="password">
                 <i class="fas fa-lock"></i> كلمة المرور
             </label>
-            <div class="password-container">
-                <input type="password" id="password" name="password" required>
-                <button type="button" class="toggle-password" aria-label="اظهار كلمة المرور">
-                    <i class="fas fa-eye"></i>
-                </button>
-            </div>
+            <input type="password" id="password" name="password" required autocomplete="current-password">
+            <button type="button" class="toggle-password" aria-label="اظهار كلمة المرور"
+                style="position: absolute; top: 50%; transform: translateY(-50%); right: 16px; background: none; border: none; color: #999; cursor: pointer; font-size: 20px;">
+                <i class="fas fa-eye"></i>
+            </button>
         </div>
 
         <div class="login-options">
@@ -75,18 +74,20 @@
         padding: 0;
         position: relative;
         z-index: 1;
-        margin-top: 130px;
+        margin-top: 60px;
+        margin-bottom: 0;
     }
 
     .header-image img {
-        width: 450px; 
+        width: 600px; 
         max-width: 100%;
         display: block;
         position: relative;
         z-index: 1;
-        margin-bottom: -100px;
+        margin-bottom: 0;
         pointer-events: none;
         -webkit-user-drag: none;
+        box-shadow: none;
     }
 
     .login-container {
@@ -99,6 +100,8 @@
         color: #333;
         position: relative;
         z-index: 2;
+        margin: 0 auto;
+        margin-top: -420px;
         transition: all 0.3s ease;
     }
 
@@ -145,26 +148,33 @@
         outline: none;
     }
 
-    .password-container {
+    .input-group.password-group {
         position: relative;
-        display: flex;
-        align-items: center;
     }
-
-    .toggle-password {
+    .input-group.password-group input[type="password"] {
+        width: 100%;
+        padding-left: 44px; /* مساحة لزر العين */
+        border-radius: 8px;
+    }
+    .input-group.password-group .toggle-password {
         position: absolute;
-        left: 10px;
         top: 50%;
+        left: 16px;
+        right: auto;
         transform: translateY(-50%);
         background: none;
         border: none;
         color: #999;
         cursor: pointer;
-        transition: color 0.3s;
-        padding: 5px;
+        font-size: 20px;
+        padding: 0;
+        height: 32px;
+        width: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
-
-    .toggle-password:hover {
+    .input-group.password-group .toggle-password:hover {
         color: #007bff;
     }
 
@@ -312,6 +322,15 @@
             width: 250px;
             margin-bottom: -50px;
         }
+    }
+
+    [dir="rtl"] .input-group.password-group .toggle-password {
+        left: 16px;
+        right: auto;
+    }
+    [dir="ltr"] .input-group.password-group .toggle-password {
+        right: 16px;
+        left: auto;
     }
 </style>
 @endsection

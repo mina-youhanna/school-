@@ -5,7 +5,7 @@
 @section('content')
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <div class="header-image">
-    <img src="{{ asset('images/27ae9ff1-96a0-4e79-9489-393bb0166de3-removebg-preview.png') }}" alt="صورة مقدسة">
+    <img src="{{ asset('images/snapedit_1751805472563.png') }}" alt="صورة مقدسة">
 </div>
 <div class="register-container-box">
     <h2 class="register-title">إنشاء حساب جديد</h2>
@@ -114,11 +114,11 @@
             <label for="deaconRank">🕊️ الرتبة الشماسية <span class="required">*</span></label>
             <select id="deaconRank" name="deacon_rank">
                 <option value="">-- اختر الرتبة --</option>
-                <option value="الإبصالتس">الإبصالتس</option>
-                <option value="الأناغنوستيس">الأناغنوستيس</option>
-                <option value="الإيبودياكون">الإيبودياكون</option>
-                <option value="الدياكون">الدياكون</option>
-                <option value="الأرشيدياكون">الأرشيدياكون</option>
+                <option value="أغنسطوس">أغنسطوس</option>
+                <option value="أبيوذياكون">أبيوذياكون</option>
+                <option value="دياكون">دياكون</option>
+                <option value="ابصالتيس">ابصالتيس</option>
+                <option value="بروتوبسالتي">بروتوبسالتي</option>
             </select>
         </div>
         <label for="code">🔑 الكود <span class="required">*</span></label>
@@ -157,12 +157,12 @@ body {
     margin-top: 40px;
 }
 .header-image img {
-    width: 260px;
+    width: 320px;
     max-width: 100%;
     display: block;
     position: relative;
     z-index: 1;
-    margin-bottom: -100px;
+    margin-bottom: -40px;
     pointer-events: none;
     -webkit-user-drag: none;
 }
@@ -562,6 +562,9 @@ button[type="submit"]:hover {
     const maleClasses = @json($maleClasses);
     const femaleClasses = @json($femaleClasses);
 
+    console.log('Male Classes:', maleClasses);
+    console.log('Female Classes:', femaleClasses);
+
 $(document).ready(function() {
     // Initialize select2 with dropdownParent
     $('.select2-multi').select2({
@@ -626,31 +629,52 @@ $(document).ready(function() {
         const myClassSelect = document.getElementById('myClass');
         const servingClassesSelect = document.getElementById('servingClasses');
         
+        // Clear existing options
         myClassSelect.innerHTML = '<option value="">-- اختر الفصل --</option>';
         servingClassesSelect.innerHTML = '';
         
+        // Get the appropriate classes based on gender
         const classesToUse = gender === 'ذكر' ? maleClasses : femaleClasses;
         
-        classesToUse.forEach(classItem => {
+        if (!classesToUse || classesToUse.length === 0) {
+            console.error('No classes found for gender:', gender);
+            return;
+        }
+        
+        // Sort classes by stage and name
+        const sortedClasses = [...classesToUse].sort((a, b) => {
+            if (a.stage !== b.stage) {
+                return a.stage.localeCompare(b.stage);
+            }
+            return a.name.localeCompare(b.name);
+        });
+        
+        // Add options to both selects
+        sortedClasses.forEach(classItem => {
+            // Skip classes with stage 'الخدام' for the main class select
+            if (classItem.stage !== 'الخدام') {
             const option1 = document.createElement('option');
             option1.value = classItem.id;
             option1.textContent = classItem.name;
             myClassSelect.appendChild(option1);
+            }
             
+            // Add to serving classes select
             const option2 = document.createElement('option');
             option2.value = classItem.id;
             option2.textContent = classItem.name;
             servingClassesSelect.appendChild(option2);
         });
         
-        // إعادة تهيئة Select2
+        // Reinitialize Select2
         if ($.fn.select2) {
             $(servingClassesSelect).select2('destroy');
             $(servingClassesSelect).select2({
                 placeholder: "-- اختر الفصول --",
                 allowClear: true,
                 multiple: true,
-                dir: "rtl"
+                dir: "rtl",
+                width: '100%'
             });
         }
     }
@@ -659,6 +683,9 @@ $(document).ready(function() {
     document.querySelectorAll('input[name="gender"]').forEach(radio => {
         radio.addEventListener('change', function() {
             updateClassOptions(this.value);
+            // Clear any validation errors
+            const myClassSelect = document.getElementById('myClass');
+            myClassSelect.setCustomValidity('');
         });
     });
 

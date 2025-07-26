@@ -3,44 +3,20 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use App\Models\StudyClass;
+use App\Models\SundayClass;
 
 class CheckClasses extends Command
 {
-    protected $signature = 'classes:check';
-    protected $description = 'Check the classes in the database';
+    protected $signature = 'check:classes';
+    protected $description = 'Check all Sunday classes in the database';
 
     public function handle()
     {
-        $maleClasses = StudyClass::where('gender', 'male')->get();
-        $femaleClasses = StudyClass::where('gender', 'female')->get();
-
-        $this->info('Male Classes:');
-        $this->table(
-            ['ID', 'Name', 'Stage', 'Gender'],
-            $maleClasses->map(function ($class) {
-                return [
-                    'id' => $class->id,
-                    'name' => $class->name,
-                    'stage' => $class->stage,
-                    'gender' => $class->gender,
-                ];
-            })
-        );
-
-        $this->info('Female Classes:');
-        $this->table(
-            ['ID', 'Name', 'Stage', 'Gender'],
-            $femaleClasses->map(function ($class) {
-                return [
-                    'id' => $class->id,
-                    'name' => $class->name,
-                    'stage' => $class->stage,
-                    'gender' => $class->gender,
-                ];
-            })
-        );
-
-        $this->info('Total Classes: ' . ($maleClasses->count() + $femaleClasses->count()));
+        $classes = SundayClass::all();
+        
+        $this->info('All Sunday Classes:');
+        foreach ($classes as $class) {
+            $this->line("ID: {$class->id} - Name: '{$class->name}'");
+        }
     }
 } 

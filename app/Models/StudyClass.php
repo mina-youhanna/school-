@@ -12,12 +12,8 @@ class StudyClass extends Model
     protected $table = 'study_classes';
 
     protected $fillable = [
-        'name',
-        'stage',
-        'schedule',
-        'place',
-        'saint_image',
-        'gender',
+        'name', 'stage', 'schedule', 'place', 'main_servant_email',
+        'assistant_servants_emails', 'saint_image', 'students_count'
     ];
 
     public function students()
@@ -28,5 +24,10 @@ class StudyClass extends Model
     public function servants()
     {
         return $this->belongsToMany(User::class, 'user_serving_classes', 'class_id', 'user_id');
+    }
+
+    public function exams()
+    {
+        return $this->hasMany(Exam::class, 'class_id');
     }
 } 
