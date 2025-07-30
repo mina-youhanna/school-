@@ -1,0 +1,1327 @@
+/* ===== User Details & Edit Pages Styles ===== */
+.user-details-page,
+.edit-user-page {
+    background: linear-gradient(135deg, #0A2A4F 0%, #1a4a8a 100%);
+    min-height: 100vh;
+    padding: 20px;
+    font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    position: relative;
+    overflow-x: hidden;
+}
+
+/* تحسينات إضافية للتصميم العصري */
+.user-details-page::before,
+.edit-user-page::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:
+        radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(120, 219, 255, 0.2) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+    animation: backgroundShift 20s ease-in-out infinite;
+}
+
+@keyframes backgroundShift {
+    0%, 100% {
+        transform: scale(1) rotate(0deg);
+        opacity: 0.7;
+    }
+    50% {
+        transform: scale(1.1) rotate(1deg);
+        opacity: 1;
+    }
+}
+
+.user-details-page > *,
+.edit-user-page > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* ===== Page Header ===== */
+.page-header {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 25px;
+    margin-bottom: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.page-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #4CAF50, #FFD700, #2196F3, #FF9800);
+    animation: gradientShift 3s ease-in-out infinite;
+}
+
+@keyframes gradientShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.header-title {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.title-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #4CAF50, #45a049);
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 24px;
+    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.title-icon::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s ease;
+}
+
+.title-icon:hover::before {
+    left: 100%;
+}
+
+.title-icon:hover {
+    transform: scale(1.05);
+}
+
+.title-text h1 {
+    color: white;
+    font-size: 28px;
+    font-weight: 700;
+    margin: 0;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.title-text p {
+    color: rgba(255, 255, 255, 0.8);
+    margin: 5px 0 0 0;
+    font-size: 16px;
+    font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.header-actions {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.header-actions .btn {
+    padding: 12px 25px;
+    border-radius: 10px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+    border: none;
+    text-decoration: none;
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.header-actions .btn-warning {
+    background: linear-gradient(135deg, #FF9800, #F57C00);
+    box-shadow: 0 4px 15px rgba(255, 152, 0, 0.3);
+}
+
+.header-actions .btn-secondary {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.header-actions .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    color: white;
+    text-decoration: none;
+}
+
+.header-actions .btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.header-actions .btn:hover::before {
+    left: 100%;
+}
+
+.user-info-section,
+.edit-form-section {
+    margin-bottom: 30px;
+}
+
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 25px;
+}
+
+.info-card,
+.edit-form-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    overflow: hidden;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.info-card::before,
+.edit-form-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #4CAF50, #FFD700, #2196F3);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.info-card:hover::before,
+.edit-form-card:hover::before {
+    opacity: 1;
+}
+
+.info-card:hover,
+.edit-form-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.card-header {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px 25px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    position: relative;
+}
+
+.card-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #4CAF50, #FFD700);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.card-header:hover::before {
+    opacity: 1;
+}
+
+.card-header h3 {
+    color: white;
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.card-content {
+    padding: 25px;
+}
+
+.user-avatar-large {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #4CAF50, #45a049);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 32px;
+    margin: 0 auto 20px;
+    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.info-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.info-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.info-item:last-child {
+    border-bottom: none;
+}
+
+.info-item .label {
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 600;
+    font-size: 14px;
+    font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.info-item .value {
+    color: white;
+    font-weight: 500;
+    font-size: 14px;
+    font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.password-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 5px;
+}
+
+.password-field {
+    background: transparent;
+    border: none;
+    color: white;
+    font-weight: 600;
+    outline: none;
+    flex: 1;
+    font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.password-field:focus {
+    outline: none;
+}
+
+.toggle-password,
+.copy-password {
+    padding: 5px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.toggle-password:hover,
+.copy-password:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-1px);
+}
+
+.badge {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 12px;
+    display: inline-block;
+    min-width: 60px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.badge::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s ease;
+}
+
+.badge:hover::before {
+    left: 100%;
+}
+
+.badge-male {
+    background: linear-gradient(135deg, #2196F3, #1976D2);
+    color: white;
+}
+
+.badge-female {
+    background: linear-gradient(135deg, #E91E63, #C2185B);
+    color: white;
+}
+
+.badge-admin {
+    background: linear-gradient(135deg, #F44336, #D32F2F);
+    color: white;
+}
+
+.badge-servant {
+    background: linear-gradient(135deg, #4CAF50, #45a049);
+    color: white;
+}
+
+.badge-student {
+    background: linear-gradient(135deg, #FF9800, #F57C00);
+    color: white;
+}
+
+.badge-unknown {
+    background: linear-gradient(135deg, #9E9E9E, #757575);
+    color: white;
+}
+
+.badge-deacon {
+    background: linear-gradient(135deg, #9C27B0, #7B1FA2);
+    color: white;
+}
+
+.badge-not-deacon {
+    background: linear-gradient(135deg, #607D8B, #455A64);
+    color: white;
+}
+
+.badge-evangelist {
+    background: linear-gradient(135deg, #4CAF50, #45a049);
+    color: white;
+}
+
+.badge-epsaltos {
+    background: linear-gradient(135deg, #2196F3, #1976D2);
+    color: white;
+}
+
+.badge-anagnostis {
+    background: linear-gradient(135deg, #FF9800, #F57C00);
+    color: white;
+}
+
+.badge-ipodiakon {
+    background: linear-gradient(135deg, #9C27B0, #7B1FA2);
+    color: white;
+}
+
+.badge-diakon {
+    background: linear-gradient(135deg, #E91E63, #C2185B);
+    color: white;
+}
+
+.badge-archdiakon {
+    background: linear-gradient(135deg, #F44336, #D32F2F);
+    color: white;
+}
+
+.badge-deacon-rank {
+    background: linear-gradient(135deg, #FFD700, #FFC107);
+    color: #333;
+}
+
+.badge-success {
+    background: linear-gradient(135deg, #4CAF50, #45a049);
+    color: white;
+}
+
+.badge-danger {
+    background: linear-gradient(135deg, #F44336, #D32F2F);
+    color: white;
+}
+
+.badge-secondary {
+    background: linear-gradient(135deg, #9E9E9E, #757575);
+    color: white;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 30px;
+}
+
+.form-section {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 25px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.form-section h4 {
+    color: #FFD700;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 2px solid rgba(255, 215, 0, 0.3);
+    padding-bottom: 10px;
+    font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.form-control,
+.form-select {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.1));
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
+    color: white;
+    padding: 12px 15px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.form-control:focus,
+.form-select:focus {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.15));
+    border-color: #4CAF50;
+    box-shadow: 0 0 0 0.3rem rgba(76, 175, 80, 0.25);
+    color: white;
+    outline: none;
+}
+
+.form-control::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 400;
+}
+
+.form-select option {
+    background: linear-gradient(135deg, #0A2A4F, #1a4a8a);
+    color: white;
+    padding: 10px;
+    font-weight: 500;
+}
+
+.invalid-feedback {
+    color: #ff6b6b;
+    font-size: 12px;
+    margin-top: 5px;
+    font-weight: 500;
+    font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.is-invalid {
+    border-color: #ff6b6b !important;
+    box-shadow: 0 0 0 0.2rem rgba(255, 107, 107, 0.25) !important;
+}
+
+.form-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 30px;
+    padding-top: 25px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.save-btn,
+.cancel-btn {
+    padding: 15px 30px;
+    border-radius: 12px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+    border: none;
+    text-decoration: none;
+    font-size: 16px;
+    font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.save-btn {
+    background: linear-gradient(135deg, #4CAF50, #45a049);
+    color: white;
+    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+}
+
+.save-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
+    color: white;
+    text-decoration: none;
+}
+
+.cancel-btn {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.cancel-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    text-decoration: none;
+    transform: translateY(-2px);
+}
+
+.stats-section {
+    margin-bottom: 30px;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+}
+
+.stats-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 25px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+.stats-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, #4CAF50, #FFD700, #2196F3);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.stats-card:hover::before {
+    opacity: 1;
+}
+
+.stats-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.stats-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #4CAF50, #45a049);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 24px;
+    margin: 0 auto 15px;
+    position: relative;
+    overflow: hidden;
+}
+
+.stats-icon::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s ease;
+}
+
+.stats-card:hover .stats-icon::before {
+    left: 100%;
+}
+
+.stats-card.primary .stats-icon {
+    background: linear-gradient(135deg, #2196F3, #1976D2);
+}
+
+.stats-card.success .stats-icon {
+    background: linear-gradient(135deg, #4CAF50, #45a049);
+}
+
+.stats-card.info .stats-icon {
+    background: linear-gradient(135deg, #00BCD4, #0097A7);
+}
+
+.stats-card.warning .stats-icon {
+    background: linear-gradient(135deg, #FF9800, #F57C00);
+}
+
+.stats-card.danger .stats-icon {
+    background: linear-gradient(135deg, #F44336, #D32F2F);
+}
+
+.stats-content {
+    text-align: center;
+}
+
+.stats-number {
+    color: white;
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 5px;
+    font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.stats-label {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 14px;
+    font-weight: 500;
+    font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* ===== تحسين الجداول ===== */
+.exam-results-table,
+.records-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    margin-bottom: 20px;
+}
+
+.exam-results-table th,
+.records-table th {
+    background: linear-gradient(135deg, rgba(76, 175, 80, 0.2), rgba(69, 160, 73, 0.1));
+    color: white;
+    font-weight: 600;
+    padding: 15px 12px;
+    text-align: center;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+    position: relative;
+    font-size: 14px;
+    font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.exam-results-table th::before,
+.records-table th::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #4CAF50, #FFD700);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.exam-results-table th:hover::before,
+.records-table th:hover::before {
+    opacity: 1;
+}
+
+.exam-results-table td,
+.records-table td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 500;
+    transition: all 0.3s ease;
+    font-size: 13px;
+    font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.exam-results-table tr:hover,
+.records-table tr:hover {
+    background: rgba(255, 255, 255, 0.08);
+    transform: scale(1.01);
+}
+
+.exam-results-table tr:hover td,
+.records-table tr:hover td {
+    color: white;
+    font-weight: 600;
+}
+
+/* تحسين شارات النقاط */
+.score-badge {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 12px;
+    display: inline-block;
+    min-width: 60px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.score-excellent {
+    background: linear-gradient(135deg, #4CAF50, #45a049);
+    color: white;
+}
+
+.score-very-good {
+    background: linear-gradient(135deg, #2196F3, #1976D2);
+    color: white;
+}
+
+.score-good {
+    background: linear-gradient(135deg, #FF9800, #F57C00);
+    color: white;
+}
+
+.score-pass {
+    background: linear-gradient(135deg, #9C27B0, #7B1FA2);
+    color: white;
+}
+
+.score-fail {
+    background: linear-gradient(135deg, #F44336, #D32F2F);
+    color: white;
+}
+
+/* تحسين شارات التقييم */
+.evaluation-badge {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 12px;
+    display: inline-block;
+    min-width: 80px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.evaluation-excellent {
+    background: linear-gradient(135deg, #4CAF50, #45a049);
+    color: white;
+}
+
+.evaluation-very-good {
+    background: linear-gradient(135deg, #2196F3, #1976D2);
+    color: white;
+}
+
+.evaluation-good {
+    background: linear-gradient(135deg, #FF9800, #F57C00);
+    color: white;
+}
+
+.evaluation-pass {
+    background: linear-gradient(135deg, #9C27B0, #7B1FA2);
+    color: white;
+}
+
+.evaluation-fail {
+    background: linear-gradient(135deg, #F44336, #D32F2F);
+    color: white;
+}
+
+/* تحسين أشرطة النسبة المئوية */
+.percentage-bar {
+    width: 100%;
+    height: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.percentage-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #4CAF50, #45a049);
+    border-radius: 10px;
+    transition: width 0.8s ease;
+    position: relative;
+}
+
+.percentage-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+.percentage-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-weight: 600;
+    font-size: 12px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.table-container {
+    overflow-x: auto;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+}
+
+/* ===== تحسين التصميم المتجاوب ===== */
+@media (max-width: 768px) {
+    .user-details-page,
+    .edit-user-page {
+        padding: 15px;
+    }
+
+    .header-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .title-text h1 {
+        font-size: 24px;
+    }
+
+    .header-actions {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .header-actions .btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .info-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+
+    .stats-card {
+        padding: 20px;
+    }
+
+    .stats-number {
+        font-size: 24px;
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+
+    .save-btn,
+    .cancel-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .info-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+
+    .info-item .value {
+        align-self: flex-end;
+    }
+
+    .password-container {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .password-field {
+        margin-bottom: 10px;
+    }
+
+    .toggle-password,
+    .copy-password {
+        align-self: flex-end;
+        width: fit-content;
+    }
+
+    .card-content {
+        padding: 20px;
+    }
+
+    .form-section {
+        padding: 20px;
+    }
+
+    .table-container {
+        margin: 0 -15px;
+    }
+
+    .exam-results-table,
+    .records-table {
+        font-size: 12px;
+    }
+
+    .exam-results-table th,
+    .records-table th {
+        padding: 10px 8px;
+        font-size: 12px;
+    }
+
+    .exam-results-table td,
+    .records-table td {
+        padding: 8px 6px;
+        font-size: 11px;
+    }
+
+    .score-badge,
+    .evaluation-badge {
+        padding: 4px 8px;
+        font-size: 10px;
+        min-width: 50px;
+    }
+}
+
+@media (max-width: 576px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .stats-card {
+        padding: 15px;
+    }
+
+    .user-avatar-large {
+        width: 60px;
+        height: 60px;
+        font-size: 24px;
+    }
+
+    .card-content {
+        padding: 15px;
+    }
+
+    .form-section {
+        padding: 15px;
+    }
+
+    .exam-results-table,
+    .records-table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+    .exam-results-table th,
+    .exam-results-table td,
+    .records-table th,
+    .records-table td {
+        min-width: 100px;
+    }
+
+    .info-item {
+        padding: 8px 0;
+    }
+
+    .form-control,
+    .form-select {
+        padding: 10px 12px;
+        font-size: 13px;
+    }
+
+    .save-btn,
+    .cancel-btn {
+        padding: 12px 20px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-header {
+        padding: 20px 15px;
+    }
+
+    .title-text h1 {
+        font-size: 20px;
+    }
+
+    .title-text p {
+        font-size: 14px;
+    }
+
+    .card-header {
+        padding: 15px 20px;
+    }
+
+    .card-header h3 {
+        font-size: 16px;
+    }
+
+    .card-content {
+        padding: 15px;
+    }
+
+    .info-item {
+        padding: 6px 0;
+    }
+
+    .form-control,
+    .form-select {
+        padding: 8px 10px;
+        font-size: 12px;
+    }
+
+    .save-btn,
+    .cancel-btn {
+        padding: 10px 15px;
+        font-size: 13px;
+    }
+
+    .exam-results-table,
+    .records-table {
+        font-size: 11px;
+    }
+
+    .exam-results-table th,
+    .records-table th {
+        padding: 8px 6px;
+        font-size: 11px;
+    }
+
+    .exam-results-table td,
+    .records-table td {
+        padding: 6px 4px;
+        font-size: 10px;
+    }
+
+    .badge {
+        padding: 4px 8px;
+        font-size: 10px;
+        min-width: 50px;
+    }
+
+    .score-badge,
+    .evaluation-badge {
+        padding: 3px 6px;
+        font-size: 9px;
+        min-width: 40px;
+    }
+}
+
+@media (max-width: 360px) {
+    .page-header {
+        padding: 15px 10px;
+    }
+
+    .title-text h1 {
+        font-size: 18px;
+    }
+
+    .title-text p {
+        font-size: 12px;
+    }
+
+    .card-header {
+        padding: 12px 15px;
+    }
+
+    .card-header h3 {
+        font-size: 14px;
+    }
+
+    .card-content {
+        padding: 12px;
+    }
+
+    .info-item {
+        padding: 5px 0;
+    }
+
+    .form-control,
+    .form-select {
+        padding: 6px 8px;
+        font-size: 11px;
+    }
+
+    .save-btn,
+    .cancel-btn {
+        padding: 8px 12px;
+        font-size: 12px;
+    }
+
+    .exam-results-table,
+    .records-table {
+        font-size: 10px;
+    }
+
+    .exam-results-table th,
+    .records-table th {
+        padding: 6px 4px;
+        font-size: 10px;
+    }
+
+    .exam-results-table td,
+    .records-table td {
+        padding: 4px 3px;
+        font-size: 9px;
+    }
+}
+
+/* ===== تحسينات إضافية للخطوط ===== */
+.user-details-page,
+.edit-user-page {
+    font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+}
+
+.page-header h1 {
+    font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+}
+
+.page-header p {
+    font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 400;
+    letter-spacing: 0.2px;
+}
+
+.card-header h3 {
+    font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+}
+
+.form-section h4 {
+    font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.2px;
+}
+
+.form-label {
+    font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+}
+
+.form-control,
+.form-select {
+    font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.1px;
+}
+
+.save-btn,
+.cancel-btn {
+    font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.3px;
+}
+
+.invalid-feedback {
+    font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.1px;
+}
+
+.exam-results-table th,
+.records-table th {
+    font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+}
+
+.exam-results-table td,
+.records-table td {
+    font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 500;
+    letter-spacing: 0.1px;
+}
+
+.score-badge,
+.evaluation-badge {
+    font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.1px;
+}
+
+.percentage-text {
+    font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.1px;
+}

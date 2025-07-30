@@ -68,14 +68,14 @@ Route::get('/saints/st-demiana', function () {
 
 // Authentication Routes
 Route::middleware('guest')->group(function () {
-Route::get('/login', function () {
-    return view('auth.login');
-})->name('login');
-Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'login']);
+    Route::get('/login', function () {
+        return view('auth.login');
+    })->name('login');
+    Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'login']);
 });
 
 Route::middleware('auth')->group(function () {
-Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
+    Route::post('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
 });
 
 // مسارات إعادة تعيين كلمة المرور
@@ -83,7 +83,7 @@ Route::get('/forgot-password', function () {
     return view('auth.forgot-password');
 })->name('password.request');
 
-Route::get('/webtest', function() {
+Route::get('/webtest', function () {
     return 'Web is working';
 });
 
@@ -117,7 +117,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/exams/{exam}/submit', [ExamController::class, 'submit'])->name('exams.submit');
 
     // Gifts route
-    Route::get('/gifts', function() {
+    Route::get('/gifts', function () {
         return view('gifts');
     })->name('gifts');
 });
@@ -150,16 +150,75 @@ Route::get('/hymns/{id}', [App\Http\Controllers\HymnController::class, 'show'])-
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/users', [UserController::class, 'index'])->name('users');
-    Route::get('/classes', [ClassController::class, 'index'])->name('classes');
-    Route::get('/exams', [AdminExamController::class, 'index'])->name('exams');
+    Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
+    Route::post('/users', [UserController::class, 'store'])->name('users.store');
+    Route::get('/users/{id}', [UserController::class, 'show'])->name('users.show');
+    Route::get('/users/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
+    Route::put('/users/{id}', [UserController::class, 'update'])->name('users.update');
+    Route::delete('/users/{id}', [UserController::class, 'destroy'])->name('users.destroy');
+    Route::post('/users/{id}/role', [UserController::class, 'updateRole'])->name('users.update-role');
+    Route::put('/users/{id}/class', [UserController::class, 'updateClass'])->name('users.update-class');
+    Route::post('/users/bulk-update', [UserController::class, 'bulkUpdate'])->name('users.bulk-update');
+    Route::get('/users/search', [UserController::class, 'search'])->name('users.search');
+
+    // Classes Routes
+    Route::get('/classes', [ClassController::class, 'index'])->name('classes.index');
+    Route::get('/classes/create', [ClassController::class, 'create'])->name('classes.create');
+    Route::post('/classes', [ClassController::class, 'store'])->name('classes.store');
+    Route::get('/classes/{id}', [ClassController::class, 'show'])->name('classes.show');
+    Route::get('/classes/{id}/edit', [ClassController::class, 'edit'])->name('classes.edit');
+    Route::put('/classes/{id}', [ClassController::class, 'update'])->name('classes.update');
+    Route::delete('/classes/{id}', [ClassController::class, 'destroy'])->name('classes.destroy');
+    Route::get('/classes/{id}/students', [ClassController::class, 'students'])->name('classes.students');
+    Route::get('/classes/{id}/servants', [ClassController::class, 'servants'])->name('classes.servants');
+    Route::post('/classes/{id}/students', [ClassController::class, 'addStudent'])->name('classes.add-student');
+    Route::delete('/classes/{id}/students/{studentId}', [ClassController::class, 'removeStudent'])->name('classes.remove-student');
+    Route::get('/classes/list', [ClassController::class, 'list'])->name('classes.list');
+
+    // Exams Routes
+    Route::get('/exams', [AdminExamController::class, 'index'])->name('exams.index');
     Route::get('/exams/create', [AdminExamController::class, 'create'])->name('exams.create');
     Route::post('/exams', [AdminExamController::class, 'store'])->name('exams.store');
+    Route::get('/exams/{exam}', [AdminExamController::class, 'show'])->name('exams.show');
+    Route::get('/exams/{exam}/edit', [AdminExamController::class, 'edit'])->name('exams.edit');
+    Route::put('/exams/{exam}', [AdminExamController::class, 'update'])->name('exams.update');
+    Route::delete('/exams/{exam}', [AdminExamController::class, 'destroy'])->name('exams.destroy');
+    Route::get('/exams/{exam}/setup-questions', [AdminExamController::class, 'setupQuestions'])->name('exams.setup-questions');
+    Route::post('/exams/{exam}/setup-questions', [AdminExamController::class, 'storeQuestions'])->name('exams.store-questions');
+    Route::get('/exams/{exam}/edit-questions', [AdminExamController::class, 'editQuestions'])->name('exams.edit-questions');
+    Route::put('/exams/{exam}/update-questions', [AdminExamController::class, 'updateQuestions'])->name('exams.update-questions');
+    Route::get('/exams/{exam}/create-questions', [App\Http\Controllers\Admin\ExamController::class, 'createQuestionsForm'])->name('admin.exams.create-questions');
+    Route::post('/exams/{exam}/save-questions', [App\Http\Controllers\Admin\ExamController::class, 'saveQuestions'])->name('admin.exams.save-questions');
+
+    // Attendance Routes
     Route::get('/attendance', [AdminAttendanceController::class, 'index'])->name('attendance');
+    Route::get('/attendance/{classId}', [AdminAttendanceController::class, 'show'])->name('attendance.show');
+    Route::get('/attendance/{classId}/load', [AdminAttendanceController::class, 'loadAttendance'])->name('attendance.load');
+    Route::post('/attendance', [AdminAttendanceController::class, 'store'])->name('attendance.store');
+    Route::put('/attendance/{id}', [AdminAttendanceController::class, 'update'])->name('attendance.update');
+    Route::delete('/attendance/{id}', [AdminAttendanceController::class, 'destroy'])->name('attendance.destroy');
+
     Route::get('/reports', [ReportController::class, 'index'])->name('reports');
-    
+
+    // Enhanced Attendance Routes
+    Route::resource('enhanced-attendance', \App\Http\Controllers\Admin\EnhancedAttendanceController::class);
+    Route::get('/enhanced-attendance/user/{userId}', [\App\Http\Controllers\Admin\EnhancedAttendanceController::class, 'userAttendance'])->name('enhanced-attendance.user');
+
+    // Enhanced Exams Routes
+    Route::resource('enhanced-exams', \App\Http\Controllers\Admin\EnhancedExamController::class);
+    Route::get('/enhanced-exams/user/{userId}', [\App\Http\Controllers\Admin\EnhancedExamController::class, 'userExams'])->name('enhanced-exams.user');
+
     // Subscription routes for admin
     Route::resource('subscriptions', \App\Http\Controllers\SubscriptionController::class);
 });
+
+// Route للاختبار بدون authentication
+Route::get('/classes/list-test', [ClassController::class, 'list'])->name('classes.list.test');
+
+// API Routes for AJAX (بدون authentication)
+Route::get('/admin/classes/list-api', [\App\Http\Controllers\Admin\ClassController::class, 'list'])->name('classes.list.api');
+Route::get('/api/study-classes', [\App\Http\Controllers\Api\StudyClassController::class, 'index']);
+Route::get('/api/classes', [\App\Http\Controllers\Api\ClassController::class, 'index']);
 
 // Subscription routes for authenticated users
 Route::middleware(['auth'])->group(function () {
@@ -171,8 +230,8 @@ Route::get('/test-readings', function () {
     $url = 'https://katamars.avabishoy.com/api/Katamars/GetReadings?year=2025&month=7&day=11&katamarsSourceId=1&synaxariumSourceId=0';
 
     $payload = [
-        ["fontSection"=>2,"fontName"=>"Arial","fontSize"=>14,"isBold"=>false,"color"=>"#000000","isRtl"=>true,"isSelected"=>true,"language"=>3],
-        ["fontSection"=>1,"fontName"=>"Arial","fontSize"=>14,"isBold"=>false,"color"=>"#000000","isRtl"=>true,"isSelected"=>false,"language"=>2],
+        ["fontSection" => 2, "fontName" => "Arial", "fontSize" => 14, "isBold" => false, "color" => "#000000", "isRtl" => true, "isSelected" => true, "language" => 3],
+        ["fontSection" => 1, "fontName" => "Arial", "fontSize" => 14, "isBold" => false, "color" => "#000000", "isRtl" => true, "isSelected" => false, "language" => 2],
         // ... كمل باقي الـ payload زي ما هو
     ];
 
@@ -188,7 +247,8 @@ Route::get('/test-readings', function () {
 
     $data = $response->json();
 
-    return view('test-readings', ['readings' => $readings, 'date' => $date]);});
+    return view('test-readings', ['readings' => $data, 'date' => '2025-07-11']);
+});
 
 Route::get('/bible', [App\Http\Controllers\BibleController::class, 'index'])->name('bible.index');
 Route::get('/bible/{book_number}', [App\Http\Controllers\BibleController::class, 'chapters'])->name('bible.chapters');
@@ -214,12 +274,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/photo-gallery/{id}/edit', [App\Http\Controllers\PhotoGalleryController::class, 'edit'])->name('photo-gallery.edit');
     Route::put('/photo-gallery/{id}', [App\Http\Controllers\PhotoGalleryController::class, 'update'])->name('photo-gallery.update');
     Route::delete('/photo-gallery/{id}', [App\Http\Controllers\PhotoGalleryController::class, 'destroy'])->name('photo-gallery.destroy');
-    
+
     // Photo management routes
     Route::post('/photo-gallery/{id}/upload-photos', [App\Http\Controllers\PhotoGalleryController::class, 'uploadPhotos'])->name('photo-gallery.upload-photos');
     Route::get('/photo-gallery/{galleryId}/photos/{photoId}/delete', [App\Http\Controllers\PhotoGalleryController::class, 'deletePhoto'])->name('photo-gallery.delete-photo');
     Route::get('/photo-gallery/{galleryId}/photos/{photoId}/download', [App\Http\Controllers\PhotoGalleryController::class, 'downloadPhoto'])->name('photo-gallery.download');
-    
+
     // Admin routes for photo gallery
     Route::middleware(['auth'])->group(function () {
         Route::get('/photo-gallery/manage', [App\Http\Controllers\PhotoGalleryController::class, 'manage'])->name('photo-gallery.manage');

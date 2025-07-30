@@ -17,9 +17,6 @@ class PhotoGalleryController extends Controller
         $this->middleware('auth')->except(['index', 'show']);
     }
 
-    /**
-     * عرض قائمة المكتبات
-     */
     public function index()
     {
         $query = PhotoGallery::with(['creator', 'coverPhoto']);

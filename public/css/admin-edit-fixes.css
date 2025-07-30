@@ -1,0 +1,751 @@
+/* ===== إصلاحات CSS شاملة لصفحة تعديل المستخدم ===== */
+
+/* ===== إصلاحات القوائم المنسدلة ===== */
+.form-select {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.1)) !important;
+    border: 2px solid rgba(255, 255, 255, 0.3) !important;
+    border-radius: 12px !important;
+    color: white !important;
+    padding: 12px 15px !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    transition: all 0.3s ease !important;
+    backdrop-filter: blur(10px) !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+    width: 100% !important;
+    position: relative !important;
+    z-index: 10 !important;
+}
+
+.form-select:focus {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.15)) !important;
+    border-color: #4CAF50 !important;
+    box-shadow: 0 0 0 0.3rem rgba(76, 175, 80, 0.25) !important;
+    color: white !important;
+    outline: none !important;
+}
+
+/* تحسين خيارات القائمة المنسدلة */
+.form-select option {
+    background: linear-gradient(135deg, #0A2A4F, #1a4a8a) !important;
+    color: white !important;
+    padding: 12px 15px !important;
+    font-weight: 500 !important;
+    border: none !important;
+    margin: 2px 0 !important;
+    border-radius: 8px !important;
+    transition: all 0.3s ease !important;
+}
+
+.form-select option:hover {
+    background: linear-gradient(135deg, #4CAF50, #45a049) !important;
+    color: white !important;
+    transform: translateX(5px) !important;
+}
+
+.form-select option:selected {
+    background: linear-gradient(135deg, #4CAF50, #45a049) !important;
+    color: white !important;
+    font-weight: 600 !important;
+    box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3) !important;
+}
+
+.form-select option:checked {
+    background: linear-gradient(135deg, #4CAF50, #45a049) !important;
+    color: white !important;
+}
+
+/* ===== تحسين حقول الإدخال ===== */
+.form-control {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.1)) !important;
+    border: 2px solid rgba(255, 255, 255, 0.3) !important;
+    border-radius: 12px !important;
+    color: white !important;
+    padding: 12px 15px !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    transition: all 0.3s ease !important;
+    backdrop-filter: blur(10px) !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+    width: 100% !important;
+}
+
+.form-control:focus {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.15)) !important;
+    border-color: #4CAF50 !important;
+    box-shadow: 0 0 0 0.3rem rgba(76, 175, 80, 0.25) !important;
+    color: white !important;
+    outline: none !important;
+    transform: translateY(-2px) !important;
+}
+
+.form-control::placeholder {
+    color: rgba(255, 255, 255, 0.6) !important;
+    font-weight: 400 !important;
+}
+
+/* ===== تحسين تخطيط الصفحة ===== */
+.edit-user-page {
+    background: linear-gradient(135deg, #0A2A4F 0%, #1a4a8a 100%) !important;
+    min-height: 100vh !important;
+    padding: 20px !important;
+    font-family: 'Cairo', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+}
+
+/* تحسين شبكة النموذج */
+.form-grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)) !important;
+    gap: 25px !important;
+    margin-bottom: 30px !important;
+}
+
+/* تحسين أقسام النموذج */
+.form-section {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border-radius: 12px !important;
+    padding: 25px !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+.form-section::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    height: 3px !important;
+    background: linear-gradient(90deg, #4CAF50, #FFD700, #2196F3) !important;
+    opacity: 0 !important;
+    transition: opacity 0.3s ease !important;
+}
+
+.form-section:hover::before {
+    opacity: 1 !important;
+}
+
+.form-section:hover {
+    transform: translateY(-3px) !important;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15) !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* تحسين عناوين الأقسام */
+.form-section h4 {
+    color: #FFD700 !important;
+    font-size: 16px !important;
+    font-weight: 600 !important;
+    margin-bottom: 20px !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    border-bottom: 2px solid rgba(255, 215, 0, 0.3) !important;
+    padding-bottom: 10px !important;
+    position: relative !important;
+}
+
+.form-section h4::after {
+    content: '' !important;
+    position: absolute !important;
+    bottom: -2px !important;
+    left: 0 !important;
+    width: 50px !important;
+    height: 2px !important;
+    background: linear-gradient(90deg, #FFD700, transparent) !important;
+    transition: width 0.3s ease !important;
+}
+
+.form-section:hover h4::after {
+    width: 100px !important;
+}
+
+/* تحسين مجموعات الحقول */
+.form-group {
+    margin-bottom: 20px !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    position: relative !important;
+}
+
+.form-group:hover {
+    transform: translateX(5px) !important;
+}
+
+/* تحسين التسميات */
+.form-label {
+    color: rgba(255, 255, 255, 0.9) !important;
+    font-weight: 600 !important;
+    font-size: 14px !important;
+    margin-bottom: 8px !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    transition: all 0.3s ease !important;
+}
+
+.form-group:hover .form-label {
+    color: #FFD700 !important;
+    transform: translateX(3px) !important;
+}
+
+/* ===== تحسين الجداول ===== */
+.exam-results-table,
+.records-table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    border-radius: 12px !important;
+    overflow: hidden !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+    backdrop-filter: blur(10px) !important;
+}
+
+.exam-results-table th,
+.records-table th {
+    background: linear-gradient(135deg, rgba(76, 175, 80, 0.2), rgba(69, 160, 73, 0.1)) !important;
+    color: white !important;
+    font-weight: 600 !important;
+    padding: 15px 12px !important;
+    text-align: center !important;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2) !important;
+    position: relative !important;
+    font-size: 14px !important;
+}
+
+.exam-results-table th::before,
+.records-table th::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    height: 2px !important;
+    background: linear-gradient(90deg, #4CAF50, #FFD700) !important;
+    opacity: 0 !important;
+    transition: opacity 0.3s ease !important;
+}
+
+.exam-results-table th:hover::before,
+.records-table th:hover::before {
+    opacity: 1 !important;
+}
+
+.exam-results-table td,
+.records-table td {
+    padding: 12px !important;
+    text-align: center !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: rgba(255, 255, 255, 0.9) !important;
+    font-weight: 500 !important;
+    transition: all 0.3s ease !important;
+    font-size: 13px !important;
+}
+
+.exam-results-table tr:hover,
+.records-table tr:hover {
+    background: rgba(255, 255, 255, 0.08) !important;
+    transform: scale(1.01) !important;
+}
+
+.exam-results-table tr:hover td,
+.records-table tr:hover td {
+    color: white !important;
+    font-weight: 600 !important;
+}
+
+/* تحسين شارات النقاط */
+.score-badge {
+    padding: 6px 12px !important;
+    border-radius: 20px !important;
+    font-weight: 600 !important;
+    font-size: 12px !important;
+    display: inline-block !important;
+    min-width: 60px !important;
+    text-align: center !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+    transition: all 0.3s ease !important;
+}
+
+.score-excellent {
+    background: linear-gradient(135deg, #4CAF50, #45a049) !important;
+    color: white !important;
+}
+
+.score-very-good {
+    background: linear-gradient(135deg, #2196F3, #1976D2) !important;
+    color: white !important;
+}
+
+.score-good {
+    background: linear-gradient(135deg, #FF9800, #F57C00) !important;
+    color: white !important;
+}
+
+.score-pass {
+    background: linear-gradient(135deg, #9C27B0, #7B1FA2) !important;
+    color: white !important;
+}
+
+.score-fail {
+    background: linear-gradient(135deg, #F44336, #D32F2F) !important;
+    color: white !important;
+}
+
+/* تحسين شارات التقييم */
+.evaluation-badge {
+    padding: 6px 12px !important;
+    border-radius: 20px !important;
+    font-weight: 600 !important;
+    font-size: 12px !important;
+    display: inline-block !important;
+    min-width: 80px !important;
+    text-align: center !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2) !important;
+    transition: all 0.3s ease !important;
+}
+
+.evaluation-excellent {
+    background: linear-gradient(135deg, #4CAF50, #45a049) !important;
+    color: white !important;
+}
+
+.evaluation-very-good {
+    background: linear-gradient(135deg, #2196F3, #1976D2) !important;
+    color: white !important;
+}
+
+.evaluation-good {
+    background: linear-gradient(135deg, #FF9800, #F57C00) !important;
+    color: white !important;
+}
+
+.evaluation-pass {
+    background: linear-gradient(135deg, #9C27B0, #7B1FA2) !important;
+    color: white !important;
+}
+
+.evaluation-fail {
+    background: linear-gradient(135deg, #F44336, #D32F2F) !important;
+    color: white !important;
+}
+
+/* تحسين أشرطة النسبة المئوية */
+.percentage-bar {
+    width: 100% !important;
+    height: 20px !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+    border-radius: 10px !important;
+    overflow: hidden !important;
+    position: relative !important;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+}
+
+.percentage-fill {
+    height: 100% !important;
+    background: linear-gradient(90deg, #4CAF50, #45a049) !important;
+    border-radius: 10px !important;
+    transition: width 0.8s ease !important;
+    position: relative !important;
+}
+
+.percentage-fill::after {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent) !important;
+    animation: shimmer 2s infinite !important;
+}
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+.percentage-text {
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    color: white !important;
+    font-weight: 600 !important;
+    font-size: 12px !important;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* ===== تحسين الأزرار ===== */
+.save-btn,
+.cancel-btn {
+    padding: 15px 30px !important;
+    border-radius: 12px !important;
+    font-weight: 600 !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    border: none !important;
+    text-decoration: none !important;
+    font-size: 16px !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+.save-btn::before,
+.cancel-btn::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: -100% !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent) !important;
+    transition: left 0.5s ease !important;
+}
+
+.save-btn:hover::before,
+.cancel-btn:hover::before {
+    left: 100% !important;
+}
+
+.save-btn {
+    background: linear-gradient(135deg, #4CAF50, #45a049) !important;
+    color: white !important;
+    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3) !important;
+}
+
+.save-btn:hover {
+    transform: translateY(-3px) !important;
+    box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4) !important;
+    color: white !important;
+    text-decoration: none !important;
+}
+
+.cancel-btn {
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: white !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+}
+
+.cancel-btn:hover {
+    background: rgba(255, 255, 255, 0.2) !important;
+    color: white !important;
+    text-decoration: none !important;
+    transform: translateY(-2px) !important;
+}
+
+/* ===== تحسين حقول كلمة المرور ===== */
+.password-input-group {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    position: relative !important;
+}
+
+.password-input-group .form-control {
+    flex: 1 !important;
+}
+
+.toggle-password-btn {
+    padding: 12px 15px !important;
+    border-radius: 12px !important;
+    font-size: 14px !important;
+    border: 2px solid rgba(255, 255, 255, 0.3) !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+    color: white !important;
+    cursor: pointer !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    backdrop-filter: blur(10px) !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+.toggle-password-btn::before {
+    content: '' !important;
+    position: absolute !important;
+    top: 0 !important;
+    left: -100% !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent) !important;
+    transition: left 0.5s ease !important;
+}
+
+.toggle-password-btn:hover::before {
+    left: 100% !important;
+}
+
+.toggle-password-btn:hover {
+    background: rgba(255, 255, 255, 0.2) !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2) !important;
+}
+
+/* ===== تحسين حقول الاختيار ===== */
+.form-check {
+    display: flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    padding: 10px 0 !important;
+    transition: all 0.3s ease !important;
+}
+
+.form-check:hover {
+    transform: translateX(5px) !important;
+}
+
+.form-check-input {
+    width: 18px !important;
+    height: 18px !important;
+    border: 2px solid rgba(255, 255, 255, 0.3) !important;
+    border-radius: 4px !important;
+    background: rgba(255, 255, 255, 0.1) !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+    position: relative !important;
+}
+
+.form-check-input:checked {
+    background: linear-gradient(135deg, #4CAF50, #45a049) !important;
+    border-color: #4CAF50 !important;
+    box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3) !important;
+}
+
+.form-check-input:checked::after {
+    content: '✓' !important;
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    color: white !important;
+    font-weight: bold !important;
+    font-size: 12px !important;
+}
+
+.form-check-label {
+    color: rgba(255, 255, 255, 0.9) !important;
+    font-weight: 500 !important;
+    font-size: 14px !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+}
+
+.form-check:hover .form-check-label {
+    color: #FFD700 !important;
+}
+
+/* ===== تحسين حقول الشماسية ===== */
+.deacon-field {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    opacity: 0 !important;
+    transform: translateY(-10px) !important;
+    animation: slideIn 0.5s ease forwards !important;
+}
+
+@keyframes slideIn {
+    to {
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+    }
+}
+
+/* ===== تحسين رسائل الخطأ ===== */
+.invalid-feedback {
+    color: #ff6b6b !important;
+    font-size: 12px !important;
+    margin-top: 5px !important;
+    font-weight: 500 !important;
+    padding: 8px 12px !important;
+    background: rgba(255, 107, 107, 0.1) !important;
+    border-radius: 8px !important;
+    border-left: 3px solid #ff6b6b !important;
+    animation: shake 0.5s ease !important;
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+.form-control.is-invalid,
+.form-select.is-invalid {
+    border-color: #ff6b6b !important;
+    box-shadow: 0 0 0 0.2rem rgba(255, 107, 107, 0.25) !important;
+    animation: shake 0.5s ease !important;
+}
+
+/* ===== تحسين التصميم المتجاوب ===== */
+@media (max-width: 768px) {
+    .edit-user-page {
+        padding: 15px !important;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr !important;
+        gap: 20px !important;
+    }
+
+    .form-section {
+        padding: 20px !important;
+    }
+
+    .form-actions {
+        flex-direction: column !important;
+        gap: 15px !important;
+    }
+
+    .save-btn,
+    .cancel-btn {
+        width: 100% !important;
+        justify-content: center !important;
+    }
+
+    .password-input-group {
+        flex-direction: column !important;
+        align-items: stretch !important;
+    }
+
+    .toggle-password-btn {
+        align-self: flex-end !important;
+        width: fit-content !important;
+    }
+
+    .exam-results-table,
+    .records-table {
+        font-size: 12px !important;
+    }
+
+    .exam-results-table th,
+    .records-table th {
+        padding: 10px 8px !important;
+        font-size: 12px !important;
+    }
+
+    .exam-results-table td,
+    .records-table td {
+        padding: 8px 6px !important;
+        font-size: 11px !important;
+    }
+
+    .score-badge,
+    .evaluation-badge {
+        padding: 4px 8px !important;
+        font-size: 10px !important;
+        min-width: 50px !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .form-section {
+        padding: 15px !important;
+    }
+
+    .form-control,
+    .form-select {
+        padding: 10px 12px !important;
+        font-size: 13px !important;
+    }
+
+    .form-section h4 {
+        font-size: 14px !important;
+    }
+
+    .form-label {
+        font-size: 13px !important;
+    }
+
+    .exam-results-table,
+    .records-table {
+        display: block !important;
+        overflow-x: auto !important;
+        white-space: nowrap !important;
+    }
+
+    .exam-results-table th,
+    .exam-results-table td,
+    .records-table th,
+    .records-table td {
+        min-width: 100px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-header {
+        padding: 20px 15px !important;
+    }
+
+    .title-text h1 {
+        font-size: 20px !important;
+    }
+
+    .card-header h3 {
+        font-size: 16px !important;
+    }
+
+    .form-control,
+    .form-select {
+        padding: 8px 10px !important;
+        font-size: 12px !important;
+    }
+
+    .save-btn,
+    .cancel-btn {
+        padding: 12px 20px !important;
+        font-size: 14px !important;
+    }
+}
+
+/* ===== تحسينات إضافية للتفاعل ===== */
+.form-control:focus,
+.form-select:focus {
+    animation: pulse 0.3s ease !important;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+}
+
+/* تحسين تأثيرات التحميل */
+.form-section.loading {
+    opacity: 0.7 !important;
+    pointer-events: none !important;
+}
+
+.form-section.loading::after {
+    content: '' !important;
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    width: 30px !important;
+    height: 30px !important;
+    border: 3px solid rgba(255, 255, 255, 0.3) !important;
+    border-top: 3px solid #4CAF50 !important;
+    border-radius: 50% !important;
+    animation: spin 1s linear infinite !important;
+}
+
+@keyframes spin {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* تحسين تأثيرات النجاح */
+.form-control.success,
+.form-select.success {
+    border-color: #4CAF50 !important;
+    box-shadow: 0 0 0 0.2rem rgba(76, 175, 80, 0.25) !important;
+    animation: successPulse 0.5s ease !important;
+}
+
+@keyframes successPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+    100% { transform: scale(1); }
+}

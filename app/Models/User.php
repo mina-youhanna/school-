@@ -23,6 +23,7 @@ class User extends Authenticatable
         'full_name',
         'email',
         'password',
+        'password_plain',
         'phone',
         'whatsapp',
         'relative_phone',
@@ -33,6 +34,7 @@ class User extends Authenticatable
         'role',
         'is_main_servant',
         'serving_classes',
+        'my_class_id',
         'is_deacon',
         'ordination_date',
         'ordination_bishop',
@@ -92,7 +94,7 @@ class User extends Authenticatable
 
     public function servingClasses()
     {
-        return $this->belongsToMany(SundayClass::class, 'user_serving_classes', 'user_id', 'class_id');
+        return $this->belongsToMany(StudyClass::class, 'user_serving_study_classes', 'user_id', 'class_id');
     }
 
     public function deaconPromotions()
@@ -182,7 +184,7 @@ class User extends Authenticatable
         if (!$activeSubscription) {
             return false;
         }
-        
+
         return $activeSubscription->expiry_date->diffInDays(now()) <= 30;
     }
 
@@ -195,7 +197,7 @@ class User extends Authenticatable
         if (!$activeSubscription) {
             return null;
         }
-        
+
         return $activeSubscription->expiry_date->diffInDays(now());
     }
 
@@ -206,6 +208,32 @@ class User extends Authenticatable
 
     public function examResults()
     {
-        return $this->hasMany(ExamResult::class);
+        return $this->hasMany(ExamResult::class, 'student_id');
+    }
+
+    public function enhancedAttendance()
+    {
+        return $this->hasMany(EnhancedAttendance::class);
+    }
+
+    public function enhancedExams()
+    {
+        return $this->hasMany(EnhancedExam::class);
+    }
+
+    /**
+     * Get the plain password attribute
+     */
+    public function getPasswordPlainAttribute()
+    {
+        return $this->attributes['password_plain'] ?? 'غير متوفرة';
+    }
+
+    /**
+     * Set the plain password attribute
+     */
+    public function setPasswordPlainAttribute($value)
+    {
+        $this->attributes['password_plain'] = $value;
     }
 }

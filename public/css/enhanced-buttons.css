@@ -1,0 +1,321 @@
+/* ===== Enhanced Buttons CSS ===== */
+
+/* Modern Button Styles */
+.modern-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #4CAF50, #45a049);
+    color: white;
+    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+}
+
+.modern-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.modern-btn:hover::before {
+    left: 100%;
+}
+
+.modern-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(76, 175, 80, 0.4);
+    color: white;
+    text-decoration: none;
+}
+
+.modern-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+}
+
+/* Button Variants */
+.modern-btn-primary {
+    background: linear-gradient(135deg, #2196F3, #1976D2);
+    box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
+}
+
+.modern-btn-primary:hover {
+    box-shadow: 0 8px 25px rgba(33, 150, 243, 0.4);
+}
+
+.modern-btn-success {
+    background: linear-gradient(135deg, #4CAF50, #45a049);
+    box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+}
+
+.modern-btn-success:hover {
+    box-shadow: 0 8px 25px rgba(76, 175, 80, 0.4);
+}
+
+.modern-btn-warning {
+    background: linear-gradient(135deg, #FF9800, #F57C00);
+    box-shadow: 0 4px 15px rgba(255, 152, 0, 0.3);
+}
+
+.modern-btn-warning:hover {
+    box-shadow: 0 8px 25px rgba(255, 152, 0, 0.4);
+}
+
+.modern-btn-danger {
+    background: linear-gradient(135deg, #F44336, #D32F2F);
+    box-shadow: 0 4px 15px rgba(244, 67, 54, 0.3);
+}
+
+.modern-btn-danger:hover {
+    box-shadow: 0 8px 25px rgba(244, 67, 54, 0.4);
+}
+
+.modern-btn-secondary {
+    background: linear-gradient(135deg, #6c757d, #5a6268);
+    box-shadow: 0 4px 15px rgba(108, 117, 125, 0.3);
+}
+
+.modern-btn-secondary:hover {
+    box-shadow: 0 8px 25px rgba(108, 117, 125, 0.4);
+}
+
+/* Small Buttons */
+.modern-btn-sm {
+    padding: 6px 12px;
+    font-size: 12px;
+    gap: 6px;
+}
+
+/* Large Buttons */
+.modern-btn-lg {
+    padding: 14px 28px;
+    font-size: 16px;
+    gap: 10px;
+}
+
+/* Icon Only Buttons */
+.modern-btn-icon {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modern-btn-icon.modern-btn-sm {
+    width: 32px;
+    height: 32px;
+}
+
+.modern-btn-icon.modern-btn-lg {
+    width: 48px;
+    height: 48px;
+}
+
+/* Loading State */
+.modern-btn.loading {
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+.modern-btn.loading::after {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border: 2px solid transparent;
+    border-top: 2px solid currentColor;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Disabled State */
+.modern-btn:disabled,
+.modern-btn.disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+/* Button Groups */
+.modern-btn-group {
+    display: inline-flex;
+    gap: 8px;
+}
+
+.modern-btn-group .modern-btn {
+    border-radius: 8px;
+}
+
+.modern-btn-group .modern-btn:first-child {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.modern-btn-group .modern-btn:last-child {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.modern-btn-group .modern-btn:not(:first-child):not(:last-child) {
+    border-radius: 0;
+}
+
+/* Responsive Buttons */
+@media (max-width: 768px) {
+    .modern-btn {
+        padding: 8px 16px;
+        font-size: 13px;
+        gap: 6px;
+    }
+
+    .modern-btn-sm {
+        padding: 5px 10px;
+        font-size: 11px;
+        gap: 4px;
+    }
+
+    .modern-btn-lg {
+        padding: 12px 24px;
+        font-size: 15px;
+        gap: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .modern-btn {
+        padding: 6px 12px;
+        font-size: 12px;
+        gap: 4px;
+    }
+
+    .modern-btn-icon {
+        width: 36px;
+        height: 36px;
+    }
+
+    .modern-btn-icon.modern-btn-sm {
+        width: 28px;
+        height: 28px;
+    }
+
+    .modern-btn-icon.modern-btn-lg {
+        width: 44px;
+        height: 44px;
+    }
+}
+
+/* Floating Action Button */
+.modern-fab {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #4CAF50, #45a049);
+    color: white;
+    border: none;
+    box-shadow: 0 4px 20px rgba(76, 175, 80, 0.4);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+}
+
+.modern-fab:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 25px rgba(76, 175, 80, 0.5);
+}
+
+/* Button with Badge */
+.modern-btn-with-badge {
+    position: relative;
+}
+
+.modern-btn-badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background: #F44336;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+/* Animated Buttons */
+.modern-btn-pulse {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+    }
+    50% {
+        box-shadow: 0 4px 15px rgba(76, 175, 80, 0.6);
+    }
+    100% {
+        box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
+    }
+}
+
+/* Gradient Buttons */
+.modern-btn-gradient {
+    background: linear-gradient(45deg, #4CAF50, #2196F3, #FF9800, #F44336);
+    background-size: 300% 300%;
+    animation: gradientShift 3s ease infinite;
+}
+
+@keyframes gradientShift {
+    0%, 100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+/* Glass Effect Buttons */
+.modern-btn-glass {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: white;
+}
+
+.modern-btn-glass:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
+}

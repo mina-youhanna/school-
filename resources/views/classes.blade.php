@@ -3,56 +3,134 @@
 @section('title', 'الفصول الدراسية')
 
 @section('content')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;800&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Lalezar&display=swap');
-
-.classes-container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
+.dropdown-menu {
+    background-color: #0A2A4F !important;
+    border: 1px solid #FFD700 !important;
+    text-align: right !important;
 }
 
-.page-header {
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #0A2A4F;
+    background-size: 300px;
+    background-repeat: repeat;
+    background-blend-mode: multiply;
+    font-family: 'Tajawal', sans-serif;
     text-align: center;
-    margin-bottom: 40px;
-    padding: 40px 20px;
-    background: linear-gradient(135deg, #0a234f 0%, #1e3a8a 100%);
-    border-radius: 20px;
-    color: white;
-    position: relative;
-    overflow: hidden;
+    direction: rtl;
+    color: #ffffff;
 }
 
-.page-header::before {
-    content: '';
+body::before {
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
-    background: url('{{ asset('images/coptic-pattern.png') }}') repeat;
-    opacity: 0.1;
-    animation: patternFloat 60s linear infinite;
+    z-index: -1;
 }
 
-.page-title {
-    font-family: 'Lalezar', 'Cairo', sans-serif;
-    font-size: 3rem;
-    font-weight: 800;
-    color: #ffd700;
-    margin-bottom: 15px;
-    text-shadow: 0 2px 12px rgba(255, 215, 0, 0.3);
-    position: relative;
-    z-index: 2;
+.main-title {
+    font-size: 44px;
+    font-weight: bold;
+    color: #FFD700;
+    margin-top: 40px;
+    margin-bottom: 80px;
+    padding: 15px 25px;
+    border-bottom: 4px solid #FFD700;
+    display: inline-block;
+    background: rgba(255, 215, 0, 0.2);
+    border-radius: 10px;
+    box-shadow: 0px 0px 15px rgba(255, 215, 0, 0.5);
 }
 
-.page-subtitle {
-    font-size: 1.2rem;
-    color: rgba(255, 255, 255, 0.9);
-    margin-bottom: 0;
+.container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-top: 40px;
+}
+
+.card {
+    width: 340px;
+    background: rgba(20, 50, 90, 0.95);
+    border: 3px solid #FFD700;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s, box-shadow 0.3s;
+    padding-bottom: 15px;
     position: relative;
-    z-index: 2;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px 5px #FFD700, 0 0 15px 5px #FFD700;
+}
+
+.image-container {
+    width: 280px;
+    height: 280px;
+    margin: 20px auto 10px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 5px solid #FFD700;
+    transition: transform 0.3s;
+    position: relative;
+    user-select: none;
+}
+
+.image-container img {
+    width: 100%;
+    height: 130%;
+    object-fit: cover;
+    transition: transform 0.4s;
+    pointer-events: none;
+}
+
+.image-container:hover img {
+    transform: scale(1.1);
+}
+
+.card-title {
+    font-size: 26px;
+    font-weight: bold;
+    color: #FFD700;
+    text-shadow: 0px 0px 8px rgba(255, 215, 0, 0.8);
+    margin-bottom: 10px;
+}
+
+.card-text {
+    color: #f0f0f0;
+    font-size: 18px;
+    line-height: 1.8;
+    padding: 0 15px;
+}
+
+.card-text strong {
+    color: #FFD700;
+}
+
+.card:hover {
+    transform: scale(1.05) !important;
+    box-shadow: 0 0 30px 5px #FFD700, 0 0 15px 5px #FFD700 !important;
+}
+
+.image-container:hover img {
+    transform: scale(1.1) !important;
+}
+
+.main-title {
+    font-size: 44px !important;
+    font-weight: bold !important;
+    color: #FFD700 !important;
+    border-bottom: 4px solid #FFD700 !important;
+    background: rgba(255, 215, 0, 0.2) !important;
 }
 
 .gender-tabs {
@@ -126,128 +204,6 @@
     box-shadow: 0 4px 20px rgba(255, 215, 0, 0.3);
 }
 
-.classes-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-    gap: 30px;
-    margin-bottom: 40px;
-}
-
-.class-card {
-    background: rgba(255, 255, 255, 0.95);
-    border-radius: 20px;
-    padding: 30px;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-    border: 3px solid transparent;
-    position: relative;
-    overflow: hidden;
-}
-
-.class-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 5px;
-    background: linear-gradient(90deg, #ffd700, #ffed4a);
-}
-
-.class-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-    border-color: #ffd700;
-}
-
-.class-header {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.class-icon {
-    width: 60px;
-    height: 60px;
-    background: linear-gradient(135deg, #0a234f, #1e3a8a);
-    border-radius: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: 15px;
-    color: #ffd700;
-    font-size: 1.5rem;
-}
-
-.class-info {
-    flex: 1;
-}
-
-.class-name {
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: #0a234f;
-    margin-bottom: 5px;
-}
-
-.class-stage {
-    font-size: 1rem;
-    color: #666;
-    font-weight: 500;
-}
-
-.class-details {
-    margin-bottom: 20px;
-}
-
-.detail-item {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-    font-size: 0.95rem;
-    color: #555;
-}
-
-.detail-item i {
-    margin-left: 10px;
-    color: #ffd700;
-    width: 20px;
-    text-align: center;
-}
-
-.class-stats {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 15px;
-    margin-bottom: 20px;
-}
-
-.stat-item {
-    text-align: center;
-    padding: 15px;
-    background: rgba(10, 35, 79, 0.05);
-    border-radius: 10px;
-    border: 1px solid rgba(10, 35, 79, 0.1);
-}
-
-.stat-number {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #0a234f;
-    display: block;
-}
-
-.stat-label {
-    font-size: 0.85rem;
-    color: #666;
-    margin-top: 5px;
-}
-
-.class-actions {
-    display: flex;
-    gap: 10px;
-}
-
 .btn {
     padding: 10px 20px;
     border-radius: 25px;
@@ -259,6 +215,7 @@
     cursor: pointer;
     text-align: center;
     flex: 1;
+    margin: 5px;
 }
 
 .btn-primary {
@@ -286,30 +243,35 @@
 .empty-state {
     text-align: center;
     padding: 60px 20px;
-    color: #666;
+    color: #f0f0f0;
 }
 
 .empty-state i {
     font-size: 4rem;
-    color: #ddd;
+    color: #FFD700;
     margin-bottom: 20px;
 }
 
 .empty-state h3 {
     font-size: 1.5rem;
     margin-bottom: 10px;
-    color: #999;
+    color: #FFD700;
+}
+
+.empty-state p {
+    color: #f0f0f0;
 }
 
 .loading {
     text-align: center;
     padding: 40px;
-    color: #666;
+    color: #f0f0f0;
 }
 
 .loading i {
     font-size: 2rem;
     animation: spin 1s linear infinite;
+    color: #FFD700;
 }
 
 @keyframes spin {
@@ -317,37 +279,16 @@
     100% { transform: rotate(360deg); }
 }
 
-@keyframes patternFloat {
-    0% { background-position: 0 0; }
-    100% { background-position: 300px 300px; }
-}
-
-@media (max-width: 768px) {
-    .classes-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .page-title {
-        font-size: 2rem;
-    }
-    
-    .gender-tabs {
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .class-card {
-        padding: 20px;
-    }
+.class-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
 }
 </style>
 
-<div class="classes-container">
-    <div class="page-header">
-        <h1 class="page-title">📚 الفصول الدراسية</h1>
-        <p class="page-subtitle">اكتشف فصول مدرسة الأحد واختر الفصل المناسب لك</p>
-    </div>
-
+<div class="container">
+    <h1 class="main-title">فصول المدرسة</h1>
+    
     <div class="gender-tabs">
         <button class="gender-tab active" onclick="showClasses('male')">
             👦 فصول الأولاد
@@ -383,7 +324,6 @@
 let allClasses = [];
 let currentGender = 'male';
 
-// تحميل البيانات عند تحميل الصفحة
 document.addEventListener('DOMContentLoaded', function() {
     fetch('/api/classes')
         .then(response => response.json())
@@ -405,14 +345,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
 function showClasses(gender) {
     currentGender = gender;
-    // تحديث التبويبات
     document.querySelectorAll('.gender-tab').forEach(tab => {
         tab.classList.remove('active');
     });
     event.target.classList.add('active');
-    // إظهار مرشح المراحل
     document.getElementById('stage-filter').style.display = 'flex';
-    // فلترة الفصول حسب النوع
     const filtered = allClasses.filter(cls => cls.gender === (gender === 'male' ? 'ذكر' : 'أنثى'));
     displayClasses(filtered);
 }
@@ -422,7 +359,6 @@ function filterByStage(stage) {
         btn.classList.remove('active');
     });
     event.target.classList.add('active');
-    // فلترة حسب النوع أولاً ثم المرحلة
     const filtered = allClasses.filter(cls => cls.gender === (currentGender === 'male' ? 'ذكر' : 'أنثى'));
     const filteredByStage = stage === 'all' ? filtered : filtered.filter(cls => cls.stage === stage);
     displayClasses(filteredByStage);
@@ -443,51 +379,36 @@ function displayClasses(classes) {
     }
     
     const classesHtml = classes.map(classItem => `
-        <div class="class-card">
-            <div class="class-header">
-                <div class="class-icon">
-                    <i class="fas fa-graduation-cap"></i>
-                </div>
-                <div class="class-info">
-                    <div class="class-name">${classItem.name}</div>
-                    <div class="class-stage">${classItem.stage}</div>
-                </div>
+        <div class="card">
+            <div class="image-container">
+                <img src="${classItem.saint_image}" alt="${classItem.name}">
             </div>
             
-            <div class="class-details">
-                <div class="detail-item">
-                    <i class="fas fa-clock"></i>
-                    <span>الموعد: ${classItem.schedule || 'غير محدد'}</span>
+            <div class="card-body">
+                <h5 class="card-title">${classItem.name}</h5>
+                
+                <div class="card-text">
+                    <strong>المرحلة:</strong> ${classItem.stage}<br>
+                    <strong>النوع:</strong> ${classItem.gender || 'غير محدد'}<br>
+                    <strong>الجدول:</strong> ${classItem.schedule || 'غير محدد'}<br>
+                    <strong>المكان:</strong> ${classItem.place || 'غير محدد'}<br>
+                    <strong>الطلاب:</strong> ${classItem.students_count || 0}<br>
+                    <strong>الخدام:</strong> ${classItem.servants_count || 0}
                 </div>
-                <div class="detail-item">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <span>المكان: ${classItem.place || 'غير محدد'}</span>
+                
+                <div class="class-actions">
+                    <a href="/classes/${classItem.id}/details" class="btn btn-primary">
+                        <i class="fas fa-info-circle"></i> التفاصيل
+                    </a>
+                    <a href="/classes/${classItem.id}/attendance" class="btn btn-secondary">
+                        <i class="fas fa-clipboard-check"></i> الحضور
+                    </a>
                 </div>
-            </div>
-            
-            <div class="class-stats">
-                <div class="stat-item">
-                    <span class="stat-number">${classItem.students_count || 0}</span>
-                    <span class="stat-label">الطلاب</span>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number">${classItem.servants_count || 0}</span>
-                    <span class="stat-label">الخدام</span>
-                </div>
-            </div>
-            
-            <div class="class-actions">
-                <a href="/classes/${classItem.id}/details" class="btn btn-primary">
-                    <i class="fas fa-info-circle"></i> التفاصيل
-                </a>
-                <a href="/classes/${classItem.id}/attendance" class="btn btn-secondary">
-                    <i class="fas fa-clipboard-check"></i> الحضور
-                </a>
             </div>
         </div>
     `).join('');
     
-    contentDiv.innerHTML = `<div class="classes-grid">${classesHtml}</div>`;
+    contentDiv.innerHTML = `<div class="container">${classesHtml}</div>`;
 }
 </script>
 @endsection 

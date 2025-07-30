@@ -1,184 +1,222 @@
 @extends('layouts.app')
 
 @push('styles')
-<style>
-/* exams-custom.css */
-body {
-    background: #0A2A4F !important;
-}
-.container {
-    background: rgba(255,255,255,0.98) !important;
-    border-radius: 18px;
-    box-shadow: 0 6px 32px rgba(10,42,79,0.18);
-    border: 2.5px solid #FFD700;
-    color: #0A2A4F !important;
-    padding: 2.5rem 1.5rem;
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-}
-h2 {
-    color: #FFD700 !important;
-    font-weight: bold;
-    margin-bottom: 2rem;
-    letter-spacing: 1px;
-    text-shadow: 0 2px 8px rgba(10,42,79,0.10);
-}
-.btn-success, .btn-primary, .btn-info, .btn-danger {
-    min-width: 90px;
-    font-weight: bold;
-    border-radius: 8px;
-    background: linear-gradient(90deg, #FFD700 60%, #FFC107 100%);
-    color: #0A2A4F;
-    border: none;
-    box-shadow: 0 2px 8px rgba(255,215,0,0.10);
-    transition: background 0.2s, color 0.2s;
-}
-.btn-success:hover, .btn-primary:hover, .btn-info:hover, .btn-danger:hover {
-    background: #0A2A4F;
-    color: #FFD700;
-    border: 1.5px solid #FFD700;
-}
-.table {
-    background: rgba(255,255,255,0.98) !important;
-    border-radius: 8px;
-    overflow: hidden;
-    border: 2px solid #FFD700;
-    box-shadow: 0 2px 12px rgba(10,42,79,0.10);
-}
-.table th {
-    background: #0A2A4F !important;
-    color: #FFD700 !important;
-    font-weight: bold;
-    border-bottom: 2px solid #FFD700;
-}
-.table td {
-    color: #0A2A4F !important;
-    font-weight: 500;
-}
-.table th, .table td {
-    vertical-align: middle;
-    text-align: center;
-}
-@media (max-width: 767px) {
-    .container {
-        padding: 1rem 0.3rem;
-    }
-    h2 {
-        font-size: 1.2rem;
-    }
-    .btn {
-        font-size: 0.95rem;
-        padding: 0.4rem 0.7rem;
-    }
-    .table th, .table td {
-        font-size: 0.95rem;
-        padding: 0.4rem 0.2rem;
-    }
-}
-textarea.form-control {
-    min-height: 60px;
-    border-radius: 8px;
-    border: 1.5px solid #FFD700;
-}
-form label {
-    font-weight: 700;
-    color: #0A2A4F !important;
-    font-size: 1.1rem;
-    margin-bottom: 0.5rem;
-}
-input.form-control, select.form-control, textarea.form-control {
-    border: 2px solid #FFD700 !important;
-    border-radius: 10px !important;
-    color: #0A2A4F !important;
-    background: #fffbe6 !important;
-    font-weight: 600;
-    font-size: 1.05rem;
-    margin-bottom: 1.2rem;
-    box-shadow: 0 1px 6px rgba(10,42,79,0.07);
-    transition: border 0.2s, box-shadow 0.2s;
-}
-input.form-control:focus, select.form-control:focus, textarea.form-control:focus {
-    border-color: #0A2A4F !important;
-    box-shadow: 0 0 0 2px #FFD70055 !important;
-    background: #fffde7 !important;
-}
-.btn-success {
-    min-width: 120px;
-    font-weight: bold;
-    border-radius: 10px;
-    background: linear-gradient(90deg, #FFD700 60%, #FFC107 100%) !important;
-    color: #0A2A4F !important;
-    border: none;
-    box-shadow: 0 2px 8px rgba(255,215,0,0.13);
-    font-size: 1.1rem;
-    padding: 0.7rem 2.2rem;
-    margin-top: 1rem;
-    transition: background 0.2s, color 0.2s;
-}
-.btn-success:hover {
-    background: #0A2A4F !important;
-    color: #FFD700 !important;
-    border: 2px solid #FFD700 !important;
-}
-.alert-success, .alert-warning {
-    font-size: 1.1rem;
-    border-radius: 8px;
-    background: #FFD70022;
-    color: #0A2A4F;
-    border: 1.5px solid #FFD700;
-}
-</style>
+<link rel="stylesheet" href="/css/exam-management.css">
 @endpush
 
 @section('content')
-<div class="container">
-    <h2>إضافة امتحان جديد</h2>
-    <form action="{{ route('admin.exams.store') }}" method="POST">
+<div class="exam-form-container">
+    <h1 class="page-title">📝 إضافة امتحان جديد</h1>
+
+    @if(session('success'))
+    <div class="success-message">
+        {{ session('success') }}
+    </div>
+    @endif
+
+    @if($errors->any())
+    <div class="error-message">
+        <ul>
+            @foreach($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
+
+    <form action="{{ route('admin.exams.store') }}" method="POST" id="examForm">
         @csrf
-        <div class="mb-3">
-            <label>اسم الامتحان</label>
-            <input type="text" name="title" class="form-control" required>
-        </div>
-        <div class="mb-3">
-            <label>المادة</label>
-            <select name="subject_id" class="form-control" required>
-                @foreach($subjects as $subject)
-                    <option value="{{ $subject->id }}">{{ $subject->name }}</option>
-                @endforeach
+
+        <div class="form-group">
+            <label class="form-label">🎯 نوع الامتحان</label>
+            <select name="exam_type" class="form-control" required id="examType">
+                <option value="">اختر نوع الامتحان</option>
+                <option value="class" {{ old('exam_type') == 'class' ? 'selected' : '' }}>امتحان لفصل محدد</option>
+                <option value="stage" {{ old('exam_type') == 'stage' ? 'selected' : '' }}>امتحان لمستوى محدد</option>
             </select>
+            <small class="form-text text-muted">اختر نوع الامتحان: لفصل محدد أو لمستوى محدد</small>
         </div>
-        <div class="mb-3">
-            <label>الفصل</label>
-            <select name="class_id" class="form-control" required>
-                @foreach($classes as $class)
-                    <option value="{{ $class->id }}">{{ $class->name }}</option>
-                @endforeach
-            </select>
+
+        <div class="form-grid">
+            <div class="form-group">
+                <label class="form-label">📋 اسم الامتحان</label>
+                <input type="text" name="title" class="form-control" required
+                    placeholder="أدخل اسم الامتحان" value="{{ old('title') }}">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">📚 المادة</label>
+                <select name="subject_id" class="form-control" required>
+                    <option value="">اختر المادة</option>
+                    @foreach($subjects as $subject)
+                    <option value="{{ $subject->id }}" {{ old('subject_id') == $subject->id ? 'selected' : '' }}>
+                        {{ $subject->name }}
+                    </option>
+                    @endforeach
+                </select>
+            </div>
+
+            <div class="form-group" id="classGroup" style="display: none;">
+                <label class="form-label">👥 الفصل الدراسي</label>
+                <select name="class_id" class="form-control" id="classSelect">
+                    <option value="">اختر الفصل</option>
+                    @foreach($classes as $class)
+                    <option value="{{ $class->id }}" {{ old('class_id') == $class->id ? 'selected' : '' }}>
+                        {{ $class->name }} - {{ $class->stage }}
+                    </option>
+                    @endforeach
+                </select>
+                <small class="form-text text-muted">سيظهر هذا الامتحان لطلاب هذا الفصل فقط</small>
+            </div>
+
+            <div class="form-group" id="stageGroup" style="display: none;">
+                <label class="form-label">🎯 المستوى</label>
+                <select name="stage" class="form-control" id="stageSelect">
+                    <option value="">اختر المستوى</option>
+                    @foreach($stages as $key => $stage)
+                    <option value="{{ $key }}" {{ old('stage') == $key ? 'selected' : '' }}>
+                        {{ $stage }}
+                    </option>
+                    @endforeach
+                </select>
+                <small class="form-text text-muted">سيظهر هذا الامتحان لجميع الفصول في نفس المستوى</small>
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">👁️ طريقة العرض</label>
+                <select name="display_mode" class="form-control" required id="displayMode">
+                    <option value="one_by_one" {{ old('display_mode') == 'one_by_one' ? 'selected' : '' }}>سؤال بسؤال</option>
+                    <option value="all_at_once" {{ old('display_mode') == 'all_at_once' ? 'selected' : '' }}>كل الأسئلة معًا</option>
+                </select>
+            </div>
         </div>
-        <div class="mb-3">
-            <label>طريقة العرض</label>
-            <select name="display_mode" class="form-control" required>
-                <option value="one_by_one">سؤال بسؤال</option>
-                <option value="all_at_once">كل الأسئلة معًا</option>
-            </select>
+
+        <div class="time-section">
+            <div class="form-group">
+                <label class="form-label" id="timeLabel">⏰ الزمن الكلي (دقائق)</label>
+                <input type="number" name="total_time" class="form-control" id="totalTime"
+                    placeholder="أدخل الزمن بالدقائق" value="{{ old('total_time') }}" min="1">
+                <div class="time-info" id="timeInfo" style="display: none;">
+                    <strong>💡 ملاحظة:</strong> في وضع "سؤال بسؤال"، سيتم تحديد زمن كل سؤال منفرداً عند إضافة الأسئلة
+                </div>
+            </div>
         </div>
-        <div class="mb-3">
-            <label>الزمن الكلي (دقائق)</label>
-            <input type="number" name="total_time" class="form-control">
+
+        <div class="form-grid">
+            <div class="form-group">
+                <label class="form-label">🕐 وقت البداية</label>
+                <input type="datetime-local" name="start_time" class="form-control" required
+                    value="{{ old('start_time') }}">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label">🕙 وقت النهاية</label>
+                <input type="datetime-local" name="end_time" class="form-control" required
+                    value="{{ old('end_time') }}">
+            </div>
         </div>
-        <div class="mb-3">
-            <label>وقت البداية</label>
-            <input type="datetime-local" name="start_time" class="form-control" required>
+
+        <div class="form-group">
+            <label class="form-label">🖼️ رابط الصورة (اختياري)</label>
+            <input type="text" name="image" class="form-control"
+                placeholder="أدخل رابط الصورة" value="{{ old('image') }}">
         </div>
-        <div class="mb-3">
-            <label>وقت النهاية</label>
-            <input type="datetime-local" name="end_time" class="form-control" required>
+
+        <div class="form-actions">
+            <a href="{{ route('admin.exams.index') }}" class="btn btn-secondary">
+                <span>❌ إلغاء</span>
+            </a>
+            <button type="submit" class="btn btn-primary">
+                <span>💾 حفظ الامتحان</span>
+            </button>
         </div>
-        <div class="mb-3">
-            <label>رابط الصورة (اختياري)</label>
-            <input type="text" name="image" class="form-control">
-        </div>
-        <button type="submit" class="btn btn-success">حفظ</button>
     </form>
 </div>
-@endsection 
+
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const examType = document.getElementById('examType');
+        const classGroup = document.getElementById('classGroup');
+        const stageGroup = document.getElementById('stageGroup');
+        const classSelect = document.getElementById('classSelect');
+        const stageSelect = document.getElementById('stageSelect');
+        const displayMode = document.getElementById('displayMode');
+        const timeLabel = document.getElementById('timeLabel');
+        const totalTime = document.getElementById('totalTime');
+        const timeInfo = document.getElementById('timeInfo');
+
+        // التحكم في نوع الامتحان
+        function updateExamType() {
+            if (examType.value === 'class') {
+                classGroup.style.display = 'block';
+                stageGroup.style.display = 'none';
+                classSelect.required = true;
+                stageSelect.required = false;
+            } else if (examType.value === 'stage') {
+                classGroup.style.display = 'none';
+                stageGroup.style.display = 'block';
+                classSelect.required = false;
+                stageSelect.required = true;
+            } else {
+                classGroup.style.display = 'none';
+                stageGroup.style.display = 'none';
+                classSelect.required = false;
+                stageSelect.required = false;
+            }
+        }
+
+        examType.addEventListener('change', updateExamType);
+        updateExamType();
+
+        function updateTimeField() {
+            if (displayMode.value === 'one_by_one') {
+                timeLabel.textContent = '⏰ الزمن الكلي (دقائق) - اختياري';
+                totalTime.placeholder = 'اختياري - سيتم تحديد زمن كل سؤال منفرداً';
+                totalTime.disabled = false;
+                timeInfo.style.display = 'block';
+            } else {
+                timeLabel.textContent = '⏰ الزمن الكلي (دقائق)';
+                totalTime.placeholder = 'أدخل الزمن بالدقائق';
+                totalTime.disabled = false;
+                timeInfo.style.display = 'none';
+            }
+        }
+
+        displayMode.addEventListener('change', updateTimeField);
+        updateTimeField();
+
+        // Form validation
+        const form = document.getElementById('examForm');
+        form.addEventListener('submit', function(e) {
+            const startTime = new Date(form.querySelector('input[name="start_time"]').value);
+            const endTime = new Date(form.querySelector('input[name="end_time"]').value);
+
+            if (endTime <= startTime) {
+                e.preventDefault();
+                alert('⚠️ وقت النهاية يجب أن يكون بعد وقت البداية');
+                return false;
+            }
+
+            if (displayMode.value === 'all_at_once' && !totalTime.value) {
+                e.preventDefault();
+                alert('⚠️ يرجى إدخال الزمن الكلي للامتحان');
+                return false;
+            }
+        });
+
+        // Add visual feedback for form interactions
+        const formControls = document.querySelectorAll('.form-control');
+        formControls.forEach(control => {
+            control.addEventListener('focus', function() {
+                this.parentElement.style.transform = 'scale(1.02)';
+            });
+
+            control.addEventListener('blur', function() {
+                this.parentElement.style.transform = 'scale(1)';
+            });
+        });
+    });
+</script>
+@endpush
+@endsection

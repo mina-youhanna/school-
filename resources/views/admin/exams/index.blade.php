@@ -1,162 +1,135 @@
 @extends('layouts.app')
 
 @push('styles')
-<style>
-/* exams-custom.css */
-body {
-    background: #0A2A4F; /* كحلي غامق */
-}
-
-.container {
-    background: rgba(255,255,255,0.97) !important;
-    border-radius: 16px;
-    box-shadow: 0 4px 32px rgba(10,42,79,0.18);
-    border: 2px solid #FFD700;
-    color: #0A2A4F !important;
-}
-
-.table {
-    background: rgba(255,255,255,0.98) !important;
-    border-radius: 8px;
-    border: 2px solid #FFD700;
-    box-shadow: 0 2px 12px rgba(10,42,79,0.10);
-}
-
-.table th {
-    background: #0A2A4F !important;
-    color: #FFD700 !important;
-    font-weight: bold;
-}
-
-.table td {
-    color: #0A2A4F !important;
-    font-weight: 500;
-}
-.container {
-    background: rgba(255,255,255,0.97);
-    border-radius: 16px;
-    box-shadow: 0 2px 16px rgba(10,42,79,0.10);
-    padding: 2rem 1.5rem;
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-    border: 2px solid #FFD700; /* ذهبي */
-}
-h2 {
-    color: #FFD700; /* ذهبي */
-    font-weight: bold;
-    margin-bottom: 1.5rem;
-    letter-spacing: 1px;
-    text-shadow: 0 2px 8px rgba(10,42,79,0.10);
-}
-.btn-success, .btn-primary, .btn-info, .btn-danger {
-    min-width: 90px;
-    font-weight: bold;
-    border-radius: 8px;
-    background: linear-gradient(90deg, #FFD700 60%, #FFC107 100%);
-    color: #0A2A4F;
-    border: none;
-    box-shadow: 0 2px 8px rgba(255,215,0,0.10);
-    transition: background 0.2s, color 0.2s;
-}
-.btn-success:hover, .btn-primary:hover, .btn-info:hover, .btn-danger:hover {
-    background: #0A2A4F;
-    color: #FFD700;
-    border: 1.5px solid #FFD700;
-}
-.table {
-    background: #fff;
-    border-radius: 8px;
-    overflow: hidden;
-    border: 2px solid #FFD700;
-}
-.table th {
-    background: #0A2A4F;
-    color: #FFD700;
-    font-weight: bold;
-    border-bottom: 2px solid #FFD700;
-}
-.table td {
-    color: #0A2A4F;
-    font-weight: 500;
-}
-.table th, .table td {
-    vertical-align: middle;
-    text-align: center;
-}
-@media (max-width: 767px) {
-    .container {
-        padding: 1rem 0.3rem;
-    }
-    h2 {
-        font-size: 1.2rem;
-    }
-    .btn {
-        font-size: 0.95rem;
-        padding: 0.4rem 0.7rem;
-    }
-    .table th, .table td {
-        font-size: 0.95rem;
-        padding: 0.4rem 0.2rem;
-    }
-}
-textarea.form-control {
-    min-height: 60px;
-    border-radius: 8px;
-    border: 1.5px solid #FFD700;
-}
-form label {
-    font-weight: 600;
-    color: #0A2A4F;
-    letter-spacing: 0.5px;
-}
-input.form-control, select.form-control {
-    border: 1.5px solid #FFD700;
-    border-radius: 8px;
-    color: #0A2A4F;
-}
-input.form-control:focus, select.form-control:focus {
-    border-color: #0A2A4F;
-    box-shadow: 0 0 0 2px #FFD70033;
-}
-.alert-success, .alert-warning {
-    font-size: 1.1rem;
-    border-radius: 8px;
-    background: #FFD70022;
-    color: #0A2A4F;
-    border: 1.5px solid #FFD700;
-}
-</style>
+<link rel="stylesheet" href="/css/exam-management.css">
 @endpush
 
 @section('content')
-<div class="container">
-    <h2>قائمة الامتحانات</h2>
-    <a href="{{ route('admin.exams.create') }}" class="btn btn-success mb-3">إضافة امتحان جديد</a>    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>اسم الامتحان</th>
-                <th>المادة</th>
-                <th>الفصل</th>
-                <th>العمليات</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($exams as $exam)
-            <tr>
-                <td>{{ $exam->title }}</td>
-                <td>{{ $exam->subject->name ?? '-' }}</td>
-                <td>{{ $exam->studyClass->name ?? '-' }}</td>
-                <td>
-                    <a href="{{ route('exams.edit', $exam) }}" class="btn btn-primary btn-sm">تعديل</a>
-                    <form action="{{ route('exams.destroy', $exam) }}" method="POST" style="display:inline;">
-                        @csrf @method('DELETE')
-                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('هل أنت متأكد من الحذف؟')">حذف</button>
-                    </form>
-                    <a href="{{ route('questions.index', $exam->id) }}" class="btn btn-info btn-sm">الأسئلة</a>
-                </td>
-            </tr>
-            @endforeach
-        </tbody>
-    </table>
+<div class="exam-list-container">
+    <div class="page-header">
+        <h1 class="page-title">📝 إدارة الامتحانات</h1>
+        <a href="{{ route('admin.exams.create') }}" class="add-exam-btn">
+            <span>➕</span>
+            <span>إضافة امتحان جديد</span>
+        </a>
+    </div>
+
+    @if(session('success'))
+    <div class="success-message">
+        {{ session('success') }}
+    </div>
+    @endif
+
+    @if($exams->count() > 0)
+    <div class="table-responsive">
+        <table class="exam-table">
+            <thead>
+                <tr>
+                    <th>📋 اسم الامتحان</th>
+                    <th>📚 المادة</th>
+                    <th>🎯 النوع/المستوى</th>
+                    <th>👁️ طريقة العرض</th>
+                    <th>⏰ الزمن</th>
+                    <th>🕐 وقت البداية</th>
+                    <th>🕙 وقت النهاية</th>
+                    <th>⚙️ الإجراءات</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach($exams as $exam)
+                <tr>
+                    <td>
+                        <strong>{{ $exam->title }}</strong>
+                    </td>
+                    <td>
+                        <span class="stage-badge">{{ $exam->subject->name ?? 'غير محدد' }}</span>
+                    </td>
+                    <td>
+                        @if($exam->class_id)
+                        <span class="stage-badge" style="background: #17a2b8; color: white;">فصل محدد</span>
+                        <br><small style="color: #666;">{{ $exam->studyClass->name ?? 'غير محدد' }}</small>
+                        @else
+                        <span class="stage-badge">{{ $exam->stage ?? 'غير محدد' }}</span>
+                        @endif
+                    </td>
+                    <td>
+                        <span class="display-mode-badge {{ $exam->display_mode == 'one_by_one' ? 'one-by-one' : 'all-at-once' }}">
+                            {{ $exam->display_mode == 'one_by_one' ? 'سؤال بسؤال' : 'كل الأسئلة معًا' }}
+                        </span>
+                    </td>
+                    <td>
+                        @if($exam->total_time)
+                        <span class="stage-badge">{{ $exam->total_time }} دقيقة</span>
+                        @else
+                        <span style="color: #999; font-style: italic;">غير محدد</span>
+                        @endif
+                    </td>
+                    <td>
+                        <small>{{ \Carbon\Carbon::parse($exam->start_time)->format('Y-m-d H:i') }}</small>
+                    </td>
+                    <td>
+                        <small>{{ \Carbon\Carbon::parse($exam->end_time)->format('Y-m-d H:i') }}</small>
+                    </td>
+                    <td>
+                        <div class="action-buttons">
+                            <a href="{{ route('admin.exams.show', $exam) }}" class="btn btn-info" title="عرض">
+                                <span>👁️</span>
+                            </a>
+                            <a href="{{ route('admin.exams.edit', $exam) }}" class="btn btn-primary" title="تعديل">
+                                <span>✏️</span>
+                            </a>
+                            <form action="{{ route('admin.exams.destroy', $exam) }}" method="POST" style="display:inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger" title="حذف"
+                                    onclick="return confirm('⚠️ هل أنت متأكد من حذف هذا الامتحان؟')">
+                                    <span>🗑️</span>
+                                </button>
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+    @else
+    <div class="empty-state">
+        <h3>📝 لا توجد امتحانات</h3>
+        <p>لم يتم إنشاء أي امتحانات بعد. ابدأ بإنشاء امتحان جديد!</p>
+        <a href="{{ route('admin.exams.create') }}" class="add-exam-btn">
+            <span>➕</span>
+            <span>إضافة امتحان جديد</span>
+        </a>
+    </div>
+    @endif
 </div>
-@endsection 
+
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Add hover effects to table rows
+        const tableRows = document.querySelectorAll('.exam-table tbody tr');
+        tableRows.forEach(row => {
+            row.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.01)';
+            });
+
+            row.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+            });
+        });
+
+        // Add confirmation for delete buttons
+        const deleteButtons = document.querySelectorAll('.btn-danger');
+        deleteButtons.forEach(button => {
+            button.addEventListener('click', function(e) {
+                if (!confirm('⚠️ هل أنت متأكد من حذف هذا الامتحان؟')) {
+                    e.preventDefault();
+                }
+            });
+        });
+    });
+</script>
+@endpush
+@endsection

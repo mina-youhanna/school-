@@ -13,7 +13,7 @@ class StudyClass extends Model
 
     protected $fillable = [
         'name', 'stage', 'schedule', 'place', 'main_servant_email',
-        'assistant_servants_emails', 'saint_image', 'students_count'
+        'assistant_servants_emails', 'saint_image', 'students_count', 'gender'
     ];
 
     public function students()
@@ -23,7 +23,39 @@ class StudyClass extends Model
 
     public function servants()
     {
-        return $this->belongsToMany(User::class, 'user_serving_classes', 'class_id', 'user_id');
+        return $this->belongsToMany(User::class, 'user_serving_study_classes', 'class_id', 'user_id');
+    }
+
+    public function mainServant()
+    {
+        return $this->belongsTo(User::class, 'main_servant_email', 'email');
+    }
+
+    public function allServants()
+    {
+        // الحصول على جميع الخدام (الرئيسي + المساعدين)
+        $mainServant = $this->mainServant;
+        $assistantServants = $this->servants;
+        
+        $allServants = collect();
+        
+        if ($mainServant) {
+            $allServants->push($mainServant);
+        }
+        
+        if ($assistantServants) {
+            $allServants = $allServants->merge($assistantServants);
+        }
+        
+        return $allServants->unique('id');
+    }
+
+    public function getTotalServantsCount()
+    {
+        $mainServantCount = $this->main_servant_email ? 1 : 0;
+        $assistantServantsCount = $this->servants()->count();
+        
+        return $mainServantCount + $assistantServantsCount;
     }
 
     public function exams()

@@ -20,10 +20,14 @@ class AttendanceController extends Controller
     public function show($classId)
     {
         $class = StudyClass::with(['students', 'servants'])->findOrFail($classId);
-        $attendances = Attendance::where('class_id', $classId)
-            ->with('user')
-            ->orderBy('created_at', 'desc')
-            ->get();
+        try {
+            $attendances = Attendance::where('class_id', $classId)
+                ->with('student')
+                ->orderBy('created_at', 'desc')
+                ->get();
+        } catch (\Exception $e) {
+            $attendances = collect([]);
+        }
         
         $class->students_count = $class->students()->count();
         
@@ -32,19 +36,83 @@ class AttendanceController extends Controller
         return view('admin.attendance.show', compact('class', 'attendances', 'students'));
     }
 
+    public function loadAttendance(Request $request, $classId)
+    {
+        $date = $request->get('date', date('Y-m-d'));
+        
+        try {
+            $attendance = Attendance::where('class_id', $classId)
+                ->where('date', $date)
+                ->get()
+                ->map(function($record) {
+                    return [
+                        'student_id' => $record->student_id,
+                        'status' => $record->is_present ? 'present' : 'absent',
+                        'tasbeha' => $record->tasbeha,
+                        'mass' => $record->mass,
+                        'class_attendance' => $record->class_attendance,
+                        'church_education' => $record->church_education,
+                        'notes' => $record->notes
+                    ];
+                });
+        } catch (\Exception $e) {
+            $attendance = collect([]);
+        }
+            
+        return response()->json([
+            'success' => true,
+            'attendance' => $attendance
+        ]);
+    }
+
     public function store(Request $request)
     {
         $request->validate([
             'class_id' => 'required|exists:study_classes,id',
-            'user_id' => 'required|exists:users,id',
-            'status' => 'required|in:present,absent,late',
-            'date' => 'required|date',
-            'notes' => 'nullable|string'
+            'attendance' => 'required|array',
+            'attendance.*.student_id' => 'required|exists:users,id',
+            'attendance.*.status' => 'required|in:present,absent,late',
+            'attendance.*.date' => 'required|date',
+            'attendance.*.tasbeha' => 'nullable|boolean',
+            'attendance.*.mass' => 'nullable|boolean',
+            'attendance.*.class_attendance' => 'nullable|boolean',
+            'attendance.*.church_education' => 'nullable|boolean'
         ]);
 
-        Attendance::create($request->all());
+        $classId = $request->class_id;
+        $date = $request->attendance[0]['date'] ?? date('Y-m-d');
 
-        return redirect()->back()->with('success', 'تم تسجيل الحضور بنجاح');
+        try {
+            // حذف السجلات السابقة لنفس التاريخ
+            Attendance::where('class_id', $classId)
+                ->where('date', $date)
+                ->delete();
+
+            // إنشاء السجلات الجديدة
+            foreach ($request->attendance as $record) {
+                Attendance::create([
+                    'class_id' => $classId,
+                    'student_id' => $record['student_id'],
+                    'date' => $record['date'],
+                    'is_present' => $record['status'] === 'present',
+                    'tasbeha' => $record['tasbeha'] ?? false,
+                    'mass' => $record['mass'] ?? false,
+                    'class_attendance' => $record['class_attendance'] ?? false,
+                    'church_education' => $record['church_education'] ?? false,
+                    'notes' => $record['notes'] ?? null
+                ]);
+            }
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'حدث خطأ أثناء حفظ الحضور: ' . $e->getMessage()
+            ], 500);
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'تم حفظ الحضور بنجاح'
+        ]);
     }
 
     public function update(Request $request, $id)

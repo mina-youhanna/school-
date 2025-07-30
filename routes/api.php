@@ -1,11 +1,16 @@
 <?php
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\UserController;
 
 Route::get('/users', [UserController::class, 'index']);
+
 use App\Http\Controllers\Api\ClassController;
+use App\Http\Controllers\Api\StudyClassController;
 
 Route::get('/classes', [ClassController::class, 'index']);
+Route::get('/study-classes', [StudyClassController::class, 'index']);
+
 use App\Http\Controllers\GiftController;
 use App\Http\Controllers\GiftRequestController;
 
